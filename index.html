@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CutCalc">
+<link id="app-touch-icon" rel="apple-touch-icon" sizes="180x180">
+<link id="app-favicon" rel="icon" type="image/png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Open+Sans+Condensed:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <title>CutCalc Pro — SPK by CeramTec</title>
@@ -1486,6 +1489,68 @@ function toggleDark(){
 }
 
 // ═══════════════════════════
+//  APP ICON (canvas → PNG)
+// ═══════════════════════════
+function buildAppIcon(){
+  try{
+    var S=180;
+    var c=document.createElement('canvas');
+    c.width=c.height=S;
+    var x=c.getContext('2d');
+
+    // — Background dark gradient
+    var bg=x.createLinearGradient(0,0,S,S);
+    bg.addColorStop(0,'#242424');
+    bg.addColorStop(1,'#161616');
+    x.fillStyle=bg;
+    x.fillRect(0,0,S,S);
+
+    // — Subtle blue glow circle (bottom-left)
+    var glow=x.createRadialGradient(0,S,0,0,S,140);
+    glow.addColorStop(0,'rgba(27,94,166,0.22)');
+    glow.addColorStop(1,'rgba(27,94,166,0)');
+    x.fillStyle=glow;
+    x.fillRect(0,0,S,S);
+
+    // — SPK blue bottom bar
+    x.fillStyle='#1B5EA6';
+    x.fillRect(0,138,S,42);
+
+    // — Thin blue separator line above bar
+    x.fillStyle='rgba(27,94,166,0.6)';
+    x.fillRect(0,136,S,2);
+
+    // — "SPK" large white text
+    x.fillStyle='#FFFFFF';
+    x.font='bold 80px "Arial Narrow",Arial,sans-serif';
+    x.textAlign='center';
+    x.textBaseline='alphabetic';
+    // Slight shadow for depth
+    x.shadowColor='rgba(0,0,0,0.5)';
+    x.shadowBlur=8;
+    x.fillText('SPK',S/2,122);
+    x.shadowBlur=0;
+
+    // — "CERAMTEC" small text in blue bar
+    x.fillStyle='rgba(255,255,255,0.82)';
+    x.font='bold 13px "Arial",sans-serif';
+    x.letterSpacing='3px';
+    x.fillText('CERAMTEC',S/2,168);
+
+    // — Inject into head link tags
+    var png=c.toDataURL('image/png');
+    document.getElementById('app-touch-icon').href=png;
+
+    // Favicon 32x32
+    var cf=document.createElement('canvas');
+    cf.width=cf.height=32;
+    var xf=cf.getContext('2d');
+    xf.drawImage(c,0,0,32,32);
+    document.getElementById('app-favicon').href=cf.toDataURL('image/png');
+  }catch(e){}
+}
+
+// ═══════════════════════════
 //  INIT
 // ═══════════════════════════
 window.addEventListener('load',function(){
@@ -1494,6 +1559,7 @@ window.addEventListener('load',function(){
   buildList('list-M',M_ITEMS);
   buildList('list-D',D_ITEMS);
   if(document.getElementById('hist-panel').className.includes('show'))buildHistory();
+  buildAppIcon();
 });
 
 // ══ SAVE / SHARE ══
