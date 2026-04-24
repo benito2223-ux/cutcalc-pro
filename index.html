@@ -20,7 +20,7 @@
   --surface:#fff; --surface2:#F8F8F8;
   --shadow:0 1px 10px rgba(0,0,0,.08); --shadow2:0 4px 20px rgba(0,0,0,.13);
   --safe-top:env(safe-area-inset-top,44px); --safe-bot:env(safe-area-inset-bottom,34px);
-  --hdr-h:52px; --subop-h:58px; --res-h:96px; --bot-h:56px;
+  --hdr-h:52px; --subop-h:44px; --res-h:96px; --bot-h:56px;
 }
 [data-dark]{
   --text:#F0F0F0; --text2:#AAAAAA; --text3:#555; --surface:#1A1A1A; --surface2:#222;
@@ -71,15 +71,14 @@ input[type=number]{-moz-appearance:textfield}
 }
 .subop-bar::-webkit-scrollbar{display:none}
 .subop-btn{
-  flex:1;min-width:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:4px;padding:6px 8px 4px;
+  flex:1;min-width:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0;padding:6px 4px;
   background:none;border:none;border-bottom:3px solid transparent;
-  cursor:pointer;color:rgba(255,255,255,.4);font-size:9.5px;font-weight:700;
-  font-family:'Open Sans',sans-serif;letter-spacing:.3px;text-transform:uppercase;
-  transition:.15s;white-space:nowrap;
+  cursor:pointer;color:rgba(255,255,255,.4);font-size:0;
+  transition:.15s;
 }
 .subop-btn.on{color:#fff;border-bottom-color:var(--spk-blue)}
-.subop-ico{width:34px;height:28px;display:flex;align-items:center;justify-content:center;opacity:.4;transition:.15s}
+.subop-ico{width:36px;height:32px;display:flex;align-items:center;justify-content:center;opacity:.4;transition:.15s}
 .subop-btn.on .subop-ico{opacity:1}
 
 /* ═══════════════════════════════
@@ -179,27 +178,28 @@ input[type=number]{-moz-appearance:textfield}
 .res-fixed{
   flex-shrink:0;
   background:var(--anth);
-  padding:10px 14px 10px;
-  display:flex;align-items:center;gap:10px;
+  padding:8px 14px 8px;
+  display:flex;flex-direction:column;gap:6px;
   border-bottom:2px solid var(--spk-blue);
   position:relative;overflow:hidden;
 }
 .res-fixed::after{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:var(--ct-red-glow);pointer-events:none}
-.res-left{flex:1;min-width:0;position:relative;z-index:1}
-.res-formula{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.35);margin-bottom:3px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-top{display:flex;align-items:center;gap:8px;position:relative;z-index:1}
+.res-left{flex:1;min-width:0}
+.res-formula{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.35);margin-bottom:2px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .res-row{display:flex;align-items:baseline;gap:8px}
 .res-val{
-  font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:60px;font-weight:700;
+  font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:52px;font-weight:700;
   color:#fff;letter-spacing:-2px;line-height:1;
   font-variant-numeric:tabular-nums;
   transition:color .15s;
 }
 .res-val.flash{color:var(--spk-blue)}
 .res-unit-lbl{font-size:13px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.3px}
-.res-right{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
-.res-sym{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:30px;font-weight:700;color:var(--spk-blue);letter-spacing:-1px;line-height:1}
+.res-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.res-sym{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:26px;font-weight:700;color:var(--spk-blue);letter-spacing:-1px;line-height:1}
 .res-rst{
-  padding:5px 11px;border:1px solid rgba(255,255,255,.15);border-radius:5px;
+  padding:3px 8px;border:1px solid rgba(255,255,255,.15);border-radius:4px;
   background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);
   font-size:9px;font-weight:700;font-family:'Open Sans',sans-serif;
   letter-spacing:.5px;cursor:pointer;text-transform:uppercase;transition:.15s;
@@ -242,15 +242,15 @@ input[type=number]{-moz-appearance:textfield}
 
 /* Full-width input field */
 .inp-field{
-  width:100px;height:40px;
+  width:78px;height:38px;
   border:1.5px solid var(--border);border-radius:7px;
   background:var(--gray);color:var(--text);
-  font-size:20px;font-weight:700;text-align:right;
-  padding:0 10px;outline:none;-webkit-appearance:none;
+  font-size:18px;font-weight:700;text-align:right;
+  padding:0 8px;outline:none;-webkit-appearance:none;
   font-family:'DM Mono',monospace;transition:.18s;flex-shrink:0;
 }
-.inp-field:focus{border-color:var(--spk-blue);background:var(--surface);width:120px}
-.inp-unit-lbl{font-size:9px;color:var(--text3);font-weight:600;width:36px;text-align:left;font-family:'DM Mono',monospace;letter-spacing:.2px;flex-shrink:0}
+.inp-field:focus{border-color:var(--spk-blue);background:var(--surface);width:90px}
+.inp-unit-lbl{font-size:9px;color:var(--text3);font-weight:600;width:26px;text-align:left;font-family:'DM Mono',monospace;letter-spacing:.2px;flex-shrink:0}
 
 /* Select */
 .sel-row{padding:10px 14px 11px;border-bottom:1px solid var(--border2)}
@@ -315,9 +315,9 @@ input[type=number]{-moz-appearance:textfield}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── Action buttons (save/share/formula in result area) ── */
-.act-btn{height:26px;padding:0 8px;border-radius:5px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);cursor:pointer;display:flex;align-items:center;gap:3px;color:rgba(255,255,255,.85);font-size:10px;font-weight:700;font-family:'Open Sans',sans-serif;letter-spacing:.3px;transition:.15s;white-space:nowrap}
+.act-btn{width:32px;height:28px;border-radius:5px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8);font-size:13px;font-weight:700;font-family:'Open Sans',sans-serif;transition:.15s;flex-shrink:0}
 .act-btn:active{background:rgba(255,255,255,.22);transform:scale(.93)}
-.res-actions{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.res-actions{display:flex;gap:5px;align-items:center;position:relative;z-index:1;padding-top:2px}
 
 /* ── Star / Favorite ── */
 .li-star{width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--text3);flex-shrink:0;font-size:15px;line-height:1;transition:.15s;padding:0}
@@ -391,12 +391,37 @@ body.workshop-mode .inp-field{font-size:24px!important}
 .wkshp-btn.on{background:rgba(255,165,0,.25);border-color:rgba(255,165,0,.5);color:#ffa500}
 .wkshp-btn:active{background:rgba(255,255,255,.22)}
 
-/* ── Increment +/- buttons ── */
-.inc-wrap{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.inc-btn{width:28px;height:28px;border-radius:14px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.1s;line-height:1;padding:0}
-.inc-btn:active{background:var(--spk-blue);color:#fff;border-color:var(--spk-blue);transform:scale(.92)}
+/* ── Input wrap ── */
+.inc-wrap{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-left:auto}
+/* ── Abbreviation badge in input icon ── */
+.inp-abbr{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-weight:700;font-size:13px;color:var(--spk-blue);letter-spacing:-.3px;line-height:1;text-align:center}
 
-/* ── Calc notes textarea ── */
+/* ── List item selected state (Sumitomo style: blue background) ── */
+.list-item.selected{
+  background:var(--spk-blue);
+  border-color:var(--spk-blue-d);
+  transform:none;
+}
+.list-item.selected .li-name,.list-item.selected .li-desc{color:#fff}
+.list-item.selected .li-sym{color:#fff}
+.list-item.selected .li-unit{color:rgba(255,255,255,.7)}
+.list-item.selected .li-arr{color:rgba(255,255,255,.5)}
+.list-item.selected .li-badge{background:rgba(255,255,255,.18)}
+
+/* ── Input row filled state (green-tinted like Sumitomo) ── */
+.inp-row.filled{background:rgba(27,94,166,.06)}
+.inp-row.filled .inp-field{border-color:var(--spk-blue);background:rgba(27,94,166,.05);color:var(--text)}
+
+/* ── Clear field button ── */
+.clear-btn{
+  width:20px;height:20px;border-radius:50%;
+  border:none;background:var(--text3);color:#fff;
+  font-size:11px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;line-height:1;opacity:.6;transition:.1s;
+  margin-left:2px;
+}
+.clear-btn:active{opacity:1;background:var(--ct-red)}
 .calc-note{
   margin:0 12px 16px;padding:10px 13px;
   border:1.5px solid var(--border);border-radius:9px;
@@ -470,69 +495,98 @@ body.workshop-mode .inp-field{font-size:24px!important}
   <!-- TURNING EXT -->
   <button class="subop-btn on" onclick="setSubOp('ext')" id="sop-ext">
     <div class="subop-ico">
-      <!-- Pièce rotative + outil (inspired by logospics.png #1) -->
-      <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
-        <ellipse cx="10" cy="14" rx="7" ry="9" fill="#666" stroke="#555" stroke-width=".8"/>
-        <ellipse cx="10" cy="14" rx="4" ry="5.5" fill="#888"/>
-        <!-- rotation arrow -->
-        <path d="M14 6 A8 8 0 0 1 14 22" stroke="#1B5EA6" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <polyline points="14,4 14,8 18,6" stroke="#1B5EA6" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
-        <!-- tool -->
-        <rect x="20" y="11" width="12" height="6" rx="1" fill="#555"/>
-        <polygon points="20,11 17,14 20,17" fill="#1B5EA6"/>
+      <svg width="36" height="32" viewBox="0 0 36 32" fill="none">
+        <!-- piece body -->
+        <rect x="1" y="5" width="18" height="22" rx="1" fill="#666"/>
+        <!-- bore suggestion -->
+        <rect x="1" y="10" width="7" height="12" rx=".5" fill="#888" opacity=".5"/>
+        <!-- front face ellipse -->
+        <ellipse cx="19" cy="16" rx="2" ry="11" fill="#777"/>
+        <!-- rotation arc + arrow -->
+        <path d="M22 8 A7.5 7.5 0 0 1 22 24" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".7"/>
+        <polyline points="20,7 22,5 24,8" stroke="#fff" stroke-width="1.2" fill="none" stroke-linejoin="round" opacity=".7"/>
+        <!-- tool body -->
+        <rect x="24" y="12" width="11" height="8" rx="1" fill="#444"/>
+        <!-- insert (blue triangle = cutting edge) -->
+        <polygon points="24,12 21,16 24,20" fill="#1B5EA6"/>
+        <!-- feed arrow -->
+        <line x1="31" y1="10" x2="27" y2="10" stroke="#1B5EA6" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>
+        <polyline points="29,8.5 27,10 29,11.5" stroke="#1B5EA6" stroke-width="1.2" fill="none" stroke-linejoin="round" opacity=".8"/>
       </svg>
     </div>
-    <span data-fr="Extérieur" data-en="External">Extérieur</span>
   </button>
 
   <!-- FACING -->
   <button class="subop-btn" onclick="setSubOp('face')" id="sop-face">
     <div class="subop-ico">
-      <!-- Dressage de face -->
-      <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
-        <rect x="2" y="8" width="14" height="12" rx="2" fill="#666" stroke="#555" stroke-width=".8"/>
-        <rect x="6" y="8" width="4" height="12" fill="#888"/>
-        <!-- outil dressage vertical -->
-        <rect x="18" y="4" width="6" height="20" rx="1" fill="#555"/>
-        <polygon points="18,12 14,14 18,16" fill="#1B5EA6"/>
-        <!-- flèche verticale -->
-        <line x1="28" y1="6" x2="28" y2="22" stroke="#1B5EA6" stroke-width="1.8" stroke-linecap="round"/>
-        <polyline points="25,9 28,5 31,9" stroke="#1B5EA6" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+      <svg width="36" height="32" viewBox="0 0 36 32" fill="none">
+        <!-- piece body -->
+        <rect x="1" y="4" width="15" height="24" rx="1" fill="#666"/>
+        <!-- bore -->
+        <rect x="1" y="10" width="6" height="12" rx=".5" fill="#888" opacity=".5"/>
+        <!-- front face -->
+        <ellipse cx="16" cy="16" rx="2.5" ry="12" fill="#777"/>
+        <!-- rotation arc -->
+        <path d="M20 7 A7 7 0 0 1 20 25" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".7"/>
+        <polyline points="18,6 20,4 22,7" stroke="#fff" stroke-width="1.2" fill="none" stroke-linejoin="round" opacity=".7"/>
+        <!-- tool body (vertical) -->
+        <rect x="22" y="4" width="7" height="16" rx="1" fill="#444"/>
+        <!-- insert -->
+        <polygon points="22,13 19,16 22,19" fill="#1B5EA6"/>
+        <!-- radial feed arrow (down) -->
+        <line x1="25.5" y1="22" x2="25.5" y2="26" stroke="#1B5EA6" stroke-width="1.3" stroke-linecap="round"/>
+        <polyline points="24,24.5 25.5,26 27,24.5" stroke="#1B5EA6" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
       </svg>
     </div>
-    <span data-fr="Dressage" data-en="Facing">Dressage</span>
   </button>
 
   <!-- GROOVING -->
   <button class="subop-btn" onclick="setSubOp('groove')" id="sop-groove">
     <div class="subop-ico">
-      <!-- Pièce avec gorge (logospics #3) -->
-      <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
-        <rect x="1" y="9" width="10" height="10" rx="1.5" fill="#666"/>
-        <rect x="11" y="12" width="5" height="4" rx=".5" fill="#1B5EA6"/>
-        <rect x="16" y="9" width="10" height="10" rx="1.5" fill="#666"/>
-        <!-- outil gorge -->
-        <rect x="26" y="11" width="7" height="6" rx="1" fill="#555"/>
-        <rect x="23" y="12.5" width="3" height="3" rx=".5" fill="#1B5EA6"/>
+      <svg width="36" height="32" viewBox="0 0 36 32" fill="none">
+        <!-- left piece section -->
+        <rect x="1" y="6" width="9" height="20" rx="1" fill="#666"/>
+        <!-- groove recess -->
+        <rect x="10" y="9" width="6" height="14" rx=".5" fill="#2a2a2a"/>
+        <!-- groove highlight (blue = cut surface) -->
+        <rect x="10" y="9" width="1.5" height="14" rx=".5" fill="#1B5EA6" opacity=".7"/>
+        <!-- right piece section -->
+        <rect x="16" y="6" width="8" height="20" rx="1" fill="#666"/>
+        <!-- tool body -->
+        <rect x="25" y="9" width="10" height="14" rx="1" fill="#444"/>
+        <!-- grooving insert (thin rect = narrow cutting edge) -->
+        <rect x="23" y="11.5" width="2.5" height="9" rx=".5" fill="#1B5EA6"/>
+        <!-- plunge arrow -->
+        <line x1="32" y1="16" x2="28" y2="16" stroke="#1B5EA6" stroke-width="1.3" stroke-linecap="round"/>
+        <polyline points="30,14.5 28,16 30,17.5" stroke="#1B5EA6" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
       </svg>
     </div>
-    <span data-fr="Gorge" data-en="Grooving">Gorge</span>
   </button>
 
   <!-- CUT-OFF -->
   <button class="subop-btn" onclick="setSubOp('cutoff')" id="sop-cutoff">
     <div class="subop-ico">
-      <!-- Tronçonnage (logospics #4) -->
-      <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
-        <rect x="1" y="9" width="10" height="10" rx="1.5" fill="#666"/>
-        <rect x="11" y="6" width="3" height="16" rx="1" fill="#1B5EA6"/>
-        <rect x="14" y="9" width="10" height="10" rx="1.5" fill="#666"/>
-        <!-- outil -->
-        <rect x="25" y="10" width="8" height="4" rx="1" fill="#555"/>
-        <line x1="25" y1="14" x2="25" y2="19" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+      <svg width="36" height="32" viewBox="0 0 36 32" fill="none">
+        <!-- left part (falling off) -->
+        <rect x="1" y="8" width="8" height="16" rx="1" fill="#555" opacity=".7"/>
+        <!-- cut blade (very thin) -->
+        <rect x="9" y="5" width="2.5" height="22" rx=".5" fill="#1B5EA6"/>
+        <!-- right part (on chuck) -->
+        <rect x="11.5" y="8" width="10" height="16" rx="1" fill="#666"/>
+        <!-- chuck bore -->
+        <rect x="11.5" y="12" width="5" height="8" rx=".5" fill="#888" opacity=".45"/>
+        <!-- tool body -->
+        <rect x="23" y="10" width="12" height="12" rx="1" fill="#444"/>
+        <!-- narrow insert tip -->
+        <rect x="21" y="13.5" width="2.5" height="5" rx=".5" fill="#1B5EA6"/>
+        <!-- plunge arrow -->
+        <line x1="32" y1="16" x2="28" y2="16" stroke="#1B5EA6" stroke-width="1.3" stroke-linecap="round"/>
+        <polyline points="30,14.5 28,16 30,17.5" stroke="#1B5EA6" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+        <!-- drop indication -->
+        <line x1="5" y1="26" x2="3" y2="29" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".35"/>
+        <polyline points="2,27.5 3,29 5,28" stroke="#fff" stroke-width="1" fill="none" stroke-linejoin="round" opacity=".35"/>
       </svg>
     </div>
-    <span data-fr="Tronç." data-en="Cut-off">Tronç.</span>
   </button>
 
 </div>
@@ -566,22 +620,24 @@ body.workshop-mode .inp-field{font-size:24px!important}
       <div class="calc-nav-title" id="cT-title"></div>
     </div>
     <div class="res-fixed" id="cT-res">
-      <div class="res-left">
-        <div class="res-formula" id="cT-formula"></div>
-        <div class="res-row">
-          <div class="res-val" id="cT-val">0</div>
-          <div class="res-unit-lbl" id="cT-unit"></div>
+      <div class="res-top">
+        <div class="res-left">
+          <div class="res-formula" id="cT-formula"></div>
+          <div class="res-row">
+            <div class="res-val" id="cT-val">0</div>
+            <div class="res-unit-lbl" id="cT-unit"></div>
+          </div>
         </div>
-      </div>
-      <div class="res-right">
-        <div class="res-sym" id="cT-sym"></div>
-        <div class="res-actions">
-          <button class="act-btn" onclick="showFormula('T')">ƒ</button>
-          <button class="act-btn" onclick="shareResult('T')">⬆ <span data-fr="Partager" data-en="Share">Partager</span></button>
-          <button class="act-btn" onclick="saveResult('T')">+ <span data-fr="Enreg." data-en="Save">Enreg.</span></button>
-          <button class="act-btn" onclick="showCalcHistory('T')" title="Historique / History"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
+        <div class="res-right">
+          <div class="res-sym" id="cT-sym"></div>
           <button class="res-rst" onclick="rstCalc('T')">&#x21BA;</button>
         </div>
+      </div>
+      <div class="res-actions">
+        <button class="act-btn" onclick="showFormula('T')" title="Formule">ƒ</button>
+        <button class="act-btn" onclick="shareResult('T')" title="Partager"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+        <button class="act-btn" onclick="saveResult('T')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+        <button class="act-btn" onclick="showCalcHistory('T')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
       </div>
     </div>
     <div class="calc-scroll" id="cT-body"></div>
@@ -607,22 +663,24 @@ body.workshop-mode .inp-field{font-size:24px!important}
       <div class="calc-nav-title" id="cM-title"></div>
     </div>
     <div class="res-fixed" id="cM-res">
-      <div class="res-left">
-        <div class="res-formula" id="cM-formula"></div>
-        <div class="res-row">
-          <div class="res-val" id="cM-val">0</div>
-          <div class="res-unit-lbl" id="cM-unit"></div>
+      <div class="res-top">
+        <div class="res-left">
+          <div class="res-formula" id="cM-formula"></div>
+          <div class="res-row">
+            <div class="res-val" id="cM-val">0</div>
+            <div class="res-unit-lbl" id="cM-unit"></div>
+          </div>
         </div>
-      </div>
-      <div class="res-right">
-        <div class="res-sym" id="cM-sym"></div>
-        <div class="res-actions">
-          <button class="act-btn" onclick="showFormula('M')">ƒ</button>
-          <button class="act-btn" onclick="shareResult('M')">⬆ <span data-fr="Partager" data-en="Share">Partager</span></button>
-          <button class="act-btn" onclick="saveResult('M')">+ <span data-fr="Enreg." data-en="Save">Enreg.</span></button>
-          <button class="act-btn" onclick="showCalcHistory('M')" title="Historique / History"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
+        <div class="res-right">
+          <div class="res-sym" id="cM-sym"></div>
           <button class="res-rst" onclick="rstCalc('M')">&#x21BA;</button>
         </div>
+      </div>
+      <div class="res-actions">
+        <button class="act-btn" onclick="showFormula('M')" title="Formule">ƒ</button>
+        <button class="act-btn" onclick="shareResult('M')" title="Partager"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+        <button class="act-btn" onclick="saveResult('M')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+        <button class="act-btn" onclick="showCalcHistory('M')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
       </div>
     </div>
     <div class="calc-scroll" id="cM-body"></div>
@@ -678,22 +736,24 @@ body.workshop-mode .inp-field{font-size:24px!important}
       <div class="calc-nav-title" id="cD-title"></div>
     </div>
     <div class="res-fixed" id="cD-res">
-      <div class="res-left">
-        <div class="res-formula" id="cD-formula"></div>
-        <div class="res-row">
-          <div class="res-val" id="cD-val">0</div>
-          <div class="res-unit-lbl" id="cD-unit"></div>
+      <div class="res-top">
+        <div class="res-left">
+          <div class="res-formula" id="cD-formula"></div>
+          <div class="res-row">
+            <div class="res-val" id="cD-val">0</div>
+            <div class="res-unit-lbl" id="cD-unit"></div>
+          </div>
         </div>
-      </div>
-      <div class="res-right">
-        <div class="res-sym" id="cD-sym"></div>
-        <div class="res-actions">
-          <button class="act-btn" onclick="showFormula('D')">ƒ</button>
-          <button class="act-btn" onclick="shareResult('D')">⬆ <span data-fr="Partager" data-en="Share">Partager</span></button>
-          <button class="act-btn" onclick="saveResult('D')">+ <span data-fr="Enreg." data-en="Save">Enreg.</span></button>
-          <button class="act-btn" onclick="showCalcHistory('D')" title="Historique / History"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
+        <div class="res-right">
+          <div class="res-sym" id="cD-sym"></div>
           <button class="res-rst" onclick="rstCalc('D')">&#x21BA;</button>
         </div>
+      </div>
+      <div class="res-actions">
+        <button class="act-btn" onclick="showFormula('D')" title="Formule">ƒ</button>
+        <button class="act-btn" onclick="shareResult('D')" title="Partager"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+        <button class="act-btn" onclick="saveResult('D')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+        <button class="act-btn" onclick="showCalcHistory('D')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
       </div>
     </div>
     <div class="calc-scroll" id="cD-body"></div>
@@ -714,7 +774,6 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <polygon points="20,11 17,14 20,17" fill="currentColor"/>
       </svg>
     </div>
-    <span data-fr="Tournage" data-en="Turning">Tournage</span>
   </button>
   <button class="tab" onclick="setTab('M')" id="tab-M">
     <div class="tab-ico">
@@ -732,7 +791,6 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <rect x="8" y="22" width="18" height="5" rx="1.5" fill="currentColor" opacity=".4"/>
       </svg>
     </div>
-    <span data-fr="Fraisage" data-en="Milling">Fraisage</span>
   </button>
   <button class="tab" onclick="setTab('D')" id="tab-D">
     <div class="tab-ico">
@@ -751,7 +809,6 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <path d="M24 18 Q26 20 24 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/>
       </svg>
     </div>
-    <span data-fr="Perçage" data-en="Drilling">Perçage</span>
   </button>
   <button class="tab" onclick="setTab('info')" id="tab-info">
     <div class="tab-ico">
@@ -759,7 +816,6 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="8.5" stroke-width="3"/><line x1="12" y1="11" x2="12" y2="17"/>
       </svg>
     </div>
-    <span data-fr="Infos" data-en="Info">Infos</span>
   </button>
 </div>
 
@@ -778,7 +834,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.5.0';
+var VERSION='1.7.0';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -929,6 +985,7 @@ function makeListItem(op,it,fav){
   var starred=fav[it.id]?true:false;
   var div=document.createElement('div');
   div.className='list-item';
+  div.setAttribute('data-id',it.id);
   div.style.paddingLeft='0';
   div.innerHTML=
     '<button class="li-star'+(starred?' on':'')+'" data-op="'+op+'" data-id="'+it.id+'" onclick="event.stopPropagation();toggleFav(this.dataset.op,this.dataset.id,this)">'+(starred?'\u2605':'\u2606')+'</button>'+
@@ -940,8 +997,18 @@ function makeListItem(op,it,fav){
       '<div class="li-name">'+name+'</div>'+
       '<div class="li-desc">'+it.formula+'</div>'+
     '</div>'+
-    '<div class="li-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gray2)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>';
-  div.onclick=function(){openCalc(op,it);};
+    '<div class="li-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".4"><polyline points="9 18 15 12 9 6"/></svg></div>';
+  div.onclick=function(){
+    // Highlight selected row (Sumitomo style)
+    var container=this.closest('[id^="list-"]');
+    if(container){
+      container.querySelectorAll('.list-item.selected').forEach(function(el){el.classList.remove('selected');});
+    }
+    this.classList.add('selected');
+    // Small delay so user sees the highlight before screen transition
+    var self=this;
+    setTimeout(function(){openCalc(op,it);},120);
+  };
   return div;
 }
 function buildList(containerId, items){
@@ -1009,39 +1076,36 @@ function showScreen(show,hide,back){
 // ═══════════════════════════
 //  BUILD INPUTS
 // ═══════════════════════════
-function getIncStep(fid){
-  if(/fi_vc/.test(fid))return 10;
-  if(/fi_n$|fi_nmax/.test(fid))return 100;
-  if(/fi_f$|fi_fr$|fi_fz/.test(fid))return 0.05;
-  if(/fi_ap|fi_ae/.test(fid))return 0.5;
-  if(/fi_DC|fi_Dm|fi_D1|fi_D2|fi_D3/.test(fid))return 1;
-  if(/fi_RE/.test(fid))return 0.2;
-  if(/fi_z$/.test(fid))return 1;
-  if(/fi_eta/.test(fid))return 5;
-  if(/fi_kr|fi_k$/.test(fid))return 5;
-  return 1;
+function onFieldInput(fid){
+  doCalc();
+  var row=document.getElementById('row-'+fid);
+  var el=document.getElementById(fid);
+  if(!row||!el)return;
+  if(el.value&&parseFloat(el.value)!==0){
+    row.classList.add('filled');
+  }else{
+    row.classList.remove('filled');
+  }
 }
-function incField(fid,dir){
-  var el=document.getElementById(fid);if(!el)return;
-  var step=getIncStep(fid);
-  var v=(parseFloat(el.value)||0)+dir*step;
-  v=Math.round(v/step)*step;
-  if(v<0)v=0;
-  var dec=step<1?String(step).split('.')[1].length:0;
-  el.value=v.toFixed(dec);
+function clearField(fid){
+  var el=document.getElementById(fid);
+  if(!el)return;
+  el.value='';
+  var row=document.getElementById('row-'+fid);
+  if(row)row.classList.remove('filled');
   doCalc();
 }
 function row(icoType,lbl,sym,fid,u,mode){
   var cls='inp-ico'+(mode?(' '+mode):'');
-  return '<div class="inp-row">'+
-    '<div class="'+cls+'">'+ico(icoType)+'</div>'+
+  var abbr=sym.split(/[\s\[]/)[0];
+  return '<div class="inp-row" id="row-'+fid+'">'+
+    '<div class="'+cls+'"><span class="inp-abbr">'+abbr+'</span></div>'+
     '<div class="inp-meta"><div class="inp-lbl">'+lbl+'</div><div class="inp-sym">'+sym+'</div></div>'+
     '<div class="inc-wrap">'+
-    '<button class="inc-btn" onclick="incField(\''+fid+'\',-1)" tabindex="-1">&minus;</button>'+
-    '<input class="inp-field" type="number" inputmode="decimal" pattern="[0-9]*" id="'+fid+'" oninput="doCalc()" autocomplete="off">'+
-    '<button class="inc-btn" onclick="incField(\''+fid+'\',1)" tabindex="-1">+</button>'+
-    '</div>'+
+    '<input class="inp-field" type="number" inputmode="decimal" pattern="[0-9]*" id="'+fid+'" oninput="onFieldInput(\''+fid+'\')" autocomplete="off">'+
     '<span class="inp-unit-lbl">'+u+'</span>'+
+    '<button class="clear-btn" onclick="clearField(\''+fid+'\')" title="Effacer" tabindex="-1">✕</button>'+
+    '</div>'+
     '</div>';
 }function selRow(lbl,fid,opts){
   var h='<div class="sel-row"><div class="sel-lbl">'+lbl+'</div><select class="sel-field" id="'+fid+'" onchange="doCalc()">'+
