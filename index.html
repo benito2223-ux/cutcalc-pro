@@ -343,6 +343,37 @@ input[type=number]{-moz-appearance:textfield}
 .hist-cmp-bar{background:var(--spk-blue);color:#fff;text-align:center;padding:10px;font-size:12px;font-weight:700;font-family:'Open Sans',sans-serif;flex-shrink:0;letter-spacing:.3px;cursor:pointer}
 
 /* ── Compare overlay ── */
+/* ── Help panel ── */
+.help-panel{position:fixed;inset:0;z-index:250;display:flex;flex-direction:column;background:var(--off);transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.help-panel.show{transform:translateX(0)}
+.help-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:28px}
+.help-hero{background:linear-gradient(135deg,var(--anth) 0%,var(--anth2) 100%);padding:20px 16px 18px;position:relative;overflow:hidden}
+.help-hero::after{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:rgba(27,94,166,.18)}
+.help-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;position:relative;z-index:1}
+.help-spk-badge{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:30px;font-weight:700;color:var(--spk-blue);letter-spacing:-1px;line-height:1}
+.help-ct-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:1.5px;text-transform:uppercase;line-height:1.5}
+.help-divider-v{width:1px;height:34px;background:rgba(255,255,255,.2);margin:0 2px}
+.help-hero-title{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:-.2px;margin-bottom:3px;position:relative;z-index:1}
+.help-hero-sub{font-size:10px;color:rgba(255,255,255,.45);font-family:'DM Mono',monospace;position:relative;z-index:1}
+.help-sec{background:var(--surface);border-radius:11px;margin:10px 12px 0;padding:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.help-sec-title{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:12px;font-weight:700;color:var(--spk-blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.help-sec-num{width:20px;height:20px;border-radius:50%;background:var(--spk-blue);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Open Sans',sans-serif}
+.help-step{display:flex;gap:9px;margin-bottom:8px;align-items:flex-start}
+.help-step:last-child{margin-bottom:0}
+.help-step-icon{width:22px;height:22px;border-radius:50%;background:var(--spk-blue-pale);color:var(--spk-blue);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(27,94,166,.2);font-family:'Open Sans Condensed','Open Sans',sans-serif;line-height:1}
+.help-step-text{font-size:12px;color:var(--text2);line-height:1.55;padding-top:2px}
+.help-step-text b{color:var(--text);font-weight:700}
+.help-kv{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
+.help-kv:last-child{margin-bottom:0}
+.help-key{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--spk-blue);background:var(--spk-blue-pale);padding:2px 7px;border-radius:5px;flex-shrink:0;white-space:nowrap;border:1px solid rgba(27,94,166,.15);min-width:46px;text-align:center}
+.help-val{font-size:11px;color:var(--text2);line-height:1.55;padding-top:2px}
+.help-chip{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--spk-blue);color:#fff;font-size:9px;font-weight:700;margin-right:6px;font-family:'Open Sans',sans-serif;flex-shrink:0}
+.help-formula-row{display:flex;align-items:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);background:var(--gray);padding:8px 10px;border-radius:7px;margin-bottom:6px;line-height:1.5;border-left:3px solid var(--spk-blue)}
+.help-formula-row:last-child{margin-bottom:0}
+.help-mat-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border2);font-size:11px;color:var(--text2);line-height:1.4}
+.help-mat-row:last-child{border-bottom:none;padding-bottom:0}
+.help-mat-badge{width:22px;height:22px;border-radius:5px;font-family:'Open Sans Condensed','Open Sans',sans-serif;font-weight:700;font-size:13px;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
 .cmp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:300;display:none;flex-direction:column;padding:16px 12px 12px;gap:10px}
 .cmp-overlay.show{display:flex}
 .cmp-title{color:rgba(255,255,255,.6);font-size:11px;font-weight:700;font-family:'Open Sans',sans-serif;letter-spacing:.6px;text-transform:uppercase;text-align:center}
@@ -692,7 +723,7 @@ body.workshop-mode .inp-field{font-size:24px!important}
       <div class="info-sec">
         <h3 data-fr="À propos" data-en="About">À propos</h3>
         <p data-fr="CutCalc Pro est un calculateur de conditions de coupe pour le tournage et le fraisage. Formules conformes aux standards ISO." data-en="CutCalc Pro is a cutting conditions calculator for turning and milling. Formulas comply with ISO standards.">CutCalc Pro est un calculateur de conditions de coupe pour le tournage et le fraisage. Formules conformes aux standards ISO.</p>
-        <p><a href="help.html" style="color:var(--spk-blue);font-weight:700;font-size:12px" data-fr="📖 Guide d'utilisation" data-en="📖 User Guide">📖 Guide d'utilisation</a></p>
+        <p><button onclick="showHelp()" style="background:var(--spk-blue);border:none;color:#fff;font-weight:700;font-size:12px;font-family:'Open Sans',sans-serif;cursor:pointer;padding:7px 14px;border-radius:7px;letter-spacing:.3px">📖 Guide d'utilisation</button></p>
       </div>
       <div class="info-sec">
         <h3 data-fr="Matières — Force spécifique kc" data-en="Materials — Specific Force kc">Matières — kc</h3>
@@ -1521,6 +1552,8 @@ function hideHistory(){
   document.getElementById('hist-panel').className='hist-panel';
   CMP_SEL=[];
 }
+function showHelp(){document.getElementById('help-panel').classList.add('show');}
+function closeHelp(){document.getElementById('help-panel').classList.remove('show');}
 function buildHistory(){
   var el=document.getElementById('hist-list');el.innerHTML='';
   if(!SAVED.length){
@@ -1729,6 +1762,207 @@ function shareResult(op){
   </div>
   <div class="hist-hint" data-fr="Sélectionnez 2 résultats pour les comparer" data-en="Select 2 results to compare">Sélectionnez 2 résultats pour les comparer</div>
   <div class="hist-scroll" id="hist-list"></div>
+</div>
+
+<!-- ══════ GUIDE UTILISATEUR ══════ -->
+<div id="help-panel" class="help-panel">
+  <div class="hist-navbar">
+    <button class="back-btn" onclick="closeHelp()" style="color:#fff">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <span style="font-size:13px;font-weight:700">Retour</span>
+    </button>
+    <div class="hist-navbar-title">Guide d'utilisation</div>
+  </div>
+  <div class="help-scroll">
+
+    <!-- ░░ HERO ░░ -->
+    <div class="help-hero">
+      <div class="help-logo-row">
+        <div class="help-spk-badge">SPK</div>
+        <div class="help-divider-v"></div>
+        <div class="help-ct-label">by<br>CeramTec</div>
+      </div>
+      <div class="help-hero-title">CutCalc Pro</div>
+      <div class="help-hero-sub">Guide d'utilisation · v1.7.0</div>
+    </div>
+
+    <!-- ░░ 1 — Navigation ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">1</div>Navigation générale</div>
+      <div class="help-step">
+        <div class="help-step-icon">T</div>
+        <div class="help-step-text"><b>Tournage</b> — 4 sous-opérations : EXT · FACE · GORGE · TRONÇ. Accès aux calculs de vc, n, Tc, hm, Pc, Q…</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon">M</div>
+        <div class="help-step-text"><b>Fraisage</b> — Temps de passe, vitesse de coupe, avance table, débit matière, puissance.</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon">D</div>
+        <div class="help-step-text"><b>Perçage</b> — Vitesse de coupe, vitesse broche, avance, temps de passe.</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon" style="font-size:9px">ℹ</div>
+        <div class="help-step-text"><b>Info</b> — Matières, plaquettes rondes, copyright et accès à ce guide.</div>
+      </div>
+    </div>
+
+    <!-- ░░ 2 — Effectuer un calcul ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">2</div>Effectuer un calcul</div>
+      <div class="help-step">
+        <div class="help-step-icon">1</div>
+        <div class="help-step-text">Choisissez l'onglet en bas : <b>T · M · D</b></div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon">2</div>
+        <div class="help-step-text">Pour le <b>tournage</b>, sélectionnez la sous-opération dans la barre du dessus : <b>EXT · FACE · GORGE · TRONÇ.</b></div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon">3</div>
+        <div class="help-step-text">Appuyez sur le <b>calcul souhaité</b> dans la liste (ex : Vitesse de coupe vc)</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon">4</div>
+        <div class="help-step-text">Saisissez les valeurs dans les <b>champs numériques</b> — le résultat se calcule en temps réel</div>
+      </div>
+      <div class="help-step">
+        <div class="help-step-icon">5</div>
+        <div class="help-step-text">Le résultat s'affiche en grand dans la <b>zone fixe en haut</b> avec son unité et sa formule</div>
+      </div>
+    </div>
+
+    <!-- ░░ 3 — Champs de saisie ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">3</div>Champs de saisie</div>
+      <div class="help-kv">
+        <span class="help-key">vc</span>
+        <span class="help-val">Badge abréviation — identifie immédiatement la grandeur physique (vc, n, f, ap, D…)</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key">123</span>
+        <span class="help-val">Champ numérique — appuyez pour ouvrir le pavé numérique et saisir la valeur</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key">unité</span>
+        <span class="help-val">Unité affichée à droite (mm/rev · m/min · tr/min · mm…)</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key">✕</span>
+        <span class="help-val">Efface uniquement ce champ — les autres valeurs sont conservées</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key">↺</span>
+        <span class="help-val">Bouton reset (haut droite du résultat) — remet tous les champs à zéro</span>
+      </div>
+    </div>
+
+    <!-- ░░ 4 — Zone résultat ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">4</div>Zone résultat</div>
+      <div class="help-kv">
+        <span class="help-key">ƒ</span>
+        <span class="help-val">Affiche la formule complète utilisée pour le calcul</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key" style="font-size:10px">↑ Part.</span>
+        <span class="help-val">Partager le résultat — SMS, e-mail ou copie dans le presse-papiers</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key" style="font-size:10px">💾 Sauv.</span>
+        <span class="help-val">Enregistre ce résultat dans l'historique</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key" style="font-size:10px">⏱ Hist.</span>
+        <span class="help-val">Ouvre l'historique rapide de ce type de calcul</span>
+      </div>
+    </div>
+
+    <!-- ░░ 5 — Favoris & Historique ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">5</div>Favoris &amp; Historique</div>
+      <div class="help-kv">
+        <span class="help-key">★</span>
+        <span class="help-val">Étoile dans la liste — marque un calcul en favori, il remonte en tête de liste pour un accès rapide</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key" style="font-size:10px">Histo.</span>
+        <span class="help-val">Icône horloge en haut à droite — accède à tous les résultats sauvegardés</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key" style="font-size:10px">Comp.</span>
+        <span class="help-val">Sélectionnez 2 résultats dans l'historique puis appuyez sur <b>COMPARER</b> — affichage côte à côte</span>
+      </div>
+    </div>
+
+    <!-- ░░ 6 — Options ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">6</div>Options d'affichage</div>
+      <div class="help-kv">
+        <span class="help-key">FR/EN</span>
+        <span class="help-val">Bascule la langue de l'interface (Français / Anglais)</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key">m/in</span>
+        <span class="help-val">Bascule le système d'unités (Métrique / Impérial)</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key">☀ / ☽</span>
+        <span class="help-val">Mode jour / nuit — fond clair ou sombre selon l'éclairage ambiant</span>
+      </div>
+      <div class="help-kv">
+        <span class="help-key" style="font-size:9px">Atelier</span>
+        <span class="help-val">Mode atelier haute visibilité — affichage agrandi, contraste maximum pour utilisation avec gants</span>
+      </div>
+    </div>
+
+    <!-- ░░ 7 — Matières kc ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">7</div>Matières — Force spécifique kc</div>
+      <div class="help-mat-row">
+        <div class="help-mat-badge" style="background:#4A90D9">P</div>
+        <div><b>Aciers</b> — 1 500 à 3 000 MPa</div>
+      </div>
+      <div class="help-mat-row">
+        <div class="help-mat-badge" style="background:#E8A020">M</div>
+        <div><b>Inox austénitique / ferritique</b> — 2 000 à 2 500 MPa</div>
+      </div>
+      <div class="help-mat-row">
+        <div class="help-mat-badge" style="background:#B04020">K</div>
+        <div><b>Fontes</b> — 900 à 1 500 MPa</div>
+      </div>
+      <div class="help-mat-row">
+        <div class="help-mat-badge" style="background:#5AAA5A">N</div>
+        <div><b>Non-ferreux</b> (Al, Cu) — 500 à 900 MPa</div>
+      </div>
+      <div class="help-mat-row">
+        <div class="help-mat-badge" style="background:#C04070">S</div>
+        <div><b>Réfractaires</b> (Ti, Ni, Co) — 1 400 à 3 000 MPa</div>
+      </div>
+      <div class="help-mat-row">
+        <div class="help-mat-badge" style="background:#6040A0">H</div>
+        <div><b>Aciers trempés</b> (50–63 HRC) — 3 300 à 4 500 MPa</div>
+      </div>
+    </div>
+
+    <!-- ░░ 8 — Formules ░░ -->
+    <div class="help-sec">
+      <div class="help-sec-title"><div class="help-sec-num">8</div>Formules de référence</div>
+      <div class="help-formula-row">vc = (π × Dm × n) / 1 000</div>
+      <div class="help-formula-row">n  = (1 000 × vc) / (π × Dm)</div>
+      <div class="help-formula-row">Tc = L / (f × n)</div>
+      <div class="help-formula-row">h  = f × sin(κr)</div>
+      <div class="help-formula-row">hm = f × √(ap / IC)  — plaquette ronde</div>
+      <div class="help-formula-row">Pc = (vc × f × ap × kc) / (60 × 1 000)</div>
+      <div class="help-formula-row">Q  = (vc × f × ap) / 1 000</div>
+    </div>
+
+    <!-- ░░ Footer ░░ -->
+    <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
+      CutCalc Pro v1.7.0 · SPK by CeramTec<br>© 2025 Benjamin Rouquette · Usage interne exclusif
+    </div>
+
+  </div>
 </div>
 
 <!-- Calc History Bottom Sheet (Feature 4) -->
