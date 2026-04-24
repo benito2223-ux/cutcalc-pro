@@ -723,7 +723,7 @@ body.workshop-mode .inp-field{font-size:24px!important}
       <div class="info-sec">
         <h3 data-fr="À propos" data-en="About">À propos</h3>
         <p data-fr="CutCalc Pro est un calculateur de conditions de coupe pour le tournage et le fraisage. Formules conformes aux standards ISO." data-en="CutCalc Pro is a cutting conditions calculator for turning and milling. Formulas comply with ISO standards.">CutCalc Pro est un calculateur de conditions de coupe pour le tournage et le fraisage. Formules conformes aux standards ISO.</p>
-        <p><button onclick="showHelp()" style="background:var(--spk-blue);border:none;color:#fff;font-weight:700;font-size:12px;font-family:'Open Sans',sans-serif;cursor:pointer;padding:7px 14px;border-radius:7px;letter-spacing:.3px">📖 Guide d'utilisation</button></p>
+        <p><button onclick="showHelp()" style="background:var(--spk-blue);border:none;color:#fff;font-weight:700;font-size:12px;font-family:'Open Sans',sans-serif;cursor:pointer;padding:7px 14px;border-radius:7px;letter-spacing:.3px" data-fr="📖 Guide d'utilisation" data-en="📖 User Guide">📖 Guide d'utilisation</button></p>
       </div>
       <div class="info-sec">
         <h3 data-fr="Matières — Force spécifique kc" data-en="Materials — Specific Force kc">Matières — kc</h3>
@@ -1769,9 +1769,9 @@ function shareResult(op){
   <div class="hist-navbar">
     <button class="back-btn" onclick="closeHelp()" style="color:#fff">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-      <span style="font-size:13px;font-weight:700">Retour</span>
+      <span style="font-size:13px;font-weight:700" data-fr="Retour" data-en="Back">Retour</span>
     </button>
-    <div class="hist-navbar-title">Guide d'utilisation</div>
+    <div class="hist-navbar-title" data-fr="Guide d'utilisation" data-en="User Guide">Guide d'utilisation</div>
   </div>
   <div class="help-scroll">
 
@@ -1783,183 +1783,191 @@ function shareResult(op){
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub">Guide d'utilisation · v1.7.0</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.7.0" data-en="User Guide · v1.7.0">Guide d'utilisation · v1.7.0</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">1</div>Navigation générale</div>
+      <div class="help-sec-title"><div class="help-sec-num">1</div><span data-fr="Navigation générale" data-en="General Navigation">Navigation générale</span></div>
       <div class="help-step">
         <div class="help-step-icon">T</div>
-        <div class="help-step-text"><b>Tournage</b> — 4 sous-opérations : EXT · FACE · GORGE · TRONÇ. Accès aux calculs de vc, n, Tc, hm, Pc, Q…</div>
+        <div class="help-step-text">
+          <b data-fr="Tournage" data-en="Turning">Tournage</b><span data-fr=" — 4 sous-opérations : EXT · FACE · GORGE · TRONÇ. Calculs : vc, n, Tc, hm, Pc, Q…" data-en=" — 4 sub-operations: EXT · FACE · GROOVE · CUTOFF. Calcs: vc, n, Tc, hm, Pc, Q…"> — 4 sous-opérations : EXT · FACE · GORGE · TRONÇ. Calculs : vc, n, Tc, hm, Pc, Q…</span>
+        </div>
       </div>
       <div class="help-step">
         <div class="help-step-icon">M</div>
-        <div class="help-step-text"><b>Fraisage</b> — Temps de passe, vitesse de coupe, avance table, débit matière, puissance.</div>
+        <div class="help-step-text">
+          <b data-fr="Fraisage" data-en="Milling">Fraisage</b><span data-fr=" — Temps de passe, vc, avance table, débit matière, puissance." data-en=" — Cycle time, cutting speed, table feed, MRR, power."> — Temps de passe, vc, avance table, débit matière, puissance.</span>
+        </div>
       </div>
       <div class="help-step">
         <div class="help-step-icon">D</div>
-        <div class="help-step-text"><b>Perçage</b> — Vitesse de coupe, vitesse broche, avance, temps de passe.</div>
+        <div class="help-step-text">
+          <b data-fr="Perçage" data-en="Drilling">Perçage</b><span data-fr=" — Vitesse de coupe, broche, avance, temps de passe." data-en=" — Cutting speed, spindle speed, feed, cycle time."> — Vitesse de coupe, broche, avance, temps de passe.</span>
+        </div>
       </div>
       <div class="help-step">
         <div class="help-step-icon" style="font-size:9px">ℹ</div>
-        <div class="help-step-text"><b>Info</b> — Matières, plaquettes rondes, copyright et accès à ce guide.</div>
+        <div class="help-step-text">
+          <b data-fr="Info" data-en="Info">Info</b><span data-fr=" — Matières, plaquettes rondes, copyright et accès à ce guide." data-en=" — Materials, round inserts, copyright and access to this guide."> — Matières, plaquettes rondes, copyright et accès à ce guide.</span>
+        </div>
       </div>
     </div>
 
     <!-- ░░ 2 — Effectuer un calcul ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">2</div>Effectuer un calcul</div>
+      <div class="help-sec-title"><div class="help-sec-num">2</div><span data-fr="Effectuer un calcul" data-en="Perform a Calculation">Effectuer un calcul</span></div>
       <div class="help-step">
         <div class="help-step-icon">1</div>
-        <div class="help-step-text">Choisissez l'onglet en bas : <b>T · M · D</b></div>
+        <div class="help-step-text" data-fr="Choisissez l'onglet en bas : T · M · D" data-en="Select the tab at the bottom: T · M · D">Choisissez l'onglet en bas : T · M · D</div>
       </div>
       <div class="help-step">
         <div class="help-step-icon">2</div>
-        <div class="help-step-text">Pour le <b>tournage</b>, sélectionnez la sous-opération dans la barre du dessus : <b>EXT · FACE · GORGE · TRONÇ.</b></div>
+        <div class="help-step-text" data-fr="Tournage : sélectionnez la sous-opération en haut (EXT · FACE · GORGE · TRONÇ.)" data-en="Turning: select the sub-operation in the top bar (EXT · FACE · GROOVE · CUTOFF)">Tournage : sélectionnez la sous-opération en haut (EXT · FACE · GORGE · TRONÇ.)</div>
       </div>
       <div class="help-step">
         <div class="help-step-icon">3</div>
-        <div class="help-step-text">Appuyez sur le <b>calcul souhaité</b> dans la liste (ex : Vitesse de coupe vc)</div>
+        <div class="help-step-text" data-fr="Appuyez sur le calcul souhaité dans la liste (ex : Vitesse de coupe vc)" data-en="Tap the desired calculation in the list (e.g. Cutting Speed vc)">Appuyez sur le calcul souhaité dans la liste (ex : Vitesse de coupe vc)</div>
       </div>
       <div class="help-step">
         <div class="help-step-icon">4</div>
-        <div class="help-step-text">Saisissez les valeurs dans les <b>champs numériques</b> — le résultat se calcule en temps réel</div>
+        <div class="help-step-text" data-fr="Saisissez les valeurs — le résultat se calcule en temps réel" data-en="Enter values — the result updates in real time">Saisissez les valeurs — le résultat se calcule en temps réel</div>
       </div>
       <div class="help-step">
         <div class="help-step-icon">5</div>
-        <div class="help-step-text">Le résultat s'affiche en grand dans la <b>zone fixe en haut</b> avec son unité et sa formule</div>
+        <div class="help-step-text" data-fr="Le résultat s'affiche en grand dans la zone fixe en haut avec son unité et sa formule" data-en="The result is displayed large at the top with its unit and formula">Le résultat s'affiche en grand dans la zone fixe en haut avec son unité et sa formule</div>
       </div>
     </div>
 
     <!-- ░░ 3 — Champs de saisie ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">3</div>Champs de saisie</div>
+      <div class="help-sec-title"><div class="help-sec-num">3</div><span data-fr="Champs de saisie" data-en="Input Fields">Champs de saisie</span></div>
       <div class="help-kv">
         <span class="help-key">vc</span>
-        <span class="help-val">Badge abréviation — identifie immédiatement la grandeur physique (vc, n, f, ap, D…)</span>
+        <span class="help-val" data-fr="Badge abréviation — identifie immédiatement la grandeur physique (vc, n, f, ap, D…)" data-en="Abbreviation badge — instantly identifies the physical quantity (vc, n, f, ap, D…)">Badge abréviation — identifie immédiatement la grandeur physique (vc, n, f, ap, D…)</span>
       </div>
       <div class="help-kv">
         <span class="help-key">123</span>
-        <span class="help-val">Champ numérique — appuyez pour ouvrir le pavé numérique et saisir la valeur</span>
+        <span class="help-val" data-fr="Champ numérique — appuyez pour ouvrir le clavier et saisir la valeur" data-en="Numeric field — tap to open the keypad and enter the value">Champ numérique — appuyez pour ouvrir le clavier et saisir la valeur</span>
       </div>
       <div class="help-kv">
-        <span class="help-key">unité</span>
-        <span class="help-val">Unité affichée à droite (mm/rev · m/min · tr/min · mm…)</span>
+        <span class="help-key" data-fr="unité" data-en="unit">unité</span>
+        <span class="help-val" data-fr="Unité affichée à droite du champ (mm/rev · m/min · tr/min · mm…)" data-en="Unit displayed to the right of the field (mm/rev · m/min · RPM · mm…)">Unité affichée à droite du champ (mm/rev · m/min · tr/min · mm…)</span>
       </div>
       <div class="help-kv">
         <span class="help-key">✕</span>
-        <span class="help-val">Efface uniquement ce champ — les autres valeurs sont conservées</span>
+        <span class="help-val" data-fr="Efface uniquement ce champ — les autres valeurs sont conservées" data-en="Clears only this field — other values are kept">Efface uniquement ce champ — les autres valeurs sont conservées</span>
       </div>
       <div class="help-kv">
         <span class="help-key">↺</span>
-        <span class="help-val">Bouton reset (haut droite du résultat) — remet tous les champs à zéro</span>
+        <span class="help-val" data-fr="Bouton reset (haut droite) — remet tous les champs à zéro" data-en="Reset button (top right) — clears all fields">Bouton reset (haut droite) — remet tous les champs à zéro</span>
       </div>
     </div>
 
     <!-- ░░ 4 — Zone résultat ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">4</div>Zone résultat</div>
+      <div class="help-sec-title"><div class="help-sec-num">4</div><span data-fr="Zone résultat" data-en="Result Area">Zone résultat</span></div>
       <div class="help-kv">
         <span class="help-key">ƒ</span>
-        <span class="help-val">Affiche la formule complète utilisée pour le calcul</span>
+        <span class="help-val" data-fr="Affiche la formule complète utilisée pour le calcul" data-en="Shows the full formula used for the calculation">Affiche la formule complète utilisée pour le calcul</span>
       </div>
       <div class="help-kv">
         <span class="help-key" style="font-size:10px">↑ Part.</span>
-        <span class="help-val">Partager le résultat — SMS, e-mail ou copie dans le presse-papiers</span>
+        <span class="help-val" data-fr="Partager le résultat — SMS, e-mail ou presse-papiers" data-en="Share the result — SMS, e-mail or clipboard">Partager le résultat — SMS, e-mail ou presse-papiers</span>
       </div>
       <div class="help-kv">
         <span class="help-key" style="font-size:10px">💾 Sauv.</span>
-        <span class="help-val">Enregistre ce résultat dans l'historique</span>
+        <span class="help-val" data-fr="Enregistre ce résultat dans l'historique" data-en="Saves this result to the history">Enregistre ce résultat dans l'historique</span>
       </div>
       <div class="help-kv">
         <span class="help-key" style="font-size:10px">⏱ Hist.</span>
-        <span class="help-val">Ouvre l'historique rapide de ce type de calcul</span>
+        <span class="help-val" data-fr="Ouvre l'historique rapide de ce type de calcul" data-en="Opens the quick history for this calculation type">Ouvre l'historique rapide de ce type de calcul</span>
       </div>
     </div>
 
     <!-- ░░ 5 — Favoris & Historique ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">5</div>Favoris &amp; Historique</div>
+      <div class="help-sec-title"><div class="help-sec-num">5</div><span data-fr="Favoris &amp; Historique" data-en="Favorites &amp; History">Favoris &amp; Historique</span></div>
       <div class="help-kv">
         <span class="help-key">★</span>
-        <span class="help-val">Étoile dans la liste — marque un calcul en favori, il remonte en tête de liste pour un accès rapide</span>
+        <span class="help-val" data-fr="Étoile dans la liste — marque un calcul en favori, le remonte en tête pour un accès rapide" data-en="Star in the list — marks a calculation as favorite, moves it to the top for quick access">Étoile dans la liste — marque un calcul en favori, le remonte en tête pour un accès rapide</span>
       </div>
       <div class="help-kv">
         <span class="help-key" style="font-size:10px">Histo.</span>
-        <span class="help-val">Icône horloge en haut à droite — accède à tous les résultats sauvegardés</span>
+        <span class="help-val" data-fr="Icône horloge en haut à droite — accède à tous les résultats sauvegardés" data-en="Clock icon at top right — accesses all saved results">Icône horloge en haut à droite — accède à tous les résultats sauvegardés</span>
       </div>
       <div class="help-kv">
         <span class="help-key" style="font-size:10px">Comp.</span>
-        <span class="help-val">Sélectionnez 2 résultats dans l'historique puis appuyez sur <b>COMPARER</b> — affichage côte à côte</span>
+        <span class="help-val" data-fr="Sélectionnez 2 résultats puis COMPARER — affichage côte à côte" data-en="Select 2 results then COMPARE — side-by-side display">Sélectionnez 2 résultats puis COMPARER — affichage côte à côte</span>
       </div>
     </div>
 
     <!-- ░░ 6 — Options ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">6</div>Options d'affichage</div>
+      <div class="help-sec-title"><div class="help-sec-num">6</div><span data-fr="Options d'affichage" data-en="Display Options">Options d'affichage</span></div>
       <div class="help-kv">
         <span class="help-key">FR/EN</span>
-        <span class="help-val">Bascule la langue de l'interface (Français / Anglais)</span>
+        <span class="help-val" data-fr="Bascule la langue de l'interface (Français / Anglais)" data-en="Switches the interface language (French / English)">Bascule la langue de l'interface (Français / Anglais)</span>
       </div>
       <div class="help-kv">
         <span class="help-key">m/in</span>
-        <span class="help-val">Bascule le système d'unités (Métrique / Impérial)</span>
+        <span class="help-val" data-fr="Bascule le système d'unités (Métrique / Impérial)" data-en="Switches the unit system (Metric / Imperial)">Bascule le système d'unités (Métrique / Impérial)</span>
       </div>
       <div class="help-kv">
         <span class="help-key">☀ / ☽</span>
-        <span class="help-val">Mode jour / nuit — fond clair ou sombre selon l'éclairage ambiant</span>
+        <span class="help-val" data-fr="Mode jour / nuit — fond clair ou sombre selon l'éclairage ambiant" data-en="Day / night mode — light or dark background depending on ambient lighting">Mode jour / nuit — fond clair ou sombre selon l'éclairage ambiant</span>
       </div>
       <div class="help-kv">
-        <span class="help-key" style="font-size:9px">Atelier</span>
-        <span class="help-val">Mode atelier haute visibilité — affichage agrandi, contraste maximum pour utilisation avec gants</span>
+        <span class="help-key" style="font-size:9px" data-fr="Atelier" data-en="Workshop">Atelier</span>
+        <span class="help-val" data-fr="Mode atelier — affichage agrandi, contraste maximum pour utilisation avec gants" data-en="Workshop mode — enlarged display, maximum contrast for use with gloves">Mode atelier — affichage agrandi, contraste maximum pour utilisation avec gants</span>
       </div>
     </div>
 
     <!-- ░░ 7 — Matières kc ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">7</div>Matières — Force spécifique kc</div>
+      <div class="help-sec-title"><div class="help-sec-num">7</div><span data-fr="Matières — Force spécifique kc" data-en="Materials — Specific Cutting Force kc">Matières — Force spécifique kc</span></div>
       <div class="help-mat-row">
         <div class="help-mat-badge" style="background:#4A90D9">P</div>
-        <div><b>Aciers</b> — 1 500 à 3 000 MPa</div>
+        <div><b data-fr="Aciers" data-en="Steels">Aciers</b><span data-fr=" — 1 500 à 3 000 MPa" data-en=" — 1 500 to 3 000 MPa"> — 1 500 à 3 000 MPa</span></div>
       </div>
       <div class="help-mat-row">
         <div class="help-mat-badge" style="background:#E8A020">M</div>
-        <div><b>Inox austénitique / ferritique</b> — 2 000 à 2 500 MPa</div>
+        <div><b data-fr="Inox austénitique / ferritique" data-en="Austenitic / ferritic stainless">Inox austénitique / ferritique</b><span data-fr=" — 2 000 à 2 500 MPa" data-en=" — 2 000 to 2 500 MPa"> — 2 000 à 2 500 MPa</span></div>
       </div>
       <div class="help-mat-row">
         <div class="help-mat-badge" style="background:#B04020">K</div>
-        <div><b>Fontes</b> — 900 à 1 500 MPa</div>
+        <div><b data-fr="Fontes" data-en="Cast Irons">Fontes</b><span data-fr=" — 900 à 1 500 MPa" data-en=" — 900 to 1 500 MPa"> — 900 à 1 500 MPa</span></div>
       </div>
       <div class="help-mat-row">
         <div class="help-mat-badge" style="background:#5AAA5A">N</div>
-        <div><b>Non-ferreux</b> (Al, Cu) — 500 à 900 MPa</div>
+        <div><b data-fr="Non-ferreux" data-en="Non-ferrous">Non-ferreux</b><span data-fr=" (Al, Cu) — 500 à 900 MPa" data-en=" (Al, Cu) — 500 to 900 MPa"> (Al, Cu) — 500 à 900 MPa</span></div>
       </div>
       <div class="help-mat-row">
         <div class="help-mat-badge" style="background:#C04070">S</div>
-        <div><b>Réfractaires</b> (Ti, Ni, Co) — 1 400 à 3 000 MPa</div>
+        <div><b data-fr="Réfractaires" data-en="Exotic Alloys">Réfractaires</b><span data-fr=" (Ti, Ni, Co) — 1 400 à 3 000 MPa" data-en=" (Ti, Ni, Co) — 1 400 to 3 000 MPa"> (Ti, Ni, Co) — 1 400 à 3 000 MPa</span></div>
       </div>
       <div class="help-mat-row">
         <div class="help-mat-badge" style="background:#6040A0">H</div>
-        <div><b>Aciers trempés</b> (50–63 HRC) — 3 300 à 4 500 MPa</div>
+        <div><b data-fr="Aciers trempés" data-en="Hardened Steels">Aciers trempés</b><span data-fr=" (50–63 HRC) — 3 300 à 4 500 MPa" data-en=" (50–63 HRC) — 3 300 to 4 500 MPa"> (50–63 HRC) — 3 300 à 4 500 MPa</span></div>
       </div>
     </div>
 
     <!-- ░░ 8 — Formules ░░ -->
     <div class="help-sec">
-      <div class="help-sec-title"><div class="help-sec-num">8</div>Formules de référence</div>
+      <div class="help-sec-title"><div class="help-sec-num">8</div><span data-fr="Formules de référence" data-en="Reference Formulas">Formules de référence</span></div>
       <div class="help-formula-row">vc = (π × Dm × n) / 1 000</div>
       <div class="help-formula-row">n  = (1 000 × vc) / (π × Dm)</div>
       <div class="help-formula-row">Tc = L / (f × n)</div>
       <div class="help-formula-row">h  = f × sin(κr)</div>
-      <div class="help-formula-row">hm = f × √(ap / IC)  — plaquette ronde</div>
+      <div class="help-formula-row"><span data-fr="hm = f × √(ap / IC)  — plaquette ronde" data-en="hm = f × √(ap / IC)  — round insert">hm = f × √(ap / IC)  — plaquette ronde</span></div>
       <div class="help-formula-row">Pc = (vc × f × ap × kc) / (60 × 1 000)</div>
       <div class="help-formula-row">Q  = (vc × f × ap) / 1 000</div>
     </div>
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.7.0 · SPK by CeramTec<br>© 2025 Benjamin Rouquette · Usage interne exclusif
+      CutCalc Pro v1.7.0 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
