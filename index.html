@@ -1516,22 +1516,38 @@ function setUnit(u){
   if(u===UNIT)return;
   var factor=u==='m'?25.4:1/25.4;
   var convLabels={mm:1,inch:1,'mm/rev':1,'in/rev':1,'mm/t':1,'in/t':1,'mm/min':1,'in/min':1};
-  document.querySelectorAll('.inp-row').forEach(function(r){
-    var inp=r.querySelector('.inp-field');
-    var lbl=r.querySelector('.inp-unit-lbl');
-    if(inp&&inp.value&&lbl&&convLabels[lbl.textContent]){
-      inp.value=+(parseFloat(inp.value)*factor).toFixed(5);
-    }
-  });
+  // Sauvegarder + convertir les valeurs du panel courant
+  var saved={};
+  if(CALC_ID){
+    document.querySelectorAll('.inp-row').forEach(function(r){
+      var inp=r.querySelector('.inp-field');
+      var lbl=r.querySelector('.inp-unit-lbl');
+      if(!inp||!inp.id||inp.value==='')return;
+      var v=parseFloat(inp.value);
+      saved[inp.id]=(lbl&&convLabels[lbl.textContent]&&!isNaN(v))
+        ?+(v*factor).toFixed(5)
+        :inp.value;
+    });
+  }
   UNIT=u;
   localStorage.setItem('cutcalc_unit',u);
   document.querySelectorAll('#utgl .tgl-b').forEach(function(b,i){b.classList.toggle('on',i===(u==='m'?0:1));});
-  document.querySelectorAll('.inp-unit-lbl').forEach(function(el){
-    if(el.textContent==='mm'||el.textContent==='inch')el.textContent=mm();
-    else if(el.textContent==='mm/rev'||el.textContent==='in/rev')el.textContent=mrev();
-    else if(el.textContent==='mm/t'||el.textContent==='in/t')el.textContent=mt();
-    else if(el.textContent==='mm/min'||el.textContent==='in/min')el.textContent=(UNIT==='m'?'mm/min':'in/min');
-  });
+  // Reconstruire le panel (régénère tous les labels via mm()/mrev()/mt())
+  if(CALC_ID){
+    var body=document.getElementById('c'+CALC_OP+'-body');
+    var note=document.getElementById('note-'+CALC_OP);
+    var noteVal=note?note.value:'';
+    body.innerHTML=buildInputs(CALC_ID);
+    Object.keys(saved).forEach(function(id){var el=document.getElementById(id);if(el)el.value=saved[id];});
+    var kce=document.getElementById('fi_kc');if(kce)kce.value=MAT_KC;
+    var hbe=document.getElementById('fi_hb');if(hbe)hbe.value=MAT_HB;
+    var ta=document.createElement('textarea');
+    ta.className='calc-note';ta.rows=noteVal?3:1;ta.value=noteVal;ta.id='note-'+CALC_OP;
+    ta.placeholder=LANG==='fr'?'Note : nom pièce, matière, opération...':'Note: part name, material, operation...';
+    ta.addEventListener('focus',function(){this.rows=3;});
+    ta.addEventListener('blur',function(){if(!this.value)this.rows=1;CALC_NOTES[CALC_OP+':'+CALC_ID]=this.value;});
+    body.appendChild(ta);
+  }
   doCalc();
 }
 function toggleDark(){
