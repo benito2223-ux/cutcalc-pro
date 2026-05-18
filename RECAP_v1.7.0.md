@@ -1,6 +1,6 @@
 # CutCalc Pro v1.7.0 — Récapitulatif des modifications
 
-**Date** : 24 avril 2026  
+**Dernière mise à jour** : 18 mai 2026  
 **Fichiers modifiés** : `index.html`, `CHANGELOG.md`
 
 ---
@@ -28,6 +28,17 @@ Avantages :
 - Identification immédiate de la grandeur physique
 - Meilleure lisibilité sur petit écran / avec gants
 - Cohérence avec les badges de la liste de calculs
+
+### 3. Icône d'écran d'accueil — vrai logo CutCalc (18 mai 2026)
+
+L'icône générée par canvas (texte « SPK » + barre bleue « CERAMTEC ») a été remplacée par le vrai logo `Logo_Cutcalc.png`.
+
+Le logo (1254×1254 px) est intégré en base64 directement dans le HTML (512×512 réduit, ~230 KB), puis redimensionné à la volée par canvas :
+- **180×180** → `apple-touch-icon` (iOS Safari — ajout à l'écran d'accueil)
+- **32×32** → favicon navigateur
+- **192×192 + 512×512** → manifest PWA dynamique (Android / Chrome « Ajouter à l'écran »)
+
+Un lien `<link id="app-manifest" rel="manifest">` a été ajouté dans le `<head>` ; le manifest JSON est généré en Blob URL au chargement, sans fichier externe.
 
 ---
 
@@ -60,6 +71,7 @@ surge "C:\Users\Admin\Documents\CeramTec\Cutcalc" cutcalc-spk.surge.sh
 
 | Version | Date | Résumé |
 |---|---|---|
+| v1.7.0 | 2026-05-18 | Logo réel intégré (PWA icon iOS + Android), manifest dynamique |
 | v1.7.0 | 2026-04-24 | Suppression boutons +/−, abréviations remplacent les pictos SVG |
 | v1.6.0 | 2026-04-24 | Pictos techniques, ligne sélectionnée, champs ✕, bugfix layout |
 | v1.5.0 | 2026-04-23 | Charte SPK CeramTec (Open Sans, couleurs officielles) |
