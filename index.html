@@ -13,6 +13,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Open+Sans+Condensed:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <title>CutCalc Pro — SPK by CeramTec</title>
 <style>
+
+/* ── PRINT / PDF ── */
+#print-sheet{display:none;font-family:'Open Sans',sans-serif;color:#111;padding:24px;max-width:680px;margin:0 auto}
+.ps-hd{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1B5EA6;padding-bottom:8px;margin-bottom:16px}
+.ps-brand{font-size:13px;font-weight:700;color:#1B5EA6;letter-spacing:.5px}
+.ps-date{font-size:12px;color:#666}
+.ps-title{font-size:20px;font-weight:700;margin:0 0 4px;color:#111}
+.ps-formula{font-size:12px;color:#555;font-family:'DM Mono',monospace;margin-bottom:16px}
+.ps-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.ps-table td{padding:5px 8px;font-size:13px;border-bottom:1px solid #eee}
+.ps-table td:first-child{color:#555;width:55%}
+.ps-result{font-size:28px;font-weight:700;color:#1B5EA6;background:#f0f5ff;padding:12px 16px;border-radius:8px;margin-bottom:12px}
+.ps-result span{font-size:16px;font-weight:400;color:#555}
+.ps-note{font-size:12px;color:#444;border-left:3px solid #1B5EA6;padding-left:10px;margin-bottom:12px}
+.ps-footer{font-size:10px;color:#aaa;text-align:right;margin-top:20px;border-top:1px solid #eee;padding-top:8px}
+@media print{
+  body>*{display:none!important}
+  #print-sheet{display:block!important;padding:0}
+}
 /* ═══ TOKENS ═══ */
 :root{
   --spk-blue:#1B5EA6; --spk-blue-d:#154d8a; --spk-blue-l:#2E6FAD; --spk-blue-pale:rgba(27,94,166,.08);
@@ -672,6 +691,7 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <button class="act-btn" onclick="showFormula('T')" title="Formule">ƒ</button>
         <button class="act-btn" onclick="shareResult('T')" title="Partager"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
         <button class="act-btn" onclick="saveResult('T')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+        <button class="act-btn" onclick="printResult('T')" title="Imprimer / PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
         <button class="act-btn" onclick="showCalcHistory('T')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
       </div>
     </div>
@@ -715,6 +735,7 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <button class="act-btn" onclick="showFormula('M')" title="Formule">ƒ</button>
         <button class="act-btn" onclick="shareResult('M')" title="Partager"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
         <button class="act-btn" onclick="saveResult('M')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+        <button class="act-btn" onclick="printResult('M')" title="Imprimer / PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
         <button class="act-btn" onclick="showCalcHistory('M')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
       </div>
     </div>
@@ -788,6 +809,7 @@ body.workshop-mode .inp-field{font-size:24px!important}
         <button class="act-btn" onclick="showFormula('D')" title="Formule">ƒ</button>
         <button class="act-btn" onclick="shareResult('D')" title="Partager"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
         <button class="act-btn" onclick="saveResult('D')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
+        <button class="act-btn" onclick="printResult('D')" title="Imprimer / PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
         <button class="act-btn" onclick="showCalcHistory('D')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
       </div>
     </div>
@@ -862,14 +884,19 @@ body.workshop-mode .inp-field{font-size:24px!important}
 // ═══════════════════════════
 //  STATE
 // ═══════════════════════════
-var TAB='T', SUBOP='ext', LANG='fr', UNIT='m', DARK=false;
+var TAB='T', SUBOP='ext';
+var LANG=localStorage.getItem('cutcalc_lang')||'fr';
+var UNIT=localStorage.getItem('cutcalc_unit')||'m';
+var DARK=localStorage.getItem('cutcalc_dark')==='1';
+var MAT_KC=parseFloat(localStorage.getItem('cutcalc_mat_kc'))||1500;
+var MAT_HB=parseFloat(localStorage.getItem('cutcalc_mat_hb'))||190;
 var WORKSHOP=false;
 var CALC_NOTES={};
 var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.7.1';
+var VERSION='1.8.0';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -1084,6 +1111,8 @@ function openCalc(op,it){
   document.getElementById('c'+op+'-sym').textContent=it.sym+(it.sub?it.sub:'');
   var bodyEl=document.getElementById('c'+op+'-body');
   bodyEl.innerHTML=buildInputs(it.id);
+  var _kce=document.getElementById('fi_kc');if(_kce)_kce.value=MAT_KC;
+  var _hbe=document.getElementById('fi_hb');if(_hbe)_hbe.value=MAT_HB;
   // Add note textarea (Feature 8)
   var ta=document.createElement('textarea');
   ta.className='calc-note';
@@ -1355,11 +1384,13 @@ function sv(op,v){
   var el=document.getElementById('c'+op+'-val');
   if(!el) return;
   var ok=isFinite(v)&&!isNaN(v)&&v>0;
-  if(!ok){el.textContent='0';el.classList.remove('flash');return;}
+  if(!ok){el.textContent='—';el.style.color='var(--ct-red)';el.classList.remove('flash');return;}
+  el.style.color='';
   var d=v>=10000?0:v>=1000?1:v>=10?2:3;
   el.textContent=v.toFixed(d);
   el.classList.add('flash');
   clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('flash');},500);
+  if(navigator.vibrate)navigator.vibrate(30);
 }
 
 function doCalc(){
@@ -1418,6 +1449,10 @@ function doCalc(){
     case 'D_Mc': sv(op,g('fi_Pc')*9549/g('fi_n')); break;
     case 'D_Q':  sv(op,Math.PI*g('fi_DC')*g('fi_DC')*g('fi_f')*g('fi_n')/4000); break;
   }
+  var _kc=document.getElementById('fi_kc');
+  if(_kc){MAT_KC=parseFloat(_kc.value)||MAT_KC;localStorage.setItem('cutcalc_mat_kc',MAT_KC);}
+  var _hb=document.getElementById('fi_hb');
+  if(_hb){MAT_HB=parseFloat(_hb.value)||MAT_HB;localStorage.setItem('cutcalc_mat_hb',MAT_HB);}
 }
 
 function rstCalc(op){
@@ -1469,6 +1504,7 @@ function setTab(t){
 // ═══════════════════════════
 function setLang(l){
   LANG=l;
+  localStorage.setItem('cutcalc_lang',l);
   document.querySelectorAll('#ltgl .tgl-b').forEach(function(b,i){b.classList.toggle('on',i===(l==='fr'?0:1));});
   document.querySelectorAll('[data-fr]').forEach(function(el){el.textContent=l==='fr'?el.dataset.fr:el.dataset.en;});
   setSubOp(SUBOP);
@@ -1477,12 +1513,31 @@ function setLang(l){
   if(document.getElementById('hist-panel').className.includes('show'))buildHistory();
 }
 function setUnit(u){
+  if(u===UNIT)return;
+  var factor=u==='m'?25.4:1/25.4;
+  var convLabels={mm:1,inch:1,'mm/rev':1,'in/rev':1,'mm/t':1,'in/t':1,'mm/min':1,'in/min':1};
+  document.querySelectorAll('.inp-row').forEach(function(r){
+    var inp=r.querySelector('.inp-field');
+    var lbl=r.querySelector('.inp-unit-lbl');
+    if(inp&&inp.value&&lbl&&convLabels[lbl.textContent]){
+      inp.value=+(parseFloat(inp.value)*factor).toFixed(5);
+    }
+  });
   UNIT=u;
+  localStorage.setItem('cutcalc_unit',u);
   document.querySelectorAll('#utgl .tgl-b').forEach(function(b,i){b.classList.toggle('on',i===(u==='m'?0:1));});
+  document.querySelectorAll('.inp-unit-lbl').forEach(function(el){
+    if(el.textContent==='mm'||el.textContent==='inch')el.textContent=mm();
+    else if(el.textContent==='mm/rev'||el.textContent==='in/rev')el.textContent=mrev();
+    else if(el.textContent==='mm/t'||el.textContent==='in/t')el.textContent=mt();
+    else if(el.textContent==='mm/min'||el.textContent==='in/min')el.textContent=(UNIT==='m'?'mm/min':'in/min');
+  });
+  doCalc();
 }
 function toggleDark(){
   DARK=!DARK;
   document.documentElement.toggleAttribute('data-dark',DARK);
+  localStorage.setItem('cutcalc_dark',DARK?'1':'0');
   var ico=document.getElementById('darkico');
   ico.innerHTML=DARK
     ?'<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><line x1="12" y1="2" x2="12" y2="4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="20" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
@@ -1523,6 +1578,9 @@ function buildAppIcon(){
 // ═══════════════════════════
 window.addEventListener('load',function(){
   document.getElementById('ver-label').textContent='v'+VERSION;
+  if(DARK)document.documentElement.setAttribute('data-dark','');
+  if(LANG!=='fr')setLang(LANG);
+  if(UNIT!=='m')document.querySelectorAll('#utgl .tgl-b').forEach(function(b,i){b.classList.toggle('on',i===(UNIT==='m'?0:1));});
   buildList('list-T',T_ITEMS.ext);
   buildList('list-M',M_ITEMS);
   buildList('list-D',D_ITEMS);
@@ -1557,6 +1615,34 @@ function shareResult(op){
       navigator.clipboard.writeText(text).then(function(){showToast(LANG==='fr'?'Copié !':'Copied!');}).catch(function(){showToast('Share unavailable');});
     } else {showToast('Share unavailable');}
   }
+}
+function printResult(op){
+  var val=document.getElementById('c'+op+'-val').textContent;
+  if(!val||val==='0'||val==='—'){showToast(LANG==='fr'?'Aucun résultat':'Nothing to print');return;}
+  var title=document.getElementById('c'+op+'-title').textContent;
+  var formula=document.getElementById('c'+op+'-formula').textContent;
+  var unit=document.getElementById('c'+op+'-unit').textContent;
+  var sym=document.getElementById('c'+op+'-sym').textContent;
+  var note=document.getElementById('note-'+op)?document.getElementById('note-'+op).value:'';
+  var rows='';
+  document.querySelectorAll('#c'+op+'-body .inp-row').forEach(function(r){
+    var lbl=r.querySelector('.inp-lbl');var inp=r.querySelector('.inp-field');var u=r.querySelector('.inp-unit-lbl');
+    if(lbl&&inp&&inp.value)rows+='<tr><td>'+lbl.textContent+'</td><td><strong>'+inp.value+'</strong> '+(u?u.textContent:'')+'</td></tr>';
+  });
+  document.querySelectorAll('#c'+op+'-body .sel-row').forEach(function(r){
+    var lbl=r.querySelector('.sel-lbl');var sel=r.querySelector('.sel-field');
+    if(lbl&&sel)rows+='<tr><td>'+lbl.textContent+'</td><td><strong>'+sel.options[sel.selectedIndex].text+'</strong></td></tr>';
+  });
+  var date=new Date().toLocaleDateString(LANG==='fr'?'fr-FR':'en-US');
+  var ps=document.getElementById('print-sheet');
+  ps.innerHTML='<div class=\'ps-hd\'><span class=\'ps-brand\'>CutCalc Pro &middot; SPK by CeramTec</span><span class=\'ps-date\'>'+date+'</span></div>'
+    +'<h2 class=\'ps-title\'>'+title+'</h2>'
+    +'<div class=\'ps-formula\'>'+formula+'</div>'
+    +'<table class=\'ps-table\'>'+rows+'</table>'
+    +'<div class=\'ps-result\'>'+sym+' = <strong>'+val+'</strong> <span>'+unit+'</span></div>'
+    +(note?'<div class=\'ps-note\'>'+(LANG==='fr'?'Note : ':'Note: ')+note+'</div>':'')
+    +'<div class=\'ps-footer\'>v'+VERSION+' &middot; cutcalc-spk.surge.sh</div>';
+  window.print();
 }
 function showToast(msg){
   var t=document.getElementById('toast');
@@ -2055,5 +2141,6 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
+<div id="print-sheet" style="display:none"></div>
 </body>
 </html>
