@@ -424,26 +424,6 @@ input[type=number]{-moz-appearance:textfield}
 /* ── Hdr border-top accent ── */
 .hdr{border-top:3px solid var(--spk-blue)}
 
-/* ── Workshop mode ── */
-.workshop-mode{background:#000!important}
-.workshop-mode body,.workshop-mode *{background:inherit}
-body.workshop-mode{background:#000}
-body.workshop-mode .hdr,.body.workshop-mode .tabbar,.body.workshop-mode .calc-navbar,.body.workshop-mode .res-fixed,.body.workshop-mode .subop-bar{background:#000!important;border-color:#333!important}
-body.workshop-mode,.workshop-mode .list-item,.workshop-mode .inp-card,.workshop-mode .info-sec,.workshop-mode .hist-item,.workshop-mode .cmp-card,.workshop-mode .formula-sheet{background:#000!important;color:#fff!important;border-color:#333!important}
-body.workshop-mode{--text:#fff;--text2:#eee;--text3:#bbb;--surface:#111;--surface2:#1a1a1a;--off:#000;--gray:#111;--gray2:#333;--border:rgba(255,255,255,.15);--border2:rgba(255,255,255,.08);--anth:#000;--anth2:#000}
-body.workshop-mode .res-val{font-size:72px!important}
-body.workshop-mode .inp-row{min-height:56px!important}
-body.workshop-mode .list-item{min-height:56px!important}
-body.workshop-mode .inp-lbl,.workshop-mode .li-name{font-size:calc(1em * 1.2)!important}
-body.workshop-mode *{font-size:calc(var(--base-fs, 1em) * 1.2)}
-body.workshop-mode .inp-lbl{font-size:14.4px!important}
-body.workshop-mode .li-name{font-size:16.8px!important}
-body.workshop-mode .li-desc{font-size:12px!important}
-body.workshop-mode .tab span,.workshop-mode .tgl-b,.workshop-mode .back-btn,.workshop-mode .calc-nav-title{font-size:12px!important}
-body.workshop-mode .inp-field{font-size:24px!important}
-.wkshp-btn{padding:5px 9px;font-size:10px;font-weight:700;font-family:'Open Sans',sans-serif;border-radius:5px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);cursor:pointer;display:flex;align-items:center;gap:4px;transition:.15s;white-space:nowrap}
-.wkshp-btn.on{background:rgba(255,165,0,.25);border-color:rgba(255,165,0,.5);color:#ffa500}
-.wkshp-btn:active{background:rgba(255,255,255,.22)}
 
 /* ── Input wrap ── */
 .inc-wrap{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-left:auto}
@@ -535,9 +515,6 @@ body.workshop-mode .inp-field{font-size:24px!important}
       </button>
       <button class="hdr-btn" onclick="toggleDark()" id="darkbtn">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="darkico"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <button class="wkshp-btn" onclick="toggleWorkshop()" id="wkshp-btn" title="Atelier / Workshop">
-        &#9728;
       </button>
     </div>
   </div>
@@ -890,7 +867,6 @@ var UNIT=localStorage.getItem('cutcalc_unit')||'m';
 var DARK=localStorage.getItem('cutcalc_dark')==='1';
 var MAT_KC=parseFloat(localStorage.getItem('cutcalc_mat_kc'))||1500;
 var MAT_HB=parseFloat(localStorage.getItem('cutcalc_mat_hb'))||190;
-var WORKSHOP=false;
 var CALC_NOTES={};
 var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
@@ -1762,15 +1738,6 @@ function showFormula(op){
 }
 function closeFormula(){document.getElementById('formula-modal').className='formula-modal';}
 
-// ÔòÉÔòÉÔòÉ WORKSHOP MODE (Feature 2) ÔòÉÔòÉÔòÉ
-function toggleWorkshop(){
-  WORKSHOP=!WORKSHOP;
-  document.body.classList.toggle('workshop-mode',WORKSHOP);
-  var btn=document.getElementById('wkshp-btn');
-  if(btn){
-    btn.classList.toggle('on',WORKSHOP);
-  }
-}
 // ÔòÉÔòÉÔòÉ CALC HISTORY BOTTOM SHEET (Feature 4) ÔòÉÔòÉÔòÉ
 function addToHistory(op){
   var val=document.getElementById('c'+op+'-val').textContent;
@@ -2053,10 +2020,6 @@ function shareResult(op){
       <div class="help-kv">
         <span class="help-key">☀ / ☽</span>
         <span class="help-val" data-fr="Mode jour / nuit — fond clair ou sombre selon l'éclairage ambiant" data-en="Day / night mode — light or dark background depending on ambient lighting">Mode jour / nuit — fond clair ou sombre selon l'éclairage ambiant</span>
-      </div>
-      <div class="help-kv">
-        <span class="help-key" style="font-size:9px" data-fr="Atelier" data-en="Workshop">Atelier</span>
-        <span class="help-val" data-fr="Mode atelier — affichage agrandi, contraste maximum pour utilisation avec gants" data-en="Workshop mode — enlarged display, maximum contrast for use with gloves">Mode atelier — affichage agrandi, contraste maximum pour utilisation avec gants</span>
       </div>
     </div>
 
