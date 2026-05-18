@@ -2,6 +2,51 @@
 
 ---
 
+## v1.7.1 — 2026-05-18
+
+### Icône écran d'accueil — vrai logo (iOS + Android)
+
+- **Remplacement de l'icône canvas** : la génération programmatique (texte « SPK » + barre bleue « CERAMTEC ») est remplacée par le vrai `Logo_Cutcalc.png` intégré en base64 (512×512 px, ~230 KB)
+- **Apple Touch Icon** : 180×180 px via canvas — affiché lors de l'ajout à l'écran d'accueil sur iOS Safari
+- **Favicon** : 32×32 px
+- **Manifest PWA dynamique** : généré en Blob URL au chargement, fournit les icônes 192×192 et 512×512 pour l'installation Android/Chrome (« Ajouter à l'écran d'accueil »)
+- Ajout de `<link id="app-manifest" rel="manifest">` dans le `<head>`
+
+---
+
+## v1.7.0 — 2026-04-24
+
+### Guide utilisateur bilingue intégré
+
+- **Panneau d'aide glissant** : accessible via le bouton ℹ dans la barre de navigation, s'ouvre en overlay depuis la droite
+- **Contenu bilingue FR/EN** : 8 sections (navigation, calculs, historique, partage, favoris, unités, mode atelier, à propos) — toutes les chaînes basculent avec le toggle langue existant
+- **Logo SPK** dans l'en-tête du guide
+- **Design cohérent** avec la charte SPK CeramTec (couleurs, typographie Open Sans)
+
+### Suppression des boutons +/− et remplacement des pictos SVG
+
+- **Boutons +/−** supprimés de chaque champ de saisie (encombrement, mauvaise lisibilité atelier) — fonctions JS `getIncStep` / `incField` et CSS `.inc-btn` retirés
+- **Pictos SVG** (clock, speed, rpm, feed…) remplacés par l'**abréviation du paramètre** (`vc`, `n`, `f`, `ap`, `DC`…) en Open Sans Condensed Bold 13 px couleur SPK Blue
+- Chaque ligne de saisie affiche : badge abréviation · libellé · champ · unité · bouton ✕
+
+### Icône écran d'accueil — canvas auto-généré *(remplacé en v1.7.1)*
+
+- Génération d'une icône 180×180 px par canvas (fond sombre, texte SPK, barre CERAMTEC)
+- Favicon 32×32 synchronisé
+
+---
+
+## v1.6.0 — 2026-04-24
+
+### UX & Interface
+
+- **Pictogrammes techniques** dans les badges des champs de saisie (clock, speed, rpm, feed, surf, chip, power, mrr…) via icônes SVG inline
+- **Ligne de calcul sélectionnée** mise en évidence (fond bleu pâle + bordure SPK blue)
+- **Bouton ✕ d'effacement rapide** sur chaque champ numérique
+- **Bugfix layout** : correction de débordements et espacements sur petits écrans
+
+---
+
 ## v1.5.0 — 2026-04-23
 
 ### Brand Update — SPK by CeramTec Design System
