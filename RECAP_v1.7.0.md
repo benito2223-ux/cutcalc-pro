@@ -1,7 +1,7 @@
 # CutCalc Pro v1.7.0 — Récapitulatif des modifications
 
-**Dernière mise à jour** : 18 mai 2026  
-**Fichiers modifiés** : `index.html`, `CHANGELOG.md`
+**Dernière mise à jour** : 18 mai 2026 (v1.8.0)  
+**Fichiers modifiés** : `index.html`, `CHANGELOG.md`, `sw.js`
 
 ---
 
@@ -40,6 +40,18 @@ Le logo (1254×1254 px) est intégré en base64 directement dans le HTML (512×5
 
 Un lien `<link id="app-manifest" rel="manifest">` a été ajouté dans le `<head>` ; le manifest JSON est généré en Blob URL au chargement, sans fichier externe.
 
+### 4. v1.7.1 — Service Worker offline (18 mai 2026)
+
+Ajout de `sw.js` (cache-first assets, network-first navigation). L'app fonctionne sans réseau après la première visite.
+
+### 5. v1.8.0 — 5 upgrades majeurs (18 mai 2026)
+
+- **Matériaux persistants** : `MAT_KC` / `MAT_HB` stockés en `localStorage`, restaurés à chaque `openCalc()`
+- **Unités mm/inch** : `setUnit()` convertit les valeurs saisies (÷/×25.4) et met à jour les labels `.inp-unit-lbl` en temps réel
+- **Export PDF** : `printResult(op)` génère un `#print-sheet` dynamique + `window.print()` ; `@media print` masque tout sauf la fiche
+- **Préférences persistantes** : `LANG`, `DARK`, `UNIT` sauvegardés au changement, restaurés au `load`
+- **Haptic + erreurs** : `navigator.vibrate(30)` sur résultat valide ; `'—'` rouge si valeur invalide
+
 ---
 
 ## Fichiers à uploader sur GitHub
@@ -71,6 +83,8 @@ surge "C:\Users\Admin\Documents\CeramTec\Cutcalc" cutcalc-spk.surge.sh
 
 | Version | Date | Résumé |
 |---|---|---|
+| v1.8.0 | 2026-05-18 | 5 upgrades : matériaux persistants, mm/inch, PDF, préfs, haptic |
+| v1.7.1 | 2026-05-18 | Service worker offline, logo réel PWA |
 | v1.7.0 | 2026-05-18 | Logo réel intégré (PWA icon iOS + Android), manifest dynamique |
 | v1.7.0 | 2026-04-24 | Suppression boutons +/−, abréviations remplacent les pictos SVG |
 | v1.6.0 | 2026-04-24 | Pictos techniques, ligne sélectionnée, champs ✕, bugfix layout |

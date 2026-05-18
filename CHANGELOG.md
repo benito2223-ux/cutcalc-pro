@@ -2,6 +2,18 @@
 
 ---
 
+## v1.8.0 — 2026-05-18
+
+### 5 upgrades majeurs
+
+- **Matériaux persistants** : la sélection Kc (force spécifique) et HB (dureté) est mémorisée via `localStorage` et restaurée automatiquement à chaque calcul — plus besoin de re-sélectionner sa matière à chaque fois
+- **Unités mm/inch** : le toggle existant effectue désormais une vraie conversion (×÷25.4) de tous les champs de saisie en temps réel ; les labels se mettent à jour instantanément
+- **Export PDF** : nouveau bouton 🖨 dans la barre de résultat (T / M / D) — génère une fiche de calcul formatée (titre, formule, paramètres, résultat, notes, date) imprimable / exportable en PDF via Safari ou Chrome
+- **Préférences persistantes** : langue, dark mode et unité sont sauvegardés dans `localStorage` et restaurés au démarrage — l'app retrouve son état au prochain lancement
+- **Haptic feedback & erreurs lisibles** : vibration 30 ms (`navigator.vibrate`) sur chaque résultat calculé ; affichage `—` rouge en lieu et place de `0` lorsque les entrées sont invalides ou manquantes
+
+---
+
 ## v1.7.1 — 2026-05-18
 
 ### Icône écran d'accueil — vrai logo (iOS + Android)
