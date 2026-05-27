@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CutCalc Pro — User Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Open+Sans+Condensed:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:   #1B5EA6;
+    --blue-d: #154d8a;
+    --red:    #E2001A;
+    --off:    #f5f7fa;
+    --gray:   #6b7280;
+    --dark:   #1a1f2e;
+    --border: #dde3ee;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10pt;
+    color: #1a1f2e;
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── PAGE LAYOUT ─────────────────────────────── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 13mm 15mm 14mm;
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  @page { size: A4 portrait; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; }
+    .no-print { display: none !important; }
+  }
+  @media screen {
+    body { background: #e8ecf4; padding: 20px 0 60px; }
+    .page { box-shadow: 0 4px 32px rgba(0,0,0,.15); margin: 24px auto; }
+  }
+
+  .stripe { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--blue) 70%, var(--red) 100%); }
+  .footer-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue) 70%, var(--red) 100%); }
+  .page-footer {
+    position: absolute; bottom: 5mm; left: 15mm; right: 15mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 7.5pt; color: #9ca3af;
+  }
+  .logo-sm { display: flex; align-items: center; gap: 5px; }
+  .spk-sm { background: var(--blue); color: #fff; font-weight: 700; font-size: 7pt; padding: 1px 4px; border-radius: 2px; }
+
+  /* ── COVER ───────────────────────────────────── */
+  .cover-bg { background: var(--dark); color: #fff; }
+
+  /* ── CHAPTER TITLE ───────────────────────────── */
+  .ch {
+    display: flex; align-items: center; gap: 9px;
+    margin-bottom: 5mm; margin-top: 3mm;
+  }
+  .ch-num {
+    min-width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blue); color: #fff;
+    font-size: 10pt; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ch-title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700; font-size: 17pt; color: var(--blue);
+  }
+  .ch-sub { font-size: 8.5pt; color: var(--gray); padding-left: 35px; margin-top: -3mm; margin-bottom: 5mm; }
+
+  /* ── STEP BOX ────────────────────────────────── */
+  .steps { display: flex; flex-direction: column; gap: 3mm; margin-bottom: 5mm; }
+  .step {
+    display: flex; align-items: flex-start; gap: 8px;
+    background: var(--off); border: 1px solid var(--border);
+    border-radius: 7px; padding: 4mm 5mm;
+  }
+  .step-n {
+    min-width: 22px; height: 22px; border-radius: 50%;
+    background: var(--blue); color: #fff; font-size: 9pt; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-body { flex: 1; font-size: 9pt; }
+  .step-body b { color: var(--blue); }
+
+  /* ── CARDS ───────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 5mm; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 4mm; margin-bottom: 5mm; }
+  .card {
+    background: var(--off); border: 1px solid var(--border);
+    border-radius: 7px; padding: 4mm 5mm;
+  }
+  .card-blue { background: var(--blue); color: #fff; border: none; }
+  .card-dark { background: var(--dark); color: #fff; border: none; }
+  .card-title { font-weight: 700; font-size: 9.5pt; margin-bottom: 2mm; }
+  .card-body { font-size: 8.5pt; color: var(--gray); line-height: 1.5; }
+  .card-blue .card-body, .card-dark .card-body { color: rgba(255,255,255,.75); }
+
+  /* ── FORMULA TABLE ───────────────────────────── */
+  table.tbl {
+    width: 100%; border-collapse: collapse;
+    font-size: 8.5pt; margin-bottom: 5mm;
+  }
+  table.tbl thead th {
+    background: var(--blue); color: #fff;
+    padding: 4px 7px; text-align: left;
+    font-weight: 700; font-size: 8pt;
+  }
+  table.tbl tbody td {
+    padding: 4px 7px; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.tbl tbody tr:nth-child(even) td { background: var(--off); }
+  table.tbl td.sym {
+    font-family: 'DM Mono', monospace; font-size: 8pt;
+    color: var(--blue); font-weight: 500; white-space: nowrap;
+  }
+  table.tbl td.fml {
+    font-family: 'DM Mono', monospace; font-size: 7.5pt; color: #374151;
+  }
+  table.tbl td.note { font-size: 7.5pt; color: var(--gray); font-style: italic; }
+
+  /* ── CALLOUT ─────────────────────────────────── */
+  .callout {
+    display: flex; gap: 8px; align-items: flex-start;
+    border-left: 4px solid var(--blue); padding: 3mm 5mm;
+    background: rgba(27,94,166,.06); border-radius: 0 6px 6px 0;
+    margin-bottom: 5mm; font-size: 9pt;
+  }
+  .callout.warn { border-left-color: var(--red); background: rgba(226,0,26,.05); }
+  .callout-icon { font-size: 14pt; flex-shrink: 0; }
+
+  /* ── KV TABLE ────────────────────────────────── */
+  .kv { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 5mm; }
+  .kv td { padding: 3px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .kv td:first-child {
+    width: 28mm; font-family: 'DM Mono', monospace;
+    color: var(--blue); font-weight: 500; font-size: 8pt;
+    white-space: nowrap;
+  }
+  .kv tr:nth-child(even) td { background: var(--off); }
+
+  /* ── CHECKLIST ───────────────────────────────── */
+  .ck { list-style: none; margin-bottom: 4mm; }
+  .ck li { display: flex; align-items: flex-start; gap: 6px; padding: 2px 0; font-size: 9pt; }
+  .ck li::before { content: '✓'; color: var(--blue); font-weight: 700; font-size: 10pt; flex-shrink: 0; line-height: 1.4; }
+
+  /* ── SECTION DIVIDER ─────────────────────────── */
+  .sdiv {
+    font-weight: 700; font-size: 8.5pt; color: var(--blue);
+    text-transform: uppercase; letter-spacing: .6px;
+    margin: 4mm 0 2mm; padding-bottom: 2mm;
+    border-bottom: 2px solid var(--blue);
+  }
+
+  /* ── PRINT BUTTON ────────────────────────────── */
+  .print-btn {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 100px;
+    padding: 12px 24px; font-size: 11pt; font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer; box-shadow: 0 4px 16px rgba(27,94,166,.4);
+    z-index: 100;
+  }
+  @media print { .print-btn { display: none; } }
+
+  code {
+    font-family: 'DM Mono', monospace; font-size: 8pt;
+    background: #e8ecf4; padding: 1px 5px; border-radius: 3px;
+  }
+
+  .hr { border: none; border-top: 1px solid var(--border); margin: 4mm 0; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">⬇ Save as PDF</button>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 1 — COVER                             -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page cover-bg">
+  <div class="stripe"></div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin-top:5mm;margin-bottom:55mm">
+    <div style="background:var(--blue);color:#fff;font-family:'Open Sans Condensed',sans-serif;font-weight:700;font-size:15pt;padding:4px 10px;border-radius:3px;letter-spacing:.5px">SPK</div>
+    <div style="width:1px;height:28px;background:rgba(255,255,255,.25)"></div>
+    <div style="font-size:8pt;color:rgba(255,255,255,.55);line-height:1.2;font-weight:600;text-transform:uppercase;letter-spacing:.8px">by<br>CeramTec</div>
+  </div>
+
+  <div style="font-family:'Open Sans Condensed',sans-serif;font-weight:700;font-size:40pt;letter-spacing:-1px;line-height:1;margin-bottom:4mm">
+    CutCalc<br><span style="color:var(--blue)">Pro</span>
+  </div>
+  <div style="font-size:18pt;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:12mm">
+    User Guide &amp; Formula Reference
+  </div>
+
+  <div style="width:100%;height:1px;background:rgba(255,255,255,.1);margin-bottom:8mm"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:10mm">
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5mm">
+      <div style="font-weight:700;font-size:9pt;margin-bottom:2mm">Covers</div>
+      <div style="font-size:8.5pt;color:rgba(255,255,255,.65);line-height:1.6">
+        Installation · Navigation · Input fields<br>
+        Turning · Milling · Drilling<br>
+        Settings · Tips &amp; Tricks
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5mm">
+      <div style="font-weight:700;font-size:9pt;margin-bottom:2mm">App Access</div>
+      <div style="font-size:8.5pt;color:rgba(255,255,255,.65);font-family:'DM Mono',monospace;line-height:2">
+        cutcalc-spk.surge.sh
+      </div>
+      <div style="font-size:8pt;color:rgba(255,255,255,.4);margin-top:2mm">Free · No account required</div>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:14mm;left:15mm;right:15mm;display:flex;justify-content:space-between;align-items:flex-end">
+    <span style="font-family:'DM Mono',monospace;font-size:9pt;color:rgba(255,255,255,.35)">v1.8.3 — May 2026</span>
+    <span style="font-size:8pt;color:rgba(255,255,255,.3)">SPK by CeramTec — Internal use</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 2 — INSTALLATION                      -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page">
+  <div class="stripe"></div>
+
+  <div class="ch" style="margin-top:4mm">
+    <div class="ch-num">1</div>
+    <div class="ch-title">Getting Started &amp; Installation</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon">ℹ</div>
+    <div>CutCalc Pro is a <strong>Progressive Web App (PWA)</strong>. No App Store. No download. Open the link in your browser and optionally install it to your home screen for a native-app experience.</div>
+  </div>
+
+  <div class="sdiv">Install on iPhone / iPad (Safari)</div>
+  <div class="steps" style="margin-bottom:5mm">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">Open <b>Safari</b> and go to <code>cutcalc-spk.surge.sh</code></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">Tap the <b>Share button</b> (⬆ square with arrow) at the bottom of the screen</div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">Scroll down and tap <b>"Add to Home Screen"</b></div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body">Confirm the name <b>CutCalc Pro</b> and tap <b>Add</b> — the SPK logo appears on your home screen</div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body">The app now <b>launches full-screen</b>, without the Safari address bar. Works offline from this point.</div>
+    </div>
+  </div>
+
+  <div class="sdiv">Install on Android (Chrome)</div>
+  <div class="steps" style="margin-bottom:5mm">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">Open <b>Chrome</b> and go to <code>cutcalc-spk.surge.sh</code></div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">Chrome may show an <b>"Add to Home Screen"</b> banner automatically — tap it</div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">Or tap the <b>⋮ menu → Add to Home Screen</b> manually</div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body">Tap <b>Install</b> — the app appears like a native app in your launcher</div>
+    </div>
+  </div>
+
+  <div class="sdiv">Offline Functionality</div>
+  <div class="callout">
+    <div class="callout-icon">📴</div>
+    <div>After the first visit, CutCalc Pro works <strong>100% offline</strong>. All fonts, formulas and assets are embedded in the app. No internet connection is needed for any calculation.</div>
+  </div>
+
+  <div class="sdiv">System Requirements</div>
+  <table class="tbl">
+    <thead><tr><th>Platform</th><th>Minimum version</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>iOS / iPadOS</td><td>Safari 14.1+</td><td>Add to Home Screen for PWA install</td></tr>
+      <tr><td>Android</td><td>Chrome 80+</td><td>Auto install banner supported</td></tr>
+      <tr><td>Desktop</td><td>Any modern browser</td><td>Chrome, Firefox, Safari, Edge</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <div class="logo-sm"><div class="spk-sm">SPK</div> CutCalc Pro — User Guide v1.8.3</div>
+    <span>2 / 7</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 3 — NAVIGATION                        -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page">
+  <div class="stripe"></div>
+
+  <div class="ch" style="margin-top:4mm">
+    <div class="ch-num">2</div>
+    <div class="ch-title">Interface Overview</div>
+  </div>
+
+  <div class="sdiv">Bottom Navigation Bar</div>
+  <table class="tbl" style="margin-bottom:5mm">
+    <thead><tr><th>Tab</th><th>Module</th><th>Sub-operations / content</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="sym">T</td>
+        <td><b>Turning</b></td>
+        <td>EXT (external) · FACE · GROOVE · CUTOFF — 4 sub-operations selectable from the top bar</td>
+      </tr>
+      <tr>
+        <td class="sym">M</td>
+        <td><b>Milling</b></td>
+        <td>All milling calculations in a single list (no sub-operations)</td>
+      </tr>
+      <tr>
+        <td class="sym">D</td>
+        <td><b>Drilling</b></td>
+        <td>All drilling calculations in a single list</td>
+      </tr>
+      <tr>
+        <td class="sym">ℹ</td>
+        <td><b>Info / Guide</b></td>
+        <td>Material table, round insert table, copyright and access to this guide</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sdiv">Performing a Calculation</div>
+  <div class="steps" style="margin-bottom:5mm">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body"><b>Select a tab</b> (T / M / D) at the bottom of the screen</div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">For Turning, <b>pick the sub-operation</b> (EXT · FACE · GROOVE · CUTOFF) in the top segment bar</div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body"><b>Tap the calculation</b> you want (e.g. "Cutting Speed vc") — it expands showing its input fields</div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body"><b>Fill in the values</b> — the result updates <em>in real time</em> as you type</div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body">The <b>result is displayed large</b> in the fixed header area, with the full formula below it</div>
+    </div>
+  </div>
+
+  <div class="sdiv">Input Field Anatomy</div>
+  <table class="tbl" style="margin-bottom:5mm">
+    <thead><tr><th>Element</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">vc</td><td>Abbreviation badge — instantly identifies the physical quantity. Colour: SPK Blue.</td></tr>
+      <tr><td class="sym">Label</td><td>Full parameter name (e.g. "Cutting speed") + symbol (e.g. <em>vc [m/min]</em>)</td></tr>
+      <tr><td class="sym">123</td><td>Numeric input — tap to open the phone keypad. Supports decimal point.</td></tr>
+      <tr><td class="sym">unit</td><td>Unit label to the right. Updates automatically when you switch mm ↔ inch.</td></tr>
+      <tr><td class="sym">✕</td><td>Clears <em>only this field</em>. Other values are preserved.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sdiv">Result Area (Top Header)</div>
+  <table class="tbl">
+    <thead><tr><th>Element</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">Value (60px)</td><td>The computed result. Shows <span style="color:var(--red);font-weight:700">—</span> in red if any input is invalid or missing.</td></tr>
+      <tr><td class="sym">Formula</td><td>The exact formula used, displayed below the value in monospace.</td></tr>
+      <tr><td class="sym">⬆ Share</td><td>Opens the native Share sheet (SMS, e-mail, clipboard) with result + all inputs + notes.</td></tr>
+      <tr><td class="sym">💾 Save</td><td>Saves to in-session history (last 5 per operation). Tap the clock icon to browse.</td></tr>
+      <tr><td class="sym">🖨 Print</td><td>Generates a formatted calculation sheet and opens the print / PDF dialog.</td></tr>
+      <tr><td class="sym">↺ Reset</td><td>Clears all fields for the current calculation.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <div class="logo-sm"><div class="spk-sm">SPK</div> CutCalc Pro — User Guide v1.8.3</div>
+    <span>3 / 7</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 4 — TURNING FORMULAS                  -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page">
+  <div class="stripe"></div>
+
+  <div class="ch" style="margin-top:4mm">
+    <div class="ch-num">3</div>
+    <div class="ch-title">Turning — Formula Reference</div>
+  </div>
+  <div class="ch-sub">Sub-operations: EXT (External) · FACE · GROOVE · CUTOFF</div>
+
+  <div class="callout">
+    <div class="callout-icon">📘</div>
+    <div>All formulas are sourced from the official <strong>SPK by CeramTec catalogue</strong>. Values in <em>italic</em> are constants or user-selected parameters (Kc, RE).</div>
+  </div>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:14mm">Symbol</th>
+        <th style="width:40mm">Parameter</th>
+        <th>Formula</th>
+        <th style="width:16mm">Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="sym">vc</td>
+        <td>Cutting speed</td>
+        <td class="fml">vc = (π × DC × n) / 1000</td>
+        <td>m/min</td>
+      </tr>
+      <tr>
+        <td class="sym">n</td>
+        <td>Spindle speed</td>
+        <td class="fml">n = (vc × 1000) / (π × DC)</td>
+        <td>RPM</td>
+      </tr>
+      <tr>
+        <td class="sym">vf</td>
+        <td>Table feed</td>
+        <td class="fml">vf = n × f</td>
+        <td>mm/min</td>
+      </tr>
+      <tr>
+        <td class="sym">Ra</td>
+        <td>Surface roughness</td>
+        <td class="fml">Ra = f² / (8 × RE)</td>
+        <td>μm</td>
+      </tr>
+      <tr>
+        <td class="sym">Pc</td>
+        <td>Net cutting power</td>
+        <td class="fml">Pc = (ap × f × vc × Kc) / (60 × 10³)</td>
+        <td>kW</td>
+      </tr>
+      <tr>
+        <td class="sym">H</td>
+        <td>Horsepower (SPK)</td>
+        <td class="fml">H = Pc / 0.75</td>
+        <td>HP</td>
+      </tr>
+      <tr>
+        <td class="sym">MRR</td>
+        <td>Material removal rate</td>
+        <td class="fml">MRR = ap × f × vc × 1000</td>
+        <td>cm³/min</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sdiv">Input Parameters — Turning</div>
+  <table class="kv">
+    <tr><td>DC</td><td>Workpiece / insert diameter (mm)</td></tr>
+    <tr><td>n</td><td>Spindle speed (RPM)</td></tr>
+    <tr><td>vc</td><td>Cutting speed (m/min)</td></tr>
+    <tr><td>f</td><td>Feed per revolution (mm/rev)</td></tr>
+    <tr><td>ap</td><td>Depth of cut (mm)</td></tr>
+    <tr><td>RE</td><td>Insert corner radius (mm) — used for Ra</td></tr>
+    <tr><td>Kc</td><td>Specific cutting force (N/mm²) — select from material table</td></tr>
+  </table>
+
+  <div class="sdiv">Material Table (Kc reference values)</div>
+  <table class="tbl">
+    <thead><tr><th>Material group</th><th>Kc (N/mm²) — typical range</th><th>HB</th></tr></thead>
+    <tbody>
+      <tr><td>Soft steel (low carbon)</td><td>1 400 – 1 800</td><td>120 – 200</td></tr>
+      <tr><td>Alloy steel</td><td>1 800 – 2 400</td><td>200 – 300</td></tr>
+      <tr><td>Hardened steel</td><td>2 400 – 3 500</td><td>300 – 65 HRC</td></tr>
+      <tr><td>Cast iron (grey)</td><td>800 – 1 200</td><td>150 – 220</td></tr>
+      <tr><td>Aluminium alloys</td><td>400 – 800</td><td>—</td></tr>
+      <tr><td>Stainless steel (austenitic)</td><td>1 800 – 2 500</td><td>150 – 220</td></tr>
+      <tr><td>Titanium alloys</td><td>1 200 – 1 800</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠</div>
+    <div>The <strong>Kc and HB</strong> values you select in the app are <strong>saved automatically</strong> (localStorage) and restored the next time you open a calculation — no need to re-enter the material on each session.</div>
+  </div>
+
+  <div class="page-footer">
+    <div class="logo-sm"><div class="spk-sm">SPK</div> CutCalc Pro — User Guide v1.8.3</div>
+    <span>4 / 7</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 5 — MILLING FORMULAS                  -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page">
+  <div class="stripe"></div>
+
+  <div class="ch" style="margin-top:4mm">
+    <div class="ch-num">4</div>
+    <div class="ch-title">Milling — Formula Reference</div>
+  </div>
+  <div class="ch-sub">Official SPK CeramTec catalogue formulas · Corrected v1.8.1</div>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:14mm">Symbol</th>
+        <th style="width:40mm">Parameter</th>
+        <th>Formula</th>
+        <th style="width:16mm">Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="sym">vc</td>
+        <td>Cutting speed</td>
+        <td class="fml">vc = (π × DC × n) / 1000</td>
+        <td>m/min</td>
+      </tr>
+      <tr>
+        <td class="sym">n</td>
+        <td>Spindle speed</td>
+        <td class="fml">n = (vc × 1000) / (π × DC)</td>
+        <td>RPM</td>
+      </tr>
+      <tr>
+        <td class="sym">vf</td>
+        <td>Table feed</td>
+        <td class="fml">vf = fz × z × n</td>
+        <td>mm/min</td>
+      </tr>
+      <tr>
+        <td class="sym">fz</td>
+        <td>Feed per tooth</td>
+        <td class="fml">fz = vf / (z × n)</td>
+        <td>mm/tooth</td>
+      </tr>
+      <tr>
+        <td class="sym" style="color:#c86000">hex</td>
+        <td>Chip thickness<br><em style="font-size:7.5pt">(ae ≤ DC/2 — partial engagement)</em></td>
+        <td class="fml">hex = 2 × fz × sin(κ) × √(ae/DC − (ae/DC)²)</td>
+        <td>mm</td>
+      </tr>
+      <tr>
+        <td class="sym" style="color:#c86000">hex</td>
+        <td>Chip thickness<br><em style="font-size:7.5pt">(ae &gt; DC/2 — full/over engagement)</em></td>
+        <td class="fml">hex = fz × sin(κ)</td>
+        <td>mm</td>
+      </tr>
+      <tr>
+        <td class="sym">hex₂</td>
+        <td>Chip thickness<br><em style="font-size:7.5pt">(round insert)</em></td>
+        <td class="fml">hex = 2 × fz × √(ap/IC − (ap/IC)²)</td>
+        <td>mm</td>
+      </tr>
+      <tr>
+        <td class="sym">ae</td>
+        <td>Radial width of cut</td>
+        <td class="fml">—</td>
+        <td>mm</td>
+      </tr>
+      <tr>
+        <td class="sym">ap</td>
+        <td>Axial depth of cut</td>
+        <td class="fml">—</td>
+        <td>mm</td>
+      </tr>
+      <tr>
+        <td class="sym">Pc</td>
+        <td>Net cutting power</td>
+        <td class="fml">Pc = (ae × ap × vf × Kc) / (60 × 10⁶)</td>
+        <td>kW</td>
+      </tr>
+      <tr>
+        <td class="sym">H</td>
+        <td>Horsepower (SPK)</td>
+        <td class="fml">H = Pc / 0.75</td>
+        <td>HP</td>
+      </tr>
+      <tr>
+        <td class="sym">MRR</td>
+        <td>Material removal rate</td>
+        <td class="fml">MRR = ae × ap × vf / 1000</td>
+        <td>cm³/min</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-icon">🤖</div>
+    <div>
+      <strong>Auto chip-thickness formula selection (v1.8.2):</strong> the app detects automatically whether <em>ae ≤ DC/2</em> (partial engagement) or <em>ae &gt; DC/2</em> (full/over engagement) and applies the correct formula. The formula string updates in real time below the result.
+    </div>
+  </div>
+
+  <div class="sdiv">Input Parameters — Milling</div>
+  <table class="kv">
+    <tr><td>DC</td><td>Cutter diameter (mm)</td></tr>
+    <tr><td>n</td><td>Spindle speed (RPM)</td></tr>
+    <tr><td>vc</td><td>Cutting speed (m/min)</td></tr>
+    <tr><td>fz</td><td>Feed per tooth (mm/tooth)</td></tr>
+    <tr><td>z</td><td>Number of teeth / flutes</td></tr>
+    <tr><td>ae</td><td>Radial width of cut (mm)</td></tr>
+    <tr><td>ap</td><td>Axial depth of cut (mm)</td></tr>
+    <tr><td>κ</td><td>Lead angle (°) — default 90° for square shoulder</td></tr>
+    <tr><td>IC</td><td>Insert inscribed circle diameter (mm) — round inserts only</td></tr>
+    <tr><td>Kc</td><td>Specific cutting force (N/mm²) — select from material table</td></tr>
+  </table>
+
+  <div class="page-footer">
+    <div class="logo-sm"><div class="spk-sm">SPK</div> CutCalc Pro — User Guide v1.8.3</div>
+    <span>5 / 7</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 6 — DRILLING + SETTINGS               -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page">
+  <div class="stripe"></div>
+
+  <div class="ch" style="margin-top:4mm">
+    <div class="ch-num">5</div>
+    <div class="ch-title">Drilling — Formula Reference</div>
+  </div>
+
+  <table class="tbl" style="margin-bottom:5mm">
+    <thead>
+      <tr>
+        <th style="width:14mm">Symbol</th>
+        <th style="width:40mm">Parameter</th>
+        <th>Formula</th>
+        <th style="width:16mm">Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="sym">vc</td>
+        <td>Cutting speed</td>
+        <td class="fml">vc = (π × DC × n) / 1000</td>
+        <td>m/min</td>
+      </tr>
+      <tr>
+        <td class="sym">n</td>
+        <td>Spindle speed</td>
+        <td class="fml">n = (vc × 1000) / (π × DC)</td>
+        <td>RPM</td>
+      </tr>
+      <tr>
+        <td class="sym">vf</td>
+        <td>Feed rate</td>
+        <td class="fml">vf = n × f</td>
+        <td>mm/min</td>
+      </tr>
+      <tr>
+        <td class="sym">f</td>
+        <td>Feed per revolution</td>
+        <td class="fml">f = vf / n</td>
+        <td>mm/rev</td>
+      </tr>
+      <tr>
+        <td class="sym">Pc</td>
+        <td>Net cutting power</td>
+        <td class="fml">Pc = (DC² × f × n × Kc) / (240 × 10³)</td>
+        <td>kW</td>
+      </tr>
+      <tr>
+        <td class="sym">H</td>
+        <td>Horsepower (SPK)</td>
+        <td class="fml">H = Pc / 0.75</td>
+        <td>HP</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sdiv">Input Parameters — Drilling</div>
+  <table class="kv" style="margin-bottom:6mm">
+    <tr><td>DC</td><td>Drill diameter (mm)</td></tr>
+    <tr><td>n</td><td>Spindle speed (RPM)</td></tr>
+    <tr><td>vc</td><td>Cutting speed (m/min)</td></tr>
+    <tr><td>f</td><td>Feed per revolution (mm/rev)</td></tr>
+    <tr><td>Kc</td><td>Specific cutting force (N/mm²)</td></tr>
+  </table>
+
+  <div class="ch">
+    <div class="ch-num">6</div>
+    <div class="ch-title">Settings &amp; Preferences</div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:5mm">
+    <div class="card">
+      <div class="card-title">🌍 Language</div>
+      <div class="card-body">Toggle between <strong>FR</strong> (French) and <strong>EN</strong> (English). All labels, units and the in-app guide switch immediately. Preference saved for next launch.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📏 Unit System</div>
+      <div class="card-body">Toggle between <strong>mm</strong> and <strong>inch</strong>. All input values are converted live (×÷25.4), all unit labels update. Preference saved automatically.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🌙 Dark Mode</div>
+      <div class="card-body">Full dark theme optimised for shop-floor use and OLED screens. Tap the moon icon in the header. Preference saved.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🧱 Material (Kc / HB)</div>
+      <div class="card-body">Select material group from the list. Kc and HB values are <strong>saved per material selection</strong> and auto-restored each time you open a calculation.</div>
+    </div>
+  </div>
+
+  <div class="sdiv">History &amp; Favourites</div>
+  <ul class="ck">
+    <li>The last <strong>5 calculations</strong> per operation are stored in-session. Tap the clock 🕐 icon in the result bar to open the history bottom sheet.</li>
+    <li>Tap any history entry to <strong>restore all input values</strong> exactly as they were.</li>
+    <li>Tap the <strong>star ★</strong> on any calculation in the list to mark it as a favourite — starred items float to the top and are persisted across sessions.</li>
+  </ul>
+
+  <div class="page-footer">
+    <div class="logo-sm"><div class="spk-sm">SPK</div> CutCalc Pro — User Guide v1.8.3</div>
+    <span>6 / 7</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 7 — TIPS + QUICK REF                  -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page">
+  <div class="stripe"></div>
+
+  <div class="ch" style="margin-top:4mm">
+    <div class="ch-num">7</div>
+    <div class="ch-title">Tips &amp; Quick Reference</div>
+  </div>
+
+  <div class="sdiv">Power User Tips</div>
+  <ul class="ck" style="margin-bottom:5mm">
+    <li><strong>Partial entry:</strong> you don't need to fill all fields — the result updates as soon as enough inputs are present. Missing fields show <span style="color:var(--red);font-weight:700">—</span>.</li>
+    <li><strong>Haptic confirmation:</strong> the phone vibrates briefly (30 ms) each time a valid result is computed — useful when you can't look at the screen.</li>
+    <li><strong>PDF calculation sheet:</strong> tap 🖨 to get a printable sheet with formula, all inputs, result, notes and date — ideal for documentation or work orders.</li>
+    <li><strong>Share:</strong> tap ⬆ to send the full calculation (parameters + result + notes) via SMS, email or copy to clipboard.</li>
+    <li><strong>Notes field:</strong> an expandable text area below inputs lets you add part name, material or operation notes — included in the share and print output.</li>
+    <li><strong>✕ button:</strong> clears only the tapped field — all other values stay. Use this to quickly test a different parameter.</li>
+    <li><strong>Reset ↺:</strong> clears all fields for the current calculation at once.</li>
+    <li><strong>Swipe navigation (Turning):</strong> swipe left/right on the input area to switch between EXT → FACE → GROOVE → CUTOFF.</li>
+  </ul>
+
+  <div class="sdiv">Quick Symbol Reference</div>
+  <table class="tbl" style="margin-bottom:5mm">
+    <thead><tr><th>Symbol</th><th>Full name</th><th>Typical unit</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">vc</td><td>Cutting speed</td><td>m/min</td></tr>
+      <tr><td class="sym">n</td><td>Spindle speed</td><td>RPM (min⁻¹)</td></tr>
+      <tr><td class="sym">f</td><td>Feed per revolution</td><td>mm/rev</td></tr>
+      <tr><td class="sym">fz</td><td>Feed per tooth</td><td>mm/tooth</td></tr>
+      <tr><td class="sym">vf</td><td>Table feed / feed rate</td><td>mm/min</td></tr>
+      <tr><td class="sym">ap</td><td>Axial depth of cut</td><td>mm</td></tr>
+      <tr><td class="sym">ae</td><td>Radial width of cut</td><td>mm</td></tr>
+      <tr><td class="sym">DC</td><td>Cutter / workpiece diameter</td><td>mm</td></tr>
+      <tr><td class="sym">RE</td><td>Insert corner radius</td><td>mm</td></tr>
+      <tr><td class="sym">IC</td><td>Insert inscribed circle (round)</td><td>mm</td></tr>
+      <tr><td class="sym">κ</td><td>Lead / entering angle</td><td>° (degrees)</td></tr>
+      <tr><td class="sym">z</td><td>Number of teeth / flutes</td><td>—</td></tr>
+      <tr><td class="sym">Kc</td><td>Specific cutting force</td><td>N/mm²</td></tr>
+      <tr><td class="sym">hex</td><td>Mean chip thickness</td><td>mm</td></tr>
+      <tr><td class="sym">Ra</td><td>Arithmetic mean surface roughness</td><td>μm</td></tr>
+      <tr><td class="sym">Pc</td><td>Net cutting power</td><td>kW</td></tr>
+      <tr><td class="sym">H</td><td>Horsepower (SPK convention: Pc/0.75)</td><td>HP</td></tr>
+      <tr><td class="sym">MRR</td><td>Material removal rate</td><td>cm³/min</td></tr>
+    </tbody>
+  </table>
+
+  <div style="display:flex;gap:5mm;align-items:stretch">
+    <div class="card card-blue" style="flex:1">
+      <div class="card-title">App URL</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10pt;margin:3mm 0;letter-spacing:.5px">cutcalc-spk.surge.sh</div>
+      <div class="card-body">Works on any browser · No login · Free</div>
+    </div>
+    <div class="card card-dark" style="flex:1">
+      <div class="card-title">Source Code</div>
+      <div style="font-family:'DM Mono',monospace;font-size:8.5pt;margin:3mm 0;word-break:break-all;color:rgba(255,255,255,.7)">github.com/benito2223-ux/cutcalc-pro</div>
+      <div class="card-body">v1.8.3 · MIT licence</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="logo-sm"><div class="spk-sm">SPK</div> CutCalc Pro — User Guide v1.8.3 · SPK by CeramTec · May 2026</div>
+    <span>7 / 7</span>
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+</body>
+</html>
