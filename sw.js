@@ -1,8 +1,7 @@
-const CACHE = 'cutcalc-v1.8.1';
+const CACHE = 'cutcalc-v1.8.3';
 const ASSETS = [
   './',
-  './index.html',
-  'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Open+Sans+Condensed:wght@700&family=DM+Mono:wght@400;500&display=swap'
+  './index.html'
 ];
 
 self.addEventListener('install', e => {

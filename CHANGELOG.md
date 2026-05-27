@@ -2,6 +2,17 @@
 
 ---
 
+## v1.8.3 — 2026-05-27
+
+### Fonctionnement 100% hors-ligne (offline)
+
+- **Polices embarquées en base64** : Open Sans (300/400/600/700), Open Sans Condensed (700) et DM Mono (400/500) sont désormais intégrées directement dans le HTML en tant que `@font-face` data URI (woff2 latin, ~312 KB base64) — aucune requête externe n'est nécessaire
+- **Suppression de la dépendance Google Fonts** : le `<link>` vers `fonts.googleapis.com` a été retiré ; `fonts.gstatic.com` n'est plus jamais appelé
+- **Service Worker mis à jour** : cache `cutcalc-v1.8.3`, Google Fonts retiré du tableau `ASSETS` — l'app démarre et s'affiche correctement sans réseau après la première visite
+- L'application est désormais entièrement autonome : HTML + CSS + JS + polices dans un seul fichier
+
+---
+
 ## v1.8.2 — 2026-05-27
 
 ### Épaisseur copeau fraisage — auto-sélection de formule

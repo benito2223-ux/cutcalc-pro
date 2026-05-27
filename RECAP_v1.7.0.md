@@ -1,6 +1,6 @@
 # CutCalc Pro v1.7.0 — Récapitulatif des modifications
 
-**Dernière mise à jour** : 27 mai 2026 (v1.8.2)  
+**Dernière mise à jour** : 27 mai 2026 (v1.8.3)  
 **Fichiers modifiés** : `index.html`, `CHANGELOG.md`, `sw.js`
 
 ---
@@ -83,6 +83,7 @@ surge "C:\Users\Admin\Documents\CeramTec\Cutcalc" cutcalc-spk.surge.sh
 
 | Version | Date | Résumé |
 |---|---|---|
+| v1.8.3 | 2026-05-27 | Polices embarquées base64 — app 100% offline, zéro dépendance externe |
 | v1.8.2 | 2026-05-27 | Fusion M_hex1/M_hex3 → auto-sélection formule selon ae/DC |
 | v1.8.1 | 2026-05-27 | Correction formules fraisage : hex1, hex2, H (source catalogue SPK) |
 | v1.8.0 | 2026-05-18 | 5 upgrades : matériaux persistants, mm/inch, PDF, préfs, haptic |
