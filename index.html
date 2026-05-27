@@ -872,7 +872,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.8.0';
+var VERSION='1.8.1';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -934,7 +934,7 @@ var T_ITEMS={
     {id:'T_h',  sym:'h',sub:'',unit:'μm',fr:'État de surface',en:'Surface Roughness',formula:'h = f²/(8×RE)×1000',ico:'surf'},
     {id:'T_hm', sym:'h',sub:'m',unit:'mm',fr:'Épaisseur copeau',en:'Chip Thickness',formula:'hm = f×sin(κr)',ico:'chip'},
     {id:'T_Pc', sym:'P',sub:'c',unit:'kW',fr:'Puissance requise',en:'Power Requirements',formula:'Pc = vc×f×ap×kc/(60000×η)',ico:'power'},
-    {id:'T_H',  sym:'H',sub:'',unit:'HP',fr:'Puissance en chevaux',en:'Horsepower',formula:'H = Pc×1.341',ico:'power'},
+    {id:'T_H',  sym:'H',sub:'',unit:'HP',fr:'Puissance en chevaux',en:'Horsepower',formula:'H = Pc/0.75',ico:'power'},
     {id:'T_Q',  sym:'Q',sub:'',unit:'cm³/min',fr:'Débit matière (MRR)',en:'Material Removal Rate',formula:'Q = vc×f×ap',ico:'mrr'},
     {id:'T_P',  sym:'P',sub:'',unit:'kN',fr:'Force de coupe',en:'Cutting Force',formula:'P = f×ap×kc/1000',ico:'force'},
   ],
@@ -968,11 +968,11 @@ var M_ITEMS=[
   {id:'M_n',  sym:'n',sub:'',unit:'min⁻¹',fr:'Vitesse broche',en:'Spindle Speed',formula:'n = 1000×vc/(π×DC)',ico:'rpm'},
   {id:'M_fz', sym:'f',sub:'z',unit:'mm/t',fr:'Avance par dent',en:'Feed per Tooth',formula:'fz = vf/(n×z)',ico:'feed'},
   {id:'M_vf', sym:'v',sub:'f',unit:'mm/min',fr:"Vitesse d'avance table",en:'Feed Speed',formula:'vf = fz×z×n',ico:'feed'},
-  {id:'M_hex1',sym:'h',sub:'ex1',unit:'mm',fr:'Épaisseur copeau (ae≤DC/2)',en:'Chip Thickness (ae≤DC/2)',formula:'hex1 = fz×sin(κ)×√(ae/DC)',ico:'chip'},
-  {id:'M_hex2',sym:'h',sub:'ex2',unit:'mm',fr:'Épaisseur copeau (plaq. ronde)',en:'Chip Thickness (R-insert)',formula:'hex2 = fz×√(ap/IC)',ico:'chip'},
+  {id:'M_hex1',sym:'h',sub:'ex1',unit:'mm',fr:'Épaisseur copeau (ae≤DC/2)',en:'Chip Thickness (ae≤DC/2)',formula:'hex1 = 2×fz×sin(κ)×√(ae/DC−(ae/DC)²)',ico:'chip'},
+  {id:'M_hex2',sym:'h',sub:'ex2',unit:'mm',fr:'Épaisseur copeau (plaq. ronde)',en:'Chip Thickness (R-insert)',formula:'hex2 = 2×fz×√(ap/IC−(ap/IC)²)',ico:'chip'},
   {id:'M_hex3',sym:'h',sub:'ex3',unit:'mm',fr:'Épaisseur copeau (ae>DC/2)',en:'Chip Thickness (ae>DC/2)',formula:'hex3 = fz×sin(κ)',ico:'chip'},
   {id:'M_Pc', sym:'P',sub:'c',unit:'kW',fr:'Puissance requise',en:'Power Requirements',formula:'Pc = Q×kc/(60000×η)',ico:'power'},
-  {id:'M_H',  sym:'H',sub:'',unit:'HP',fr:'Puissance en chevaux',en:'Horsepower',formula:'H = Pc×1.341',ico:'power'},
+  {id:'M_H',  sym:'H',sub:'',unit:'HP',fr:'Puissance en chevaux',en:'Horsepower',formula:'H = Pc/0.75',ico:'power'},
   {id:'M_Q',  sym:'Q',sub:'',unit:'cm³/min',fr:'Débit matière (MRR)',en:'Material Removal Rate',formula:'Q = vf×ap×ae/1000',ico:'mrr'},
 ];
 
@@ -1391,7 +1391,7 @@ function doCalc(){
       else{sv(op,g('fi_f')*Math.sin((g('fi_kr')||90)*Math.PI/180));}
       break;
     case 'T_Pc': sv(op,g('fi_vc')*g('fi_f')*g('fi_ap')*kv('fi_kc')/(60000*(g('fi_eta')||80)/100)); break;
-    case 'T_H':  sv(op,g('fi_Pc')*1.341); break;
+    case 'T_H':  sv(op,g('fi_Pc')/0.75); break;
     case 'T_Q':  sv(op,g('fi_vc')*g('fi_f')*g('fi_ap')); break;
     case 'T_P':  sv(op,g('fi_f')*g('fi_ap')*kv('fi_kc')/1000); break;
     // Milling
@@ -1400,10 +1400,10 @@ function doCalc(){
     case 'M_n':  sv(op,1000*g('fi_vc')/(Math.PI*g('fi_DC'))); break;
     case 'M_fz':{var n=1000*g('fi_vc')/(Math.PI*g('fi_DC'));sv(op,g('fi_vf')/(n*g('fi_z')));break;}
     case 'M_vf':{var n=1000*g('fi_vc')/(Math.PI*g('fi_DC'));sv(op,g('fi_fz')*g('fi_z')*n);break;}
-    case 'M_hex1':sv(op,g('fi_fz')*Math.sin((g('fi_k')||90)*Math.PI/180)*Math.sqrt(g('fi_ae')/g('fi_DC'))); break;
-    case 'M_hex2':{var ic=gv('fi_IC')||12.7;sv(op,g('fi_fz')*Math.sqrt(g('fi_ap')/ic));break;}
+    case 'M_hex1':{var r=g('fi_ae')/g('fi_DC');sv(op,2*g('fi_fz')*Math.sin((g('fi_k')||90)*Math.PI/180)*Math.sqrt(Math.max(0,r-r*r)));break;}
+    case 'M_hex2':{var ic=gv('fi_IC')||12.7,r=g('fi_ap')/ic;sv(op,2*g('fi_fz')*Math.sqrt(Math.max(0,r-r*r)));break;}
     case 'M_Pc': sv(op,g('fi_Q')*kv('fi_kc')/(60000*(g('fi_eta')||80)/100)); break;
-    case 'M_H':  sv(op,g('fi_Pc')*1.341); break;
+    case 'M_H':  sv(op,g('fi_Pc')/0.75); break;
     case 'M_Q':{var n=1000*g('fi_vc')/(Math.PI*g('fi_DC')),vf=g('fi_fz')*g('fi_z')*n;sv(op,vf*g('fi_ap')*g('fi_ae')/1000);break;}
     case 'M_hex3': sv(op,g('fi_fz')*Math.sin((g('fi_k')||90)*Math.PI/180)); break;
     // DRILLING — formulas per Sumitomo/ISO standard

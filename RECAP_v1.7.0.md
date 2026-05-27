@@ -83,6 +83,7 @@ surge "C:\Users\Admin\Documents\CeramTec\Cutcalc" cutcalc-spk.surge.sh
 
 | Version | Date | Résumé |
 |---|---|---|
+| v1.8.1 | 2026-05-27 | Correction formules fraisage : hex1, hex2, H (source catalogue SPK) |
 | v1.8.0 | 2026-05-18 | 5 upgrades : matériaux persistants, mm/inch, PDF, préfs, haptic |
 | v1.7.1 | 2026-05-18 | Service worker offline, logo réel PWA |
 | v1.7.0 | 2026-05-18 | Logo réel intégré (PWA icon iOS + Android), manifest dynamique |

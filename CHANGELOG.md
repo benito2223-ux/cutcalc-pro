@@ -2,6 +2,28 @@
 
 ---
 
+## v1.8.1 — 2026-05-27
+
+### Correction de formules — fraisage (source : catalogue officiel SPK CeramTec)
+
+- **M_hex1 — Épaisseur copeau (ae ≤ DC/2)** : formule corrigée
+  - ❌ Ancienne : `hex1 = fz × sin(κ) × √(ae/DC)`
+  - ✅ Officielle : `hex1 = 2 × fz × sin(κ) × √(ae/DC − (ae/DC)²)`
+  - Impact : résultat sous-estimé d'un facteur ~1.7 en engagement typique (ae = DC/4)
+
+- **M_hex2 — Épaisseur copeau plaquette ronde** : formule corrigée
+  - ❌ Ancienne : `hex2 = fz × √(ap/IC)`
+  - ✅ Officielle : `hex2 = 2 × fz × √(ap/IC − (ap/IC)²)`
+  - Impact : résultat sous-estimé d'un facteur ~1.7 en engagement typique (ap = IC/4)
+
+- **T_H et M_H — Puissance en chevaux** : facteur de conversion corrigé
+  - ❌ Ancien : `H = Pc × 1.341` (HP mécaniques US)
+  - ✅ Officiel SPK : `H = Pc / 0.75` (convention catalogue CeramTec)
+
+- Strings de formule dans le guide mis à jour en cohérence
+
+---
+
 ## v1.8.0 — 2026-05-18
 
 ### 5 upgrades majeurs
