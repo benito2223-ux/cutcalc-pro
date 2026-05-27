@@ -2,6 +2,24 @@
 
 ---
 
+## v1.8.2 — 2026-05-27
+
+### Épaisseur copeau fraisage — auto-sélection de formule
+
+- **M_hex1 + M_hex3 fusionnés** en une seule entrée **"Épaisseur copeau fraise"** (`M_hex`)
+- L'app détecte automatiquement le régime selon `ae` vs `DC/2` :
+  - `ae ≤ DC/2` → `hex = 2×fz×sin(κ)×√(ae/DC−(ae/DC)²)`
+  - `ae > DC/2` → `hex = fz×sin(κ)`
+- La formule affichée sous le résultat se met à jour en temps réel selon le régime détecté
+- **M_hex2** (plaquette ronde) conservé séparément — inputs différents (`ap`, `IC`)
+
+### Suppression du mode atelier
+
+- Bouton ☀, CSS `.workshop-mode`, variable `WORKSHOP` et fonction `toggleWorkshop()` supprimés
+- Entrée retirée du guide utilisateur
+
+---
+
 ## v1.8.1 — 2026-05-27
 
 ### Correction de formules — fraisage (source : catalogue officiel SPK CeramTec)
