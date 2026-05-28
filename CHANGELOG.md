@@ -2,6 +2,19 @@
 
 ---
 
+## v1.8.4 — 2026-05-28
+
+### Correction T_hm — Épaisseur copeau tournage plaquette ronde
+
+- **Formule corrigée** (tournage, mode plaquette ronde) :
+  - ❌ Ancienne : `hm = fr × √(ap/IC)` — sous-estimait le résultat (~45%)
+  - ✅ SPK officielle : `Kr = arccos(1 − ap/R)` puis `hm = fr × sin(Kr)` avec `R = IC/2`
+  - Exemple RNGN 12 (IC=12,70 mm, R=6,35 mm), ap=2 mm, fr=0,15 mm :
+    - Avant : **0,060 mm** ✗ → Après : **0,109 mm** ✓
+- La formule affichée sous le résultat se met à jour dynamiquement en mode plaquette ronde
+
+---
+
 ## v1.8.3 — 2026-05-27
 
 ### Fonctionnement 100% hors-ligne (offline)

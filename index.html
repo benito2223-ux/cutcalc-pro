@@ -921,7 +921,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.8.3';
+var VERSION='1.8.4';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -1432,7 +1432,15 @@ function doCalc(){
     case 'T_h':   sv(op,g('fi_f')**2/(8*g('fi_RE'))*1000); break;
     case 'T_hm':
       var isRnd=document.getElementById('blk-rnd')&&document.getElementById('blk-rnd').style.display!=='none';
-      if(isRnd){var ic=gv('fi_IC')||12.7;sv(op,g('fi_fr')*Math.sqrt(g('fi_ap')/ic));}
+      if(isRnd){
+        var ic=gv('fi_IC')||12.7;
+        var R=ic/2;
+        var apv=g('fi_ap');
+        var Kr=Math.acos(Math.max(-1,Math.min(1,1-apv/R)));
+        var fEl=document.getElementById('cT_hm-formula');
+        if(fEl)fEl.textContent='hm = fr×sin(Kr)  —  Kr = arccos(1−ap/R), R = IC/2';
+        sv(op,g('fi_fr')*Math.sin(Kr));
+      }
       else{sv(op,g('fi_f')*Math.sin((g('fi_kr')||90)*Math.PI/180));}
       break;
     case 'T_Pc': sv(op,g('fi_vc')*g('fi_f')*g('fi_ap')*kv('fi_kc')/(60000*(g('fi_eta')||80)/100)); break;
