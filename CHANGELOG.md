@@ -2,6 +2,26 @@
 
 ---
 
+## v1.9.0 — 2026-06-03
+
+### Refonte UI — lisibilité & ergonomie atelier
+
+- **Header désencombré** : les toggles FR/EN et mm/inch sont déplacés dans un nouveau **panneau Réglages** (icône engrenage) qui glisse du bas. Le header ne garde que logo + Réglages + Historique + Mode sombre.
+- **Pictogrammes T/M/D redessinés** (barre de navigation) en vues de profil reconnaissables : tournage (pièce horizontale + outil), fraisage (fraise à bout plat), perçage (foret pointu dans un bloc).
+- **Pictogrammes sous-opérations** (EXT/FACE/GORGE/TRONÇ.) redessinés et **labels texte ajoutés** ; état actif avec fond bleu plein. GORGE vs TRONÇONNAGE nettement différenciés (rainure au milieu vs pièce qui se détache).
+- **Zone résultat** : valeur agrandie 52→76 px, formule 9→13 px, unité 13→18 px, badge grandeur en pastille, boutons d'action 28→44 px (cibles tactiles atelier).
+- **Champs de saisie aérés** : lignes 52→60 px, badges 34→38 px, champ de saisie 38→44 px / 20 px.
+- **Cartes de liste** : formule 10→11 px, chevron plus visible.
+- **Mode sombre** vérifié sur l'ensemble de la refonte.
+
+### Corrections
+
+- Formule périmée dans le guide intégré : `hm = f × √(ap/IC)` → `hm = f × sin(Kr)` (cohérent avec le moteur v1.8.4).
+- Versions périmées (guide + à-propos) harmonisées en v1.9.0.
+- Service Worker : cache `cutcalc-v1.9.0`.
+
+---
+
 ## v1.8.4 — 2026-05-28
 
 ### Correction T_hm — Épaisseur copeau tournage plaquette ronde
