@@ -761,7 +761,7 @@ input[type=number]{-moz-appearance:textfield}
       </div>
       <div class="info-sec">
         <h3 data-fr="Plaquettes rondes" data-de="Rundwendeplatten" data-en="Round Inserts">Plaquettes rondes</h3>
-        <p data-fr="IC 6,35 / 9,52 / 12,70 / 19,07 mm — Formule hm = f × √(ap/IC) valide pour ap &lt; IC/2." data-de="IC 6,35 / 9,52 / 12,70 / 19,07 mm — Formel hm = f × √(ap/IC) gültig für ap &lt; IC/2." data-en="IC 6.35 / 9.52 / 12.70 / 19.07 mm — Formula hm = f × √(ap/IC) valid for ap &lt; IC/2.">IC 6,35 / 9,52 / 12,70 / 19,07 mm — Formule hm = f × √(ap/IC) valide pour ap &lt; IC/2.</p>
+        <p data-fr="IC 6,35 / 9,52 / 12,70 / 19,07 mm — Formule hm = f × sin(Kr), avec Kr = arccos(1 − ap/R) et R = IC/2. Valide pour ap ≤ IC/2." data-de="IC 6,35 / 9,52 / 12,70 / 19,07 mm — Formel hm = f × sin(Kr), mit Kr = arccos(1 − ap/R) und R = IC/2. Gültig für ap ≤ IC/2." data-en="IC 6.35 / 9.52 / 12.70 / 19.07 mm — Formula hm = f × sin(Kr), with Kr = arccos(1 − ap/R) and R = IC/2. Valid for ap ≤ IC/2.">IC 6,35 / 9,52 / 12,70 / 19,07 mm — Formule hm = f × sin(Kr), avec Kr = arccos(1 − ap/R) et R = IC/2. Valide pour ap ≤ IC/2.</p>
       </div>
       <div class="info-sec">
         <h3>Copyright</h3>
@@ -880,7 +880,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.2';
+var VERSION='1.9.3';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -1907,7 +1907,7 @@ function shareResult(op){
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.2" data-de="Bedienungsanleitung · v1.9.2" data-en="User Guide · v1.9.2">Guide d'utilisation · v1.9.2</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.3" data-de="Bedienungsanleitung · v1.9.3" data-en="User Guide · v1.9.3">Guide d'utilisation · v1.9.3</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2087,7 +2087,7 @@ function shareResult(op){
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.2 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.3 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
