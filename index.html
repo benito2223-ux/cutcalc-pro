@@ -880,7 +880,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.3';
+var VERSION='1.9.4';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -1247,7 +1247,9 @@ function buildInputs(id){
           '<option value="9.52">IC 9,52 mm (RCGX 09)</option>'+
           '<option value="12.7" selected>IC 12,70 mm (RCGX 12)</option>'+
           '<option value="19.07">IC 19,07 mm (RCGX 19)</option>'+
-          '</select></div>')+
+          '</select></div>'+
+          '<div class="sel-row"><div class="sel-lbl">'+tr('Ø IC hors standard (mm)','Custom IC Ø (mm)','Eigener IC-Ø (mm)')+'</div>'+
+          '<input class="sel-field" type="number" inputmode="decimal" pattern="[0-9]*" id="fi_ICc" placeholder="—" oninput="doCalc()"></div>')+
         '<div class="info-box"><div class="info-box-title" data-fr="Info plaquette ronde" data-de="Info Rundwendeplatte" data-en="Round insert info">'+tr('Info plaquette ronde','Round insert info','Info Rundwendeplatte')+'</div>'+
         '<div class="info-box-body" data-fr="Formule valide pour ap &lt; IC/2. La plaquette ronde génère un κr variable qui réduit les efforts et améliore la durée de vie outil." data-de="Formel gültig für ap &lt; IC/2. Die Rundplatte erzeugt einen variablen κr, der die Kräfte reduziert und die Werkzeugstandzeit erhöht." data-en="Formula valid for ap &lt; IC/2. Round inserts generate a variable κr reducing cutting forces and improving tool life.">'+tr('Formule valide pour ap &lt; IC/2. La plaquette ronde génère un κr variable qui réduit les efforts et améliore la durée de vie outil.','Formula valid for ap &lt; IC/2. Round inserts generate a variable κr reducing cutting forces and improving tool life.','Formel gültig für ap &lt; IC/2. Die Rundplatte erzeugt einen variablen κr, der die Kräfte reduziert und die Werkzeugstandzeit erhöht.')+'</div></div>'+
         '</div>';
@@ -1301,7 +1303,9 @@ function buildInputs(id){
       '<select class="sel-field" id="fi_IC" onchange="doCalc()">'+
       '<option value="6.35">IC 6,35 mm</option><option value="9.52">IC 9,52 mm</option>'+
       '<option value="12.7" selected>IC 12,70 mm</option><option value="19.07">IC 19,07 mm</option>'+
-      '</select></div>');
+      '</select></div>'+
+      '<div class="sel-row"><div class="sel-lbl">'+tr('Ø IC hors standard (mm)','Custom IC Ø (mm)','Eigener IC-Ø (mm)')+'</div>'+
+      '<input class="sel-field" type="number" inputmode="decimal" pattern="[0-9]*" id="fi_ICc" placeholder="—" oninput="doCalc()"></div>');
     case 'M_Pc': return wrap(
       row('mrr',tr('Débit matière Q','Material Removal Rate Q','Zeitspanvolumen Q'),'Q [cm³/min]','fi_Q','cm³/min','R')+
       selRow(tr('Matière / kc','Material / kc','Werkstoff / kc'),'fi_kc',kco())+
@@ -1391,16 +1395,19 @@ function doCalc(){
     case 'T_h':   sv(op,g('fi_f')**2/(8*g('fi_RE'))*1000); break;
     case 'T_hm':
       var isRnd=document.getElementById('blk-rnd')&&document.getElementById('blk-rnd').style.display!=='none';
+      var fEl=document.getElementById('c'+op+'-formula');
       if(isRnd){
-        var ic=gv('fi_IC')||12.7;
+        var ic=gv('fi_ICc')||gv('fi_IC')||12.7;
         var R=ic/2;
         var apv=g('fi_ap');
         var Kr=Math.acos(Math.max(-1,Math.min(1,1-apv/R)));
-        var fEl=document.getElementById('cT_hm-formula');
         if(fEl)fEl.textContent='hm = fr×sin(Kr)  —  Kr = arccos(1−ap/R), R = IC/2';
         sv(op,g('fi_fr')*Math.sin(Kr));
       }
-      else{sv(op,g('fi_f')*Math.sin((g('fi_kr')||90)*Math.PI/180));}
+      else{
+        if(fEl)fEl.textContent='hm = f×sin(κr)';
+        sv(op,g('fi_f')*Math.sin((g('fi_kr')||90)*Math.PI/180));
+      }
       break;
     case 'T_Pc': sv(op,g('fi_vc')*g('fi_f')*g('fi_ap')*kv('fi_kc')/(60000*(g('fi_eta')||80)/100)); break;
     case 'T_H':  sv(op,g('fi_Pc')/0.75); break;
@@ -1423,7 +1430,7 @@ function doCalc(){
         sv(op,fz*Math.sin(k));
       }
       break;}
-    case 'M_hex2':{var ic=gv('fi_IC')||12.7,r=g('fi_ap')/ic;sv(op,2*g('fi_fz')*Math.sqrt(Math.max(0,r-r*r)));break;}
+    case 'M_hex2':{var ic=gv('fi_ICc')||gv('fi_IC')||12.7,r=g('fi_ap')/ic;sv(op,2*g('fi_fz')*Math.sqrt(Math.max(0,r-r*r)));break;}
     case 'M_Pc': sv(op,g('fi_Q')*kv('fi_kc')/(60000*(g('fi_eta')||80)/100)); break;
     case 'M_H':  sv(op,g('fi_Pc')/0.75); break;
     case 'M_Q':{var n=1000*g('fi_vc')/(Math.PI*g('fi_DC')),vf=g('fi_fz')*g('fi_z')*n;sv(op,vf*g('fi_ap')*g('fi_ae')/1000);break;}
@@ -1463,6 +1470,7 @@ function hmSw(m){
   document.getElementById('seg-rnd').classList.toggle('on',m==='rnd');
   document.getElementById('blk-std').style.display=m==='std'?'block':'none';
   document.getElementById('blk-rnd').style.display=m==='rnd'?'block':'none';
+  if(typeof doCalc==='function')doCalc();
 }
 
 // ═══════════════════════════
@@ -1907,7 +1915,7 @@ function shareResult(op){
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.3" data-de="Bedienungsanleitung · v1.9.3" data-en="User Guide · v1.9.3">Guide d'utilisation · v1.9.3</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.4" data-de="Bedienungsanleitung · v1.9.4" data-en="User Guide · v1.9.4">Guide d'utilisation · v1.9.4</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2087,7 +2095,7 @@ function shareResult(op){
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.3 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.4 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
