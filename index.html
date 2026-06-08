@@ -880,7 +880,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.4';
+var VERSION='1.9.5';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -935,7 +935,7 @@ function hbd(){return LANG==='fr'?HB_D:HB_D_EN;}
 var T_ITEMS={
   ext:[
     {id:'T_Tc1',sym:'T',sub:'c',unit:'sec',fr:'Temps de coupe · Réf. n',de:'Schnittzeit · Ref. n',en:'Cutting Time · Ref. n',formula:'Tc = L/(f×n)×60',ico:'clock'},
-    {id:'T_Tc2',sym:'T',sub:'1',unit:'sec',fr:'Temps de coupe · Réf. vc',de:'Schnittzeit · Ref. vc',en:'Cutting Time · Ref. vc',formula:'T1 = π×Dm×L/(vc×f×1000)',ico:'clock'},
+    {id:'T_Tc2',sym:'T',sub:'1',unit:'sec',fr:'Temps de coupe · Réf. vc',de:'Schnittzeit · Ref. vc',en:'Cutting Time · Ref. vc',formula:'T1 = π×Dm×L×60/(vc×f×1000)',ico:'clock'},
     {id:'T_vc', sym:'V',sub:'c',unit:'m/min',fr:'Vitesse de coupe',de:'Schnittgeschwindigkeit',en:'Cutting Speed',formula:'vc = π×Dm×n/1000',ico:'speed'},
     {id:'T_n',  sym:'n',sub:'',unit:'min⁻¹',fr:'Vitesse broche',de:'Spindeldrehzahl',en:'Spindle Speed',formula:'n = 1000×vc/(π×Dm)',ico:'rpm'},
     {id:'T_f',  sym:'f',sub:'',unit:'mm/rev',fr:'Avance par tour',de:'Vorschub pro U',en:'Feed per Revolution',formula:'f = l/n',ico:'feed'},
@@ -947,8 +947,8 @@ var T_ITEMS={
     {id:'T_P',  sym:'P',sub:'',unit:'kN',fr:'Force de coupe',de:'Schnittkraft',en:'Cutting Force',formula:'P = f×ap×kc/1000',ico:'force'},
   ],
   face:[
-    {id:'T_Tc3',sym:'T',sub:'c',unit:'sec',fr:'Temps Tc · Réf. n',de:'Zeit Tc · Ref. n',en:'Cutting Time Tc · Ref. n',formula:'π(D1²−D2²)×N/(4×f×n×1000)×60',ico:'clock'},
-    {id:'T_Tc4',sym:'T',sub:'1',unit:'sec',fr:'Temps T1 · Réf. vc',de:'Zeit T1 · Ref. vc',en:'Cutting Time T1 · Ref. vc',formula:'π(D1²−D2²)×N/(4×f×vc×1000)',ico:'clock'},
+    {id:'T_Tc3',sym:'T',sub:'c',unit:'sec',fr:'Temps Tc · Réf. n',de:'Zeit Tc · Ref. n',en:'Cutting Time Tc · Ref. n',formula:'(D1−D2)×N/(2×f×n)×60',ico:'clock'},
+    {id:'T_Tc4',sym:'T',sub:'1',unit:'sec',fr:'Temps T1 · Réf. vc',de:'Zeit T1 · Ref. vc',en:'Cutting Time T1 · Ref. vc',formula:'π(D1²−D2²)×N/(4×f×vc×1000)×60',ico:'clock'},
     {id:'T_vc', sym:'V',sub:'c',unit:'m/min',fr:'Vitesse de coupe',de:'Schnittgeschwindigkeit',en:'Cutting Speed',formula:'vc = π×Dm×n/1000',ico:'speed'},
     {id:'T_n',  sym:'n',sub:'',unit:'min⁻¹',fr:'Vitesse broche',de:'Spindeldrehzahl',en:'Spindle Speed',formula:'n = 1000×vc/(π×Dm)',ico:'rpm'},
     {id:'T_Pc', sym:'P',sub:'c',unit:'kW',fr:'Puissance requise',de:'Leistungsbedarf',en:'Power Requirements',formula:'Pc = vc×f×ap×kc/(60000×η)',ico:'power'},
@@ -956,15 +956,15 @@ var T_ITEMS={
   ],
   groove:[
     {id:'T_Tc5',sym:'T',sub:'c',unit:'sec',fr:'Temps Tc · Réf. n',de:'Zeit Tc · Ref. n',en:'Cutting Time Tc · Ref. n',formula:'(D1−D2)/(2×f×n)×60',ico:'clock'},
-    {id:'T_Tc6',sym:'T',sub:'1',unit:'sec',fr:'Temps T1 · Réf. vc',de:'Zeit T1 · Ref. vc',en:'Cutting Time T1 · Ref. vc',formula:'π(D1²−D2²)/(4×f×vc×1000)',ico:'clock'},
+    {id:'T_Tc6',sym:'T',sub:'1',unit:'sec',fr:'Temps T1 · Réf. vc',de:'Zeit T1 · Ref. vc',en:'Cutting Time T1 · Ref. vc',formula:'π(D1²−D2²)/(4×f×vc×1000)×60',ico:'clock'},
     {id:'T_vc', sym:'V',sub:'c',unit:'m/min',fr:'Vitesse de coupe',de:'Schnittgeschwindigkeit',en:'Cutting Speed',formula:'vc = π×Dm×n/1000',ico:'speed'},
     {id:'T_n',  sym:'n',sub:'',unit:'min⁻¹',fr:'Vitesse broche',de:'Spindeldrehzahl',en:'Spindle Speed',formula:'n = 1000×vc/(π×Dm)',ico:'rpm'},
     {id:'T_Pc', sym:'P',sub:'c',unit:'kW',fr:'Puissance requise',de:'Leistungsbedarf',en:'Power Requirements',formula:'Pc = vc×f×ap×kc/(60000×η)',ico:'power'},
   ],
   cutoff:[
     {id:'T_Tc7',sym:'T',sub:'c',unit:'sec',fr:'Temps Tc · Réf. n',de:'Zeit Tc · Ref. n',en:'Cutting Time Tc · Ref. n',formula:'D1/(2×f×n)×60',ico:'clock'},
-    {id:'T_Tc8',sym:'T',sub:'1',unit:'sec',fr:'Temps T1 · Réf. vc',de:'Zeit T1 · Ref. vc',en:'Cutting Time T1 · Ref. vc',formula:'π×D1×(D1−D3)/(2×f×vc×1000)',ico:'clock'},
-    {id:'T_Tc9',sym:'T',sub:'2',unit:'sec',fr:'Temps T2 · Réf. nmax',de:'Zeit T2 · Ref. nmax',en:'Cutting Time T2 · Ref. nmax',formula:'T1−π×D3²/(4×f×nmax×1000)×60',ico:'clock'},
+    {id:'T_Tc8',sym:'T',sub:'1',unit:'sec',fr:'Temps T1 · Réf. vc',de:'Zeit T1 · Ref. vc',en:'Cutting Time T1 · Ref. vc',formula:'π(D1²−D3²)/(4×f×vc×1000)×60',ico:'clock'},
+    {id:'T_Tc9',sym:'T',sub:'2',unit:'sec',fr:'Temps T2 · Réf. nmax',de:'Zeit T2 · Ref. nmax',en:'Cutting Time T2 · Ref. nmax',formula:'T1 + D3/(2×f×nmax)×60',ico:'clock'},
     {id:'T_vc', sym:'V',sub:'c',unit:'m/min',fr:'Vitesse de coupe',de:'Schnittgeschwindigkeit',en:'Cutting Speed',formula:'vc = π×Dm×n/1000',ico:'speed'},
     {id:'T_n',  sym:'n',sub:'',unit:'min⁻¹',fr:'Vitesse broche',de:'Spindeldrehzahl',en:'Spindle Speed',formula:'n = 1000×vc/(π×Dm)',ico:'rpm'},
   ]
@@ -1381,14 +1381,14 @@ function doCalc(){
   var op=CALC_OP, id=CALC_ID;
   switch(id){
     case 'T_Tc1': sv(op,g('fi_L')/(g('fi_f')*g('fi_n'))*60); break;
-    case 'T_Tc2': sv(op,Math.PI*g('fi_Dm')*g('fi_L')/(1000*g('fi_vc')*g('fi_f'))); break;
-    case 'T_Tc3':{var N=g('fi_N')||1;sv(op,Math.PI*(g('fi_D1')**2-g('fi_D2')**2)*N/(4*g('fi_f')*g('fi_n')*1000)*60);break;}
-    case 'T_Tc4':{var N=g('fi_N')||1;sv(op,Math.PI*(g('fi_D1')**2-g('fi_D2')**2)*N/(4*g('fi_f')*g('fi_vc')*1000));break;}
+    case 'T_Tc2': sv(op,Math.PI*g('fi_Dm')*g('fi_L')*60/(1000*g('fi_vc')*g('fi_f'))); break;
+    case 'T_Tc3':{var N=g('fi_N')||1;sv(op,(g('fi_D1')-g('fi_D2'))*N/(2*g('fi_f')*g('fi_n'))*60);break;}
+    case 'T_Tc4':{var N=g('fi_N')||1;sv(op,Math.PI*(g('fi_D1')**2-g('fi_D2')**2)*N/(4*g('fi_f')*g('fi_vc')*1000)*60);break;}
     case 'T_Tc5': sv(op,(g('fi_D1')-g('fi_D2'))/(2*g('fi_f')*g('fi_n'))*60); break;
-    case 'T_Tc6': sv(op,Math.PI*(g('fi_D1')**2-g('fi_D2')**2)/(4*g('fi_f')*g('fi_vc')*1000)); break;
+    case 'T_Tc6': sv(op,Math.PI*(g('fi_D1')**2-g('fi_D2')**2)/(4*g('fi_f')*g('fi_vc')*1000)*60); break;
     case 'T_Tc7': sv(op,g('fi_D1')/(2*g('fi_f')*g('fi_n'))*60); break;
-    case 'T_Tc8': sv(op,Math.PI*g('fi_D1')*(g('fi_D1')-g('fi_D3'))/(2*g('fi_f')*g('fi_vc')*1000)); break;
-    case 'T_Tc9': sv(op,g('fi_T1')-Math.PI*g('fi_D3')**2/(4*g('fi_f')*g('fi_nmax')*1000)*60); break;
+    case 'T_Tc8': sv(op,Math.PI*(g('fi_D1')**2-g('fi_D3')**2)/(4*g('fi_f')*g('fi_vc')*1000)*60); break;
+    case 'T_Tc9': sv(op,g('fi_T1')+g('fi_D3')/(2*g('fi_f')*g('fi_nmax'))*60); break;
     case 'T_vc':  sv(op,Math.PI*g('fi_Dm')*g('fi_n')/1000); break;
     case 'T_n':   sv(op,1000*g('fi_vc')/(Math.PI*g('fi_Dm'))); break;
     case 'T_f':   sv(op,g('fi_l')/(1000*g('fi_vc')/(Math.PI*g('fi_Dm')))); break;
@@ -1915,7 +1915,7 @@ function shareResult(op){
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.4" data-de="Bedienungsanleitung · v1.9.4" data-en="User Guide · v1.9.4">Guide d'utilisation · v1.9.4</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.5" data-de="Bedienungsanleitung · v1.9.5" data-en="User Guide · v1.9.5">Guide d'utilisation · v1.9.5</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2095,7 +2095,7 @@ function shareResult(op){
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.4 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.5 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
