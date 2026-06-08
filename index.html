@@ -880,7 +880,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.5';
+var VERSION='1.9.6';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -989,8 +989,8 @@ var D_ITEMS=[
   {id:'D_n',  sym:'n',sub:'', unit:'min⁻¹',fr:'Vitesse broche',     en:'Spindle Speed',          formula:'n = 1000×vc/(π×DC)',          ico:'rpm'},
   {id:'D_f',  sym:'f',sub:'', unit:'mm/rev',fr:'Avance par tour',    en:'Feed per Rev.',          formula:'f = vf/n',                    ico:'feed'},
   {id:'D_vf', sym:'v',sub:'f',unit:'mm/min',fr:"Vitesse d'avance",  en:'Feed Speed',             formula:'vf = f×n',                    ico:'feed'},
-  {id:'D_Pc', sym:'P',sub:'c',unit:'kW',   fr:'Puissance requise',  en:'Power Requirements',     formula:'Pc = Q×kc/(60000×η)',         ico:'power'},
-  {id:'D_F',  sym:'F',sub:'', unit:'N',    fr:'Force de poussée',   en:'Thrust Force',           formula:'F = 400×DC×f^0.8×(HB/190)^0.6',ico:'force'},
+  {id:'D_Pc', sym:'P',sub:'c',unit:'kW',   fr:'Puissance requise',  en:'Power Requirements',     formula:'Pc = HB×DC^0.88×vc^1.27×f^0.59/36000',         ico:'power'},
+  {id:'D_F',  sym:'F',sub:'', unit:'N',    fr:'Force de poussée',   en:'Thrust Force',           formula:'F = 0.24×HB×DC^0.95×f^0.61×9.8',ico:'force'},
   {id:'D_Mc', sym:'M',sub:'c',unit:'N·m',  fr:'Couple broche',      en:'Spindle Torque',         formula:'Mc = Pc×9549/n',              ico:'power'},
   {id:'D_Q',  sym:'Q',sub:'', unit:'cm³/min',fr:'Débit matière (MRR)',de:'Zeitspanvolumen (MRR)',en:'Material Removal Rate',formula:'Q = π×DC²×f×n/4000',         ico:'mrr'},
 ];
@@ -1340,8 +1340,7 @@ function buildInputs(id){
       row('speed',tr('Vitesse de coupe','Cutting Speed','Schnittgeschwindigkeit'),'vc','fi_vc','m/min','R')+
       row('feed',tr('Avance/tour','Feed/rev','Vorschub/U'),'f','fi_f',mrev(),'')+
       row('rpm',tr('Ø foret DC','Drill Ø DC','Ø Bohrer DC'),'DC','fi_DC',mm(),'')+
-      selRow(tr('Matière — Dureté HB','Material — Brinell HB','Werkstoff — Härte HB'),'fi_hb',hbd())+
-      row('power',tr('Rendement η (70~85%)','Efficiency η (70~85%)','Wirkungsgrad η (70~85%)'),'\u03b7 [%]','fi_eta','%','G'));
+      selRow(tr('Matière — Dureté HB','Material — Brinell HB','Werkstoff — Härte HB'),'fi_hb',hbd()));
     case 'D_F': return wrap(
       row('feed',tr('Avance/tour','Feed/rev','Vorschub/U'),'f','fi_f',mrev(),'R')+
       row('rpm',tr('Ø foret DC','Drill Ø DC','Ø Bohrer DC'),'DC','fi_DC',mm(),'')+
@@ -1441,14 +1440,12 @@ function doCalc(){
     case 'D_f':  sv(op,g('fi_vf')/g('fi_n')); break;
     case 'D_vf': sv(op,g('fi_f')*g('fi_n')); break;
     case 'D_Pc':{
-      var vc=g('fi_vc'),f=g('fi_f'),DC=g('fi_DC'),HB=g('fi_hb')||190,eta=(g('fi_eta')||80)/100;
-      var Q=DC*f*vc/4; // cm³/min simplified from π×DC²×f×n/4000
-      var kc=25*Math.pow(HB,0.8); // empirical kc from HB (MPa)
-      sv(op,Q*kc/(60000*eta));
+      var vc=g('fi_vc'),f=g('fi_f'),DC=g('fi_DC'),HB=g('fi_hb')||190;
+      sv(op,HB*Math.pow(DC,0.88)*Math.pow(vc,1.27)*Math.pow(f,0.59)/36000);
       break;}
     case 'D_F':{
       var f=g('fi_f'),DC=g('fi_DC'),HB=g('fi_hb')||190;
-      sv(op,400*DC*Math.pow(f,0.8)*Math.pow(HB/190,0.6));
+      sv(op,0.24*HB*Math.pow(DC,0.95)*Math.pow(f,0.61)*9.8);
       break;}
     case 'D_Mc': sv(op,g('fi_Pc')*9549/g('fi_n')); break;
     case 'D_Q':  sv(op,Math.PI*g('fi_DC')*g('fi_DC')*g('fi_f')*g('fi_n')/4000); break;
@@ -1915,7 +1912,7 @@ function shareResult(op){
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.5" data-de="Bedienungsanleitung · v1.9.5" data-en="User Guide · v1.9.5">Guide d'utilisation · v1.9.5</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.6" data-de="Bedienungsanleitung · v1.9.6" data-en="User Guide · v1.9.6">Guide d'utilisation · v1.9.6</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2095,7 +2092,7 @@ function shareResult(op){
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.5 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.6 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
