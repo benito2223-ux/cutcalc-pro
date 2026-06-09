@@ -2,6 +2,31 @@
 
 ---
 
+## v1.9.7 — 2026-06-09
+
+### Polish UX — 5 améliorations
+
+#### Auto-advance entre champs
+- Attribut `enterkeyhint="next"` sur tous les champs numériques → le clavier mobile affiche "Suivant"
+- Appui sur Enter : focus automatique sur le champ suivant visible, blur sur le dernier
+
+#### Animation count-up sur le résultat
+- Le grand chiffre s'anime de l'ancienne valeur vers la nouvelle en 160 ms (easing `ease-out-cubic` via `requestAnimationFrame`)
+
+#### Skeleton loader sur les listes
+- Les 3 listes (T / M / D) démarrent avec 4 cartes grises animées (shimmer) au chargement initial
+
+#### Partage enrichi
+- Texte restructuré : type d'opération + sous-op + tous les paramètres + formule ISO + horodatage
+- Encadrement `──────────────────` pour lecture propre par SMS/e-mail
+
+#### Comparaison A/B live
+- Bouton **A/B** dans la barre d'action de chaque écran calcul (T / M / D)
+- Premier tap → épingle résultat en A (bouton bleu) ; à chaque recalcul, affiche `A = x.xx u  [±δ%]` (vert/rouge/neutre)
+- Second tap → efface la comparaison ; Reset ↺ efface le pin automatiquement
+
+---
+
 ## v1.9.0 — 2026-06-03
 
 ### Refonte UI — lisibilité & ergonomie atelier
