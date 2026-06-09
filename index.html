@@ -512,6 +512,40 @@ input[type=number]{-moz-appearance:textfield}
 .pin-btn{padding:3px 7px;border:1px solid rgba(255,255,255,.15);border-radius:4px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);font-size:9px;font-weight:700;font-family:'Open Sans',sans-serif;letter-spacing:.4px;cursor:pointer;transition:.15s;white-space:nowrap}
 .pin-btn:active{background:rgba(255,255,255,.18)}
 .pin-btn.on{background:rgba(27,94,166,.45);border-color:var(--spk-blue);color:#fff}</style>
+
+<style>
+/* PWA INSTALL BANNER */
+.pwa-banner{position:fixed;bottom:calc(var(--bot-h) + var(--safe-bot));left:0;right:0;
+  background:var(--anth);border-top:2px solid var(--spk-blue);
+  padding:11px 14px;display:flex;align-items:center;gap:11px;
+  z-index:210;transform:translateY(130%);transition:transform .38s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -4px 24px rgba(0,0,0,.35)}
+.pwa-banner.show{transform:translateY(0)}
+.pwa-banner-icon{width:42px;height:42px;border-radius:10px;flex-shrink:0;object-fit:cover;background:var(--anth2)}
+.pwa-banner-text{flex:1;min-width:0}
+.pwa-banner-title{font-size:13px;font-weight:700;color:#fff;font-family:'Open Sans',sans-serif}
+.pwa-banner-sub{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px;font-family:'Open Sans',sans-serif}
+.pwa-banner-install{padding:7px 13px;background:var(--spk-blue);border:none;border-radius:6px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Open Sans',sans-serif;flex-shrink:0;transition:.15s}
+.pwa-banner-install:active{background:var(--spk-blue-d)}
+.pwa-banner-close{width:26px;height:26px;border:none;background:rgba(255,255,255,.1);border-radius:50%;color:rgba(255,255,255,.55);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s}
+.pwa-banner-close:active{background:rgba(255,255,255,.22)}
+/* iOS guide sheet */
+.ios-guide-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:310;opacity:0;pointer-events:none;transition:opacity .25s}
+.ios-guide-overlay.show{opacity:1;pointer-events:auto}
+.ios-guide-sheet{position:fixed;bottom:0;left:0;right:0;z-index:311;background:var(--surface);border-radius:18px 18px 0 0;padding:0 20px calc(var(--safe-bot) + 16px);transform:translateY(102%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.ios-guide-sheet.show{transform:translateY(0)}
+.ios-guide-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 14px}
+.ios-guide-title{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:.2px;margin-bottom:14px;text-align:center}
+.ios-step{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;font-size:13px;color:var(--text2);line-height:1.5}
+.ios-step-num{width:24px;height:24px;border-radius:50%;background:var(--spk-blue);color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ios-guide-btn{width:100%;margin-top:16px;padding:13px;background:var(--spk-blue);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer}
+/* Wake Lock indicator */
+.wl-dot{width:7px;height:7px;border-radius:50%;background:#5de89a;position:absolute;top:6px;right:6px;display:none;box-shadow:0 0 5px rgba(93,232,154,.7)}
+.hdr-btn{position:relative}
+/* Installed badge on install btn */
+.install-hdr-btn{display:none}
+.installed-hdr-btn{display:none}
+</style>
 <style id="embedded-fonts">
 @font-face{
   font-family:'DM Mono';
@@ -620,7 +654,7 @@ input[type=number]{-moz-appearance:textfield}
             <button class="hdr-btn" onclick="showHistory()" id="histbtn" title="Historique / History">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
       </button>
-      <button class="hdr-btn" onclick="toggleDark()" id="darkbtn">
+      <button class="hdr-btn install-hdr-btn" id="install-hdr-btn" onclick="installApp()" title="Installer" style="display:none"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button><button class="hdr-btn" id="wakelock-btn" title="\u00c9cran actif" style="position:relative;display:none"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><span class="wl-dot" id="wl-dot" style="display:block"></span></button><button class="hdr-btn" onclick="toggleDark()" id="darkbtn">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="darkico"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
     </div>
@@ -1132,7 +1166,9 @@ function openCalc(op,it){
   ta.addEventListener('blur',function(){if(!this.value)this.rows=1;CALC_NOTES[op+':'+it.id]=this.value;});
   bodyEl.appendChild(ta);
   showScreen('scr-'+op+'-calc', 'scr-'+op+'-list');
+  requestWakeLock();
 }function goBack(op){
+  releaseWakeLock();
   showScreen('scr-'+op+'-list','scr-'+op+'-calc',true);
 }
 function showScreen(show,hide,back){
@@ -1969,9 +2005,137 @@ document.addEventListener('keydown',function(e){
     var dots=document.getElementById('swipe-dots');
     if(dots)dots.style.display=(t==='T')?'flex':'none';
   };
+
+// âââ PWA INSTALL âââ
+var _deferredPrompt=null;
+var _isStandalone=window.matchMedia('(display-mode: standalone)').matches||!!window.navigator.standalone;
+var _isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();_deferredPrompt=e;
+  if(!_isStandalone&&!localStorage.getItem('pwa-dismissed')){
+    setTimeout(showInstallBanner,5000);
+  }
+});
+window.addEventListener('appinstalled',function(){
+  _deferredPrompt=null;hideInstallBanner();
+  showInstalledBadge();
+  showToast(LANG==='fr'?'CutCalc Pro installé ! ✓':'CutCalc Pro installed! ✓');
+});
+
+function showInstallBanner(){
+  if(_isStandalone)return;
+  var b=document.getElementById('pwa-banner');
+  var icon=document.getElementById('pwa-banner-icon');
+  var touchIcon=document.getElementById('app-touch-icon');
+  if(icon&&touchIcon&&touchIcon.href)icon.src=touchIcon.href;
+  if(b)b.classList.add('show');
+}
+function hideInstallBanner(){
+  var b=document.getElementById('pwa-banner');if(b)b.classList.remove('show');
+}
+function dismissInstallBanner(){
+  hideInstallBanner();
+  localStorage.setItem('pwa-dismissed','1');
+}
+function installApp(){
+  if(_deferredPrompt){
+    _deferredPrompt.prompt();
+    _deferredPrompt.userChoice.then(function(r){
+      _deferredPrompt=null;hideInstallBanner();
+      if(r.outcome==='accepted')showToast(LANG==='fr'?'Installation en cours…':'Installing…');
+    });
+  } else if(_isIOS){
+    showIOSGuide();
+  }
+}
+function showInstalledBadge(){
+  var btn=document.getElementById('install-hdr-btn');
+  if(btn)btn.style.display='none';
+}
+
+function showIOSGuide(){
+  var o=document.getElementById('ios-guide-overlay');
+  var s=document.getElementById('ios-guide-sheet');
+  if(o)o.classList.add('show');
+  if(s)setTimeout(function(){s.classList.add('show');},10);
+  hideInstallBanner();
+}
+function hideIOSGuide(dismiss){
+  var o=document.getElementById('ios-guide-overlay');
+  var s=document.getElementById('ios-guide-sheet');
+  if(s)s.classList.remove('show');
+  setTimeout(function(){if(o)o.classList.remove('show');},300);
+  if(dismiss)localStorage.setItem('pwa-dismissed','1');
+}
+
+window.addEventListener('load',function(){
+  if(_isStandalone){
+    // App already installed — show subtle wakelock btn, hide install prompt
+    localStorage.setItem('pwa-dismissed','1');
+  } else {
+    // Show install button in header
+    var btn=document.getElementById('install-hdr-btn');
+    if(btn)btn.style.display='flex';
+    // iOS: show banner after delay if not dismissed
+    if(_isIOS&&!localStorage.getItem('pwa-dismissed')){
+      setTimeout(showIOSGuide,6000);
+    }
+  }
+  // Re-apply lang to new elements
+  document.querySelectorAll('[data-fr]').forEach(function(el){
+    el.textContent=LANG==='fr'?el.dataset.fr:(el.dataset.en||el.dataset.fr);
+  });
+});
+
+// âââ WAKE LOCK âââ
+var _wakeLock=null;
+function requestWakeLock(){
+  if(!('wakeLock' in navigator))return;
+  navigator.wakeLock.request('screen').then(function(wl){
+    _wakeLock=wl;
+    var btn=document.getElementById('wakelock-btn');if(btn)btn.style.display='flex';
+    wl.addEventListener('release',function(){
+      _wakeLock=null;
+      var btn=document.getElementById('wakelock-btn');if(btn)btn.style.display='none';
+    });
+  }).catch(function(){});
+}
+function releaseWakeLock(){
+  if(_wakeLock){_wakeLock.release();_wakeLock=null;}
+  var btn=document.getElementById('wakelock-btn');if(btn)btn.style.display='none';
+}
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='visible'&&CALC_ID&&!_wakeLock)requestWakeLock();
+  if(document.visibilityState==='hidden'&&_wakeLock){_wakeLock.release();_wakeLock=null;}
+});
+
 })();</script>
 <!-- Toast -->
 <div id="toast" class="toast"></div>
+
+<!-- PWA Install Banner -->
+<div id="pwa-banner" class="pwa-banner">
+  <img class="pwa-banner-icon" id="pwa-banner-icon" src="" alt="CutCalc" onerror="this.style.display='none'">
+  <div class="pwa-banner-text">
+    <div class="pwa-banner-title">CutCalc Pro</div>
+    <div class="pwa-banner-sub" data-fr="Installer l'app pour un acc\u00e8s rapide" data-en="Install app for quick access">Installer l'app pour un acc\u00e8s rapide</div>
+  </div>
+  <button class="pwa-banner-install" onclick="installApp()" data-fr="Installer" data-en="Install">Installer</button>
+  <button class="pwa-banner-close" onclick="dismissInstallBanner()">&#10005;</button>
+</div>
+
+<!-- iOS Install Guide -->
+<div id="ios-guide-overlay" class="ios-guide-overlay" onclick="hideIOSGuide()">
+  <div class="ios-guide-sheet" id="ios-guide-sheet" onclick="event.stopPropagation()">
+    <div class="ios-guide-handle"></div>
+    <div class="ios-guide-title" data-fr="Installer sur iPhone / iPad" data-en="Install on iPhone / iPad">Installer sur iPhone / iPad</div>
+    <div class="ios-step"><div class="ios-step-num">1</div><div data-fr="Appuyez sur le bouton \u00ab Partager \u00bb (\u2191) en bas de Safari" data-en="Tap the Share button (\u2191) at the bottom of Safari">Appuyez sur le bouton \u00ab Partager \u00bb (\u2191) en bas de Safari</div></div>
+    <div class="ios-step"><div class="ios-step-num">2</div><div data-fr="Faites d\u00e9filer et choisissez \u00ab Sur l'\u00e9cran d'accueil \u00bb" data-en="Scroll down and tap \u00ab Add to Home Screen \u00bb">Faites d\u00e9filer et choisissez \u00ab Sur l'\u00e9cran d'accueil \u00bb</div></div>
+    <div class="ios-step"><div class="ios-step-num">3</div><div data-fr="Appuyez sur \u00ab Ajouter \u00bb en haut \u00e0 droite" data-en="Tap \u00ab Add \u00bb in the top right">Appuyez sur \u00ab Ajouter \u00bb en haut \u00e0 droite</div></div>
+    <button class="ios-guide-btn" onclick="hideIOSGuide(true)" data-fr="Compris !" data-en="Got it!">Compris !</button>
+  </div>
+</div>
 
 <!-- History panel -->
 <div id="hist-panel" class="hist-panel">
@@ -2005,7 +2169,7 @@ document.addEventListener('keydown',function(e){
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.7" data-de="Bedienungsanleitung · v1.9.7" data-en="User Guide · v1.9.7">Guide d'utilisation · v1.9.7</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.8" data-de="Bedienungsanleitung · v1.9.8" data-en="User Guide · v1.9.8">Guide d'utilisation · v1.9.8</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2185,7 +2349,7 @@ document.addEventListener('keydown',function(e){
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.7 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.8 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>

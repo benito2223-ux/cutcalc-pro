@@ -2,6 +2,32 @@
 
 ---
 
+## v1.9.8 — 2026-06-09
+
+### PWA Installation & Wake Lock
+
+#### Bannière d'installation native (Chrome / Edge / Android / PC)
+- Événement `beforeinstallprompt` intercepté → bannière glissante depuis le bas après 5 s (une seule fois)
+- Bouton **Installer** dans la bannière et dans le header (icône téléchargement)
+- Clic → `prompt()` natif ; si accepté : toast de confirmation + bannière masquée
+- Fermeture (✕) ou refus → flag `pwa-dismissed` en localStorage (ne réapparaît plus)
+
+#### Guide d'installation iOS (Safari)
+- Sur iPhone / iPad : sheet glissante depuis le bas expliquant les 3 étapes (Partager → Sur l'écran d'accueil → Ajouter)
+- Apparaît automatiquement après 6 s si non installé et non refusé
+- Bouton « Compris ! » efface définitivement le guide
+
+#### Badge « Déjà installé »
+- Si l'app tourne en mode standalone (installée), le bouton d'installation est masqué
+- Événement `appinstalled` → toast + masquage du bouton
+
+#### Wake Lock API — écran toujours allumé
+- `navigator.wakeLock.request('screen')` activé à l'ouverture d'un écran de calcul (T / M / D)
+- Libéré à chaque retour vers la liste, et réacquis automatiquement si l'onglet redevient visible
+- Indicateur lumineux (point vert ●) affiché sur le bouton soleil dans le header
+
+---
+
 ## v1.9.7 — 2026-06-09
 
 ### Polish UX — 5 améliorations
