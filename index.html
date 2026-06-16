@@ -411,6 +411,17 @@ input[type=number]{-moz-appearance:textfield}
 .cmp-card-val{font-family:'DM Mono',monospace;font-size:26px;font-weight:700;color:var(--spk-blue);line-height:1.1;margin-top:4px}
 .cmp-card-unit{font-size:12px;color:var(--text3);font-weight:500}
 .cmp-card-form{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:4px;line-height:1.4}
+.cmp-card.cmp-a{border:1px solid var(--border)}
+.cmp-card.cmp-b{border:2px solid #1f9d57;box-shadow:0 0 0 1px rgba(31,157,87,.18)}
+.cmp-card.cmp-b .cmp-card-label{color:#1f9d57}
+.cmp-card.cmp-b .cmp-card-val{color:#1f9d57}
+.cmp-delta{border-radius:12px;padding:12px 16px;text-align:center;font-family:'Open Sans',sans-serif;display:none}
+.cmp-delta.show{display:block}
+.cmp-delta-k{display:block;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;opacity:.9}
+.cmp-delta-v{display:block;font-family:'DM Mono',monospace;font-size:22px;font-weight:700;margin-top:3px;letter-spacing:.5px}
+.cmp-delta.pos{background:linear-gradient(120deg,#1f9d57,#157a3f);color:#fff}
+.cmp-delta.neg{background:linear-gradient(120deg,#d94141,#a82a2a);color:#fff}
+.cmp-delta.neu{background:rgba(255,255,255,.12);color:#fff}
 .cmp-close{color:#fff;text-align:center;padding:10px;font-size:13px;font-weight:700;font-family:'Open Sans',sans-serif;cursor:pointer;letter-spacing:.3px}
 
 /* ── Formula modal (bottom sheet) ── */
@@ -1824,6 +1835,25 @@ function showCompare(){
   document.getElementById('cmp-b-val').textContent=b.value;
   document.getElementById('cmp-b-unit').textContent=b.unit;
   document.getElementById('cmp-b-form').textContent=b.formula;
+  // ── Récap % A vs B ──
+  var de=document.getElementById('cmp-delta');
+  var na=parseFloat(String(a.value).replace(/\s/g,'').replace(',','.'));
+  var nb=parseFloat(String(b.value).replace(/\s/g,'').replace(',','.'));
+  if(de){
+    if(isFinite(na)&&isFinite(nb)&&na!==0){
+      var pct=(nb-na)/Math.abs(na)*100;
+      var ratio=nb/na;
+      var cls=pct>0.5?'pos':(pct<-0.5?'neg':'neu');
+      var sign=pct>=0?'+':'';
+      var kLabel=(LANG==='fr'?'B vs A':(LANG==='de'?'B vs A':'B vs A'));
+      var rTxt=(ratio>=1?'×'+ratio.toFixed(1):'×'+ratio.toFixed(2)).replace('.',(LANG==='fr'?',':'.'));
+      de.className='cmp-delta show '+cls;
+      de.innerHTML='<span class="cmp-delta-k">'+kLabel+'</span><span class="cmp-delta-v">'+sign+pct.toFixed(0)+' %  ·  '+rTxt+'</span>';
+    } else {
+      de.className='cmp-delta';
+      de.innerHTML='';
+    }
+  }
   document.getElementById('cmp-overlay').className='cmp-overlay show';
 }
 function closeCompare(){
@@ -1934,8 +1964,7 @@ function shareResult(op){
     var unitEl=row.querySelector('.inp-unit-lbl');
     if(inp&&inp.value&&symEl)inputParts.push(symEl.textContent+' = '+inp.value+(unitEl?' '+unitEl.textContent:''));
   });}
-  var text='\u2500\u2500 CutCalc Pro \u2500\u2500\n'+name+'\n';
-  if(inputParts.length)text+=  var opLabel=op==='T'?(LANG==='fr'?'Tournage':'Turning'):op==='M'?(LANG==='fr'?'Fraisage':'Milling'):(LANG==='fr'?'Per\u00e7age':'Drilling');
+  var opLabel=op==='T'?(LANG==='fr'?'Tournage':'Turning'):op==='M'?(LANG==='fr'?'Fraisage':'Milling'):(LANG==='fr'?'Per\u00e7age':'Drilling');
   var subLabel=op==='T'?(' \u00b7 '+(LANG==='fr'?(SUBOP_LABELS[SUBOP]||{}).fr:(SUBOP_LABELS[SUBOP]||{}).en)):'';
   var formula=document.getElementById('c'+op+'-formula').textContent;
   var now=new Date();
@@ -2370,19 +2399,20 @@ document.addEventListener('visibilitychange',function(){
 <div id="cmp-overlay" class="cmp-overlay">
   <div class="cmp-title" data-fr="COMPARAISON" data-de="VERGLEICH" data-en="COMPARISON">COMPARAISON</div>
   <div class="cmp-cards">
-    <div class="cmp-card">
+    <div class="cmp-card cmp-a">
       <div class="cmp-card-label">A</div>
       <div class="cmp-card-name" id="cmp-a-name"></div>
       <div><span class="cmp-card-val" id="cmp-a-val"></span> <span class="cmp-card-unit" id="cmp-a-unit"></span></div>
       <div class="cmp-card-form" id="cmp-a-form"></div>
     </div>
-    <div class="cmp-card">
+    <div class="cmp-card cmp-b">
       <div class="cmp-card-label">B</div>
       <div class="cmp-card-name" id="cmp-b-name"></div>
       <div><span class="cmp-card-val" id="cmp-b-val"></span> <span class="cmp-card-unit" id="cmp-b-unit"></span></div>
       <div class="cmp-card-form" id="cmp-b-form"></div>
     </div>
   </div>
+  <div class="cmp-delta" id="cmp-delta"></div>
   <div class="cmp-close" onclick="closeCompare()" data-fr="✕ Fermer" data-de="✕ Schließen" data-en="✕ Close">✕ Fermer</div>
 </div>
 
