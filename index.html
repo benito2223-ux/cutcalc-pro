@@ -2054,11 +2054,25 @@ window.addEventListener('appinstalled',function(){
 
 function showInstallBanner(){
   if(_isStandalone)return;
+  // Already installed but opened in a browser tab? Don't nag.
+  if(navigator.getInstalledRelatedApps){
+    navigator.getInstalledRelatedApps().then(function(apps){
+      if(apps&&apps.length){_markInstalled();return;}
+      _doShowInstallBanner();
+    }).catch(function(){_doShowInstallBanner();});
+  } else {_doShowInstallBanner();}
+}
+function _doShowInstallBanner(){
   var b=document.getElementById('pwa-banner');
   var icon=document.getElementById('pwa-banner-icon');
   var touchIcon=document.getElementById('app-touch-icon');
   if(icon&&touchIcon&&touchIcon.href)icon.src=touchIcon.href;
   if(b)b.classList.add('show');
+}
+function _markInstalled(){
+  localStorage.setItem('pwa-dismissed','1');
+  hideInstallBanner();
+  var btn=document.getElementById('install-hdr-btn');if(btn)btn.style.display='none';
 }
 function hideInstallBanner(){
   var b=document.getElementById('pwa-banner');if(b)b.classList.remove('show');
@@ -2106,6 +2120,10 @@ window.addEventListener('load',function(){
     // Show install button in header
     var btn=document.getElementById('install-hdr-btn');
     if(btn)btn.style.display='flex';
+    // But if the app is in fact already installed (opened in a browser tab), hide it
+    if(navigator.getInstalledRelatedApps){
+      navigator.getInstalledRelatedApps().then(function(apps){if(apps&&apps.length)_markInstalled();}).catch(function(){});
+    }
     // iOS: show banner after delay if not dismissed
     if(_isIOS&&!localStorage.getItem('pwa-dismissed')){
       setTimeout(showIOSGuide,6000);
