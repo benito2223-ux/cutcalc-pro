@@ -1,4 +1,4 @@
-const CACHE = 'cutcalc-v1.9.9';
+const CACHE = 'cutcalc-v1.9.10';
 const ASSETS = [
   './',
   './index.html'
