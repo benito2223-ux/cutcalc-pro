@@ -2,6 +2,17 @@
 
 ---
 
+## v1.9.13 — 2026-06-17
+
+### Correctif affichage — séquences `\uXXXX` littérales
+
+- Les échappements `\uXXXX` présents dans le HTML de la bannière d'installation et du guide iOS s'affichaient tels quels (ex. `accès` au lieu de « accès », `« »` au lieu de « »).
+- Converties en vrais caractères Unicode — affichage correct en FR/EN.
+- Cache Service Worker bumpé en `cutcalc-v1.9.13` pour rafraîchir le cache hors-ligne.
+- _S'appuie sur les versions intermédiaires v1.9.10 → v1.9.12 (UX install, auto-update du Service Worker, comparaison A/B en couleurs, unification de la version)._
+
+---
+
 ## v1.9.8 — 2026-06-09
 
 ### PWA Installation & Wake Lock
