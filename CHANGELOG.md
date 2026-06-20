@@ -2,6 +2,15 @@
 
 ---
 
+## CID v1.3.2 — 2026-06-17
+
+### Comparaison A/B — panneau visuel à barres
+
+- Panneau visuel : deux **barres horizontales proportionnelles** (A et B) + écart % en gros.
+- **A = barre bleue (référence)** ; **B = verte si ça monte, rouge si ça baisse**. Flèche ▲/▼ colorée, barres animées en temps réel.
+
+---
+
 ## CID v1.3.1 — 2026-06-17
 
 ### 🐛 Correctif critique — ouverture des écrans de calcul
