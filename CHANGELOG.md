@@ -2,6 +2,17 @@
 
 ---
 
+## v1.9.16 — 2026-06-17
+
+### 🐛 Correctif critique — calculs Fraisage / Perçage faussés
+
+- Les trois écrans (Tournage / Fraisage / Perçage) utilisent les mêmes ids de champ (`fi_vc`, `fi_DC`…). Après avoir ouvert un calcul **Tournage**, `getElementById()` renvoyait le champ du Tournage → les calculs **Fraisage et Perçage lisaient les mauvais champs** (vides) → résultat faux ou `—` (ex. temps de coupe fraisage, épaisseur copeau plaquette ronde, MRR fraisage).
+- `g()` / `gv()` / `kv()` lisent désormais **uniquement dans l'écran de calcul actif** (`c<op>-body`), avec repli global pour les champs partagés.
+- **Vérifié** : les 37 calculs T/M/D donnent des résultats corrects en navigation réelle (ex. MRR fraisage = 54,6 cm³/min, temps de coupe fraisage = 6,6 s).
+- Cache Service Worker → `cutcalc-v1.9.16`.
+
+---
+
 ## v1.9.15 — 2026-06-17
 
 ### Comparaison A/B — panneau visuel à barres
