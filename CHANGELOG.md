@@ -2,6 +2,25 @@
 
 ---
 
+## v1.9.14 — 2026-06-17
+
+### 🐛 Correctif critique — ouverture des écrans de calcul
+
+- `openCalc()` / `goBack()` appelaient `requestWakeLock()` / `releaseWakeLock()`, mais ces fonctions étaient **piégées dans une IIFE** (non exposées à `window` lors du retrait de la bannière) → `ReferenceError` à chaque ouverture de calcul → **l'écran ne s'ouvrait plus**. Fonctions exposées à `window`.
+
+### Comparaison A/B — mode opératoire évident
+
+- Bouton renommé **« ⇄ Comparer »** (au lieu de « A/B ») — trilingue FR/EN/DE.
+- **Barre de consigne persistante** sous le résultat qui guide pas à pas :
+  - Appui sans calcul → « ① Lancez un calcul, puis touchez Comparer pour enregistrer le point A. »
+  - Calcul prêt → « ① Résultat prêt — touchez Comparer pour enregistrer A. »
+  - A enregistré → « A 1393 tr/min — modifiez un paramètre pour comparer (B). »
+  - Comparaison → « A 1393 → B 1114 tr/min  −20,0 % » (vert si hausse, rouge si baisse).
+- Un seul geste pour enregistrer A (auto-épinglage du résultat affiché).
+- Cache Service Worker → `cutcalc-v1.9.14`.
+
+---
+
 ## v1.9.13 — 2026-06-17
 
 ### Correctif affichage — séquences `\uXXXX` littérales

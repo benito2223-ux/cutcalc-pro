@@ -522,7 +522,13 @@ input[type=number]{-moz-appearance:textfield}
 .res-ab-delta.neu{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
 .pin-btn{padding:3px 7px;border:1px solid rgba(255,255,255,.15);border-radius:4px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);font-size:9px;font-weight:700;font-family:'Open Sans',sans-serif;letter-spacing:.4px;cursor:pointer;transition:.15s;white-space:nowrap}
 .pin-btn:active{background:rgba(255,255,255,.18)}
-.pin-btn.on{background:rgba(27,94,166,.45);border-color:var(--spk-blue);color:#fff}</style>
+.pin-btn.on{background:rgba(27,94,166,.45);border-color:var(--spk-blue);color:#fff}
+.res-ab-step{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--spk-blue);color:#fff;font-size:9px;font-weight:700;flex-shrink:0;font-family:'Open Sans',sans-serif}
+.res-ab-msg{color:rgba(255,255,255,.72);font-size:10px;font-family:'Open Sans',sans-serif;line-height:1.35}
+.res-ab-tagA{background:rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;font-family:'Open Sans',sans-serif}
+.res-ab-tagB{background:var(--spk-blue);color:#fff;border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;font-family:'Open Sans',sans-serif}
+.res-ab-arrow{color:rgba(255,255,255,.45);font-weight:700}
+.res-ab-b{color:#fff;font-weight:700}</style>
 
 <style>
 /* PWA INSTALL BANNER */
@@ -760,7 +766,7 @@ input[type=number]{-moz-appearance:textfield}
         <button class="act-btn" onclick="saveResult('T')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
         <button class="act-btn" onclick="printResult('T')" title="Imprimer / PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
         <button class="act-btn" onclick="showCalcHistory('T')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
-        <button class="pin-btn" id="pin-btn-T" onclick="togglePin('T')">A/B</button>
+        <button class="pin-btn" id="pin-btn-T" onclick="togglePin('T')" data-fr="⇄ Comparer" data-en="⇄ Compare" data-de="⇄ Vergleichen">⇄ Comparer</button>
       </div>
     </div>
     <div class="calc-scroll" id="cT-body"></div>
@@ -806,7 +812,7 @@ input[type=number]{-moz-appearance:textfield}
         <button class="act-btn" onclick="saveResult('M')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
         <button class="act-btn" onclick="printResult('M')" title="Imprimer / PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
         <button class="act-btn" onclick="showCalcHistory('M')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
-        <button class="pin-btn" id="pin-btn-M" onclick="togglePin('M')">A/B</button>
+        <button class="pin-btn" id="pin-btn-M" onclick="togglePin('M')" data-fr="⇄ Comparer" data-en="⇄ Compare" data-de="⇄ Vergleichen">⇄ Comparer</button>
       </div>
     </div>
     <div class="calc-scroll" id="cM-body"></div>
@@ -882,7 +888,7 @@ input[type=number]{-moz-appearance:textfield}
         <button class="act-btn" onclick="saveResult('D')" title="Enregistrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></button>
         <button class="act-btn" onclick="printResult('D')" title="Imprimer / PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
         <button class="act-btn" onclick="showCalcHistory('D')" title="Historique"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></button>
-        <button class="pin-btn" id="pin-btn-D" onclick="togglePin('D')">A/B</button>
+        <button class="pin-btn" id="pin-btn-D" onclick="togglePin('D')" data-fr="⇄ Comparer" data-en="⇄ Compare" data-de="⇄ Vergleichen">⇄ Comparer</button>
       </div>
     </div>
     <div class="calc-scroll" id="cD-body"></div>
@@ -935,7 +941,7 @@ input[type=number]{-moz-appearance:textfield}
         <button class="tgl-b" onclick="setUnit('in')">in</button>
       </div></div>
 </div>
-<div class="wm" id="wm-label">CutCalc Pro · v1.9.13 · © 2025 B. Rouquette</div>
+<div class="wm" id="wm-label">CutCalc Pro · v1.9.14 · © 2025 B. Rouquette</div>
 
 <script>
 // ═══════════════════════════
@@ -952,7 +958,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.13';
+var VERSION='1.9.14';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -1547,7 +1553,7 @@ function rstCalc(op){
   document.getElementById('c'+op+'-body').querySelectorAll('input').forEach(function(i){i.value='';});
   var el=document.getElementById('c'+op+'-val');
   if(el){el.textContent='0';el.dataset.raw='0';el.style.color='';el.classList.remove('flash');}
-  delete CMP_LIVE[op];
+  delete CMP_LIVE[op];delete CMP_ARMED[op];
   var btn=document.getElementById('pin-btn-'+op);if(btn)btn.classList.remove('on');
   var ab=document.getElementById('res-ab-'+op);if(ab)ab.className='res-ab';
 }
@@ -1987,34 +1993,73 @@ function shareResult(op){
 }
 
 // A/B LIVE COMPARE
-var CMP_LIVE={};
+var CMP_LIVE={};   // op -> {val,unit} when point A is pinned
+var CMP_ARMED={};  // op -> true when compare mode armed, waiting for first calc
+function _cmpFmt(v){return v>=10000?v.toFixed(0):v>=1000?v.toFixed(1):v>=10?v.toFixed(2):v.toFixed(3);}
+function _cmpMsgA(op){
+  return '<span class="res-ab-step">1</span><span class="res-ab-msg">'+
+    tr('Lancez un calcul, puis touchez \u00ab Comparer \u00bb pour enregistrer le point A.',
+       'Run a calculation, then tap \u201cCompare\u201d to save point A.',
+       'Berechnung starten, dann \u201eVergleichen\u201c tippen, um Punkt A zu speichern.')+'</span>';
+}
+function _cmpMsgReady(op){
+  return '<span class="res-ab-step">1</span><span class="res-ab-msg">'+
+    tr('R\u00e9sultat pr\u00eat \u2014 touchez \u00ab Comparer \u00bb pour enregistrer A.',
+       'Result ready \u2014 tap \u201cCompare\u201d to save A.',
+       'Ergebnis bereit \u2014 \u201eVergleichen\u201c tippen, um A zu speichern.')+'</span>';
+}
 function togglePin(op){
+  var ab=document.getElementById('res-ab-'+op);
+  var btn=document.getElementById('pin-btn-'+op);
   if(CMP_LIVE[op]){
-    delete CMP_LIVE[op];
-    var btn=document.getElementById('pin-btn-'+op);if(btn)btn.classList.remove('on');
-    var ab=document.getElementById('res-ab-'+op);if(ab)ab.className='res-ab';
-    showToast(LANG==='fr'?'Comparaison effac\u00e9e':'Comparison cleared');
-  } else {
-    var val=parseFloat(document.getElementById('c'+op+'-val').textContent)||0;
-    if(!val){showToast(LANG==='fr'?'Aucun r\u00e9sultat':'No result to pin');return;}
-    var unit=document.getElementById('c'+op+'-unit').textContent;
-    CMP_LIVE[op]={val:val,unit:unit};
-    var btn=document.getElementById('pin-btn-'+op);if(btn)btn.classList.add('on');
-    showToast(LANG==='fr'?'A \u00e9pingl\u00e9 \u2014 modifiez les param\u00e8tres':'A pinned \u2014 change parameters');
+    delete CMP_LIVE[op]; delete CMP_ARMED[op];
+    if(btn)btn.classList.remove('on');
+    if(ab){ab.className='res-ab';ab.innerHTML='';}
+    showToast(tr('Comparaison r\u00e9initialis\u00e9e','Comparison reset','Vergleich zur\u00fcckgesetzt'));
+    return;
   }
+  var val=parseFloat(document.getElementById('c'+op+'-val').textContent)||0;
+  if(!val){
+    CMP_ARMED[op]=true;
+    if(btn)btn.classList.add('on');
+    if(ab){ab.className='res-ab show';ab.innerHTML=_cmpMsgA(op);}
+    return;
+  }
+  delete CMP_ARMED[op];
+  var unit=document.getElementById('c'+op+'-unit').textContent;
+  CMP_LIVE[op]={val:val,unit:unit};
+  if(btn)btn.classList.add('on');
+  updateAbDisplay(op,val);
+  showToast(tr('Point A enregistr\u00e9','Point A saved','Punkt A gespeichert'));
 }
 function updateAbDisplay(op,cur){
   var ab=document.getElementById('res-ab-'+op);if(!ab)return;
-  var pinned=CMP_LIVE[op];
-  if(!pinned||!cur){ab.className='res-ab';return;}
-  var delta=(cur-pinned.val)/pinned.val*100;
-  var dSign=delta>=0?'+':'';
-  var dCls=Math.abs(delta)<0.05?'neu':delta>0?'pos':'neg';
-  var d=pinned.val>=10000?0:pinned.val>=1000?1:pinned.val>=10?2:3;
-  ab.className='res-ab show';
-  ab.innerHTML='<span class="res-ab-label">A</span>'+
-    '<span class="res-ab-a">'+pinned.val.toFixed(d)+' '+pinned.unit+'</span>'+
-    '<span class="res-ab-delta '+dCls+'">'+dSign+delta.toFixed(1)+'%</span>';
+  if(CMP_LIVE[op]){
+    var A=CMP_LIVE[op];
+    if(!cur||Math.abs(cur-A.val)<1e-9){
+      ab.className='res-ab show';
+      ab.innerHTML='<span class="res-ab-tagA">A</span><span class="res-ab-a">'+_cmpFmt(A.val)+' '+A.unit+'</span>'+
+        '<span class="res-ab-msg">'+tr('\u2014 modifiez un param\u00e8tre pour comparer (B).',
+                                       '\u2014 change a parameter to compare (B).',
+                                       '\u2014 Parameter \u00e4ndern zum Vergleichen (B).')+'</span>';
+      return;
+    }
+    var delta=(cur-A.val)/A.val*100;
+    var dSign=delta>=0?'+':'';
+    var dCls=Math.abs(delta)<0.05?'neu':delta>0?'pos':'neg';
+    ab.className='res-ab show';
+    ab.innerHTML='<span class="res-ab-tagA">A</span><span class="res-ab-a">'+_cmpFmt(A.val)+'</span>'+
+      '<span class="res-ab-arrow">\u2192</span>'+
+      '<span class="res-ab-tagB">B</span><span class="res-ab-b">'+_cmpFmt(cur)+' '+A.unit+'</span>'+
+      '<span class="res-ab-delta '+dCls+'">'+dSign+delta.toFixed(1)+'%</span>';
+    return;
+  }
+  if(CMP_ARMED[op]){
+    ab.className='res-ab show';
+    ab.innerHTML=cur>0?_cmpMsgReady(op):_cmpMsgA(op);
+    return;
+  }
+  ab.className='res-ab';
 }
 
 // AUTO-ADVANCE Enter entre champs
@@ -2168,6 +2213,8 @@ window.dismissInstallBanner=dismissInstallBanner;
 window.hideInstallBanner=hideInstallBanner;
 window.showIOSGuide=showIOSGuide;
 window.hideIOSGuide=hideIOSGuide;
+window.requestWakeLock=requestWakeLock;
+window.releaseWakeLock=releaseWakeLock;
 })();</script>
 <!-- Toast -->
 <div id="toast" class="toast"></div>
@@ -2227,7 +2274,7 @@ window.hideIOSGuide=hideIOSGuide;
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.13" data-de="Bedienungsanleitung · v1.9.13" data-en="User Guide · v1.9.13">Guide d'utilisation · v1.9.13</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.14" data-de="Bedienungsanleitung · v1.9.14" data-en="User Guide · v1.9.14">Guide d'utilisation · v1.9.14</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2407,7 +2454,7 @@ window.hideIOSGuide=hideIOSGuide;
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.13 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.14 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
