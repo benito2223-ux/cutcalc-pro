@@ -2,6 +2,17 @@
 
 ---
 
+## v1.9.15 — 2026-06-17
+
+### Comparaison A/B — panneau visuel à barres
+
+- Le résultat de comparaison s'affiche désormais en **panneau visuel** : deux **barres horizontales proportionnelles** (A et B) avec les valeurs, plus l'écart % en gros.
+- **A = barre bleue (référence)** ; **B = verte si le résultat monte, rouge s'il baisse** → on voit immédiatement l'effet du changement de paramètre.
+- Flèche ▲/▼ + pourcentage coloré ; barres animées en temps réel à chaque recalcul.
+- Cache Service Worker → `cutcalc-v1.9.15`.
+
+---
+
 ## v1.9.14 — 2026-06-17
 
 ### 🐛 Correctif critique — ouverture des écrans de calcul
