@@ -2,6 +2,19 @@
 
 ---
 
+## CID v1.3.1 — 2026-06-17
+
+### 🐛 Correctif critique — ouverture des écrans de calcul
+
+- `openCalc()` / `goBack()` appelaient `requestWakeLock()` / `releaseWakeLock()` piégées dans l'IIFE PWA (jamais exposées à `window`) → `ReferenceError` → l'écran de calcul ne s'ouvrait plus. Handlers PWA + Wake Lock exposés à `window`.
+
+### Comparaison A/B — mode opératoire évident
+
+- Bouton renommé **« ⇄ Comparer »** (trilingue FR/EN/DE).
+- Barre de consigne persistante : guide pas à pas (lancer un calcul → enregistrer A en un geste → récap live A→B avec ± coloré).
+
+---
+
 ## v1.9.8 — 2026-06-09
 
 ### PWA Installation & Wake Lock
