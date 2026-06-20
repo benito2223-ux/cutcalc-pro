@@ -2,6 +2,15 @@
 
 ---
 
+## CID v1.3.3 — 2026-06-17
+
+### 🐛 Correctif critique — calculs Fraisage / Perçage faussés
+
+- Ids de champ partagés entre les 3 écrans → après un calcul Tournage, le Fraisage/Perçage lisait les mauvais champs → résultats faux ou `—`.
+- `g()` / `gv()` / `kv()` lisent désormais uniquement dans l'écran de calcul actif. Vérifié : 37/37 calculs corrects.
+
+---
+
 ## CID v1.3.2 — 2026-06-17
 
 ### Comparaison A/B — panneau visuel à barres
