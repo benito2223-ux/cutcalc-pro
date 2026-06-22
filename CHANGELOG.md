@@ -2,6 +2,16 @@
 
 ---
 
+## v1.9.17 — 2026-06-22
+
+### Fiabilité affichage résultat + vérification intégrale
+
+- **Filet de sécurité sur l'affichage** : l'animation count-up dépend de `requestAnimationFrame`, en pause si l'onglet est en arrière-plan. Ajout d'un repli `setTimeout` qui garantit l'affichage de la valeur finale même sans animation (onglet masqué, throttling navigateur).
+- **Vérification de bout en bout** (pilotage navigateur) : 37/37 calculs T/M/D corrects, mm/inch, FR/EN/DE, mode sombre, sauvegarde, historique, favoris, partage enrichi, sous-opérations, réglages, impression/PDF — aucun erreur console.
+- Cache Service Worker → `cutcalc-v1.9.17`.
+
+---
+
 ## v1.9.16 — 2026-06-17
 
 ### 🐛 Correctif critique — calculs Fraisage / Perçage faussés
