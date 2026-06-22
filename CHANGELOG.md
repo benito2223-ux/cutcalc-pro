@@ -2,6 +2,15 @@
 
 ---
 
+## CID v1.3.4 — 2026-06-22
+
+### Fiabilité affichage résultat
+
+- Filet de sécurité `setTimeout` dans `sv()` : la valeur finale s'affiche même si l'animation `requestAnimationFrame` est en pause (onglet en arrière-plan / throttling).
+- Vérification de bout en bout : 37/37 calculs corrects + bascules (unités, langues, sombre, favoris, partage…).
+
+---
+
 ## CID v1.3.3 — 2026-06-17
 
 ### 🐛 Correctif critique — calculs Fraisage / Perçage faussés
