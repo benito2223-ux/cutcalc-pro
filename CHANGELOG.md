@@ -2,6 +2,17 @@
 
 ---
 
+## v1.9.18 — 2026-06-22
+
+### Ergonomie saisie atelier
+
+- **Sélection automatique au tap** : toucher un champ déjà rempli sélectionne tout son contenu → la frappe **remplace** directement l'ancienne valeur (plus besoin de placer le curseur ni d'effacer). Un 2ᵉ tap place le curseur normalement pour corriger un chiffre.
+- Champs passés en `type="text" inputmode="decimal"` (clavier numérique conservé) — nécessaire pour une sélection fiable sur mobile/tablette.
+- **Virgule décimale** désormais acceptée (ex. `0,15` au clavier allemand) en plus du point — normalisée à la lecture.
+- Cache Service Worker → `cutcalc-v1.9.18`.
+
+---
+
 ## v1.9.17 — 2026-06-22
 
 ### Fiabilité affichage résultat + vérification intégrale
