@@ -2,6 +2,16 @@
 
 ---
 
+## CID v1.3.5 — 2026-06-22
+
+### Ergonomie saisie atelier
+
+- **Sélection automatique au tap** : toucher un champ rempli sélectionne tout → la frappe remplace l'ancienne valeur (2ᵉ tap = curseur normal).
+- Champs en `type="text" inputmode="decimal"` (clavier numérique conservé) pour une sélection fiable sur mobile/tablette.
+- **Virgule décimale** acceptée (ex. `0,15`) en plus du point.
+
+---
+
 ## CID v1.3.4 — 2026-06-22
 
 ### Fiabilité affichage résultat
