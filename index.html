@@ -985,7 +985,7 @@ input[type=number]{-moz-appearance:textfield}
   <button class="hard-btn" onclick="useHardnessHB()" data-fr="Utiliser cette HB dans les calculs" data-de="Dieses HB in Berechnungen verwenden" data-en="Use this HB in calculations">Utiliser cette HB dans les calculs</button>
   <div class="hard-note" data-fr="Métaux ferreux · valeurs indicatives (ISO 18265 / ASTM E140). Plage : HRC 17–70." data-de="Eisenwerkstoffe · Richtwerte (ISO 18265 / ASTM E140). Bereich: HRC 17–70." data-en="Ferrous metals · indicative values (ISO 18265 / ASTM E140). Range: HRC 17–70.">Métaux ferreux · valeurs indicatives (ISO 18265 / ASTM E140). Plage : HRC 17–70.</div>
 </div>
-<div class="wm" id="wm-label">CutCalc Pro · v1.9.19 · © 2025 B. Rouquette</div>
+<div class="wm" id="wm-label">CutCalc Pro · v1.9.20 · © 2025 B. Rouquette</div>
 
 <script>
 // ═══════════════════════════
@@ -1002,7 +1002,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.19';
+var VERSION='1.9.20';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -1100,6 +1100,8 @@ var M_ITEMS=[
   {id:'M_vf', sym:'v',sub:'f',unit:'mm/min',fr:"Vitesse d'avance table",en:'Feed Speed',formula:'vf = fz×z×n',ico:'feed'},
   {id:'M_hex', sym:'h',sub:'ex', unit:'mm',fr:'Épaisseur copeau fraise',de:'Spandicke Fräser',en:'Chip Thickness (Mill)',formula:'hex = auto(ae, DC, fz, κ)',ico:'chip'},
   {id:'M_hex2',sym:'h',sub:'ex2',unit:'mm',fr:'Épaisseur copeau (plaq. ronde)',de:'Spandicke (Rundplatte)',en:'Chip Thickness (R-insert)',formula:'hex2 = 2×fz×√(ap/IC−(ap/IC)²)',ico:'chip'},
+  {id:'M_hm', sym:'h',sub:'m', unit:'mm',fr:'Épaisseur copeau moy.',de:'Mittl. Spandicke',en:'Mean Chip Thickness',formula:'hm = fz×sin(κ)×√(ae/Deff)',ico:'chip'},
+  {id:'M_hm2',sym:'h',sub:'m2',unit:'mm',fr:'Épais. copeau moy. (plaq. ronde)',de:'Mittl. Spandicke (Rundplatte)',en:'Mean Chip Thk (R-insert)',formula:'hm = fz×sin(arccos(1−ap/R))×√(ae/Deff), R=IC/2',ico:'chip'},
   {id:'M_Pc', sym:'P',sub:'c',unit:'kW',fr:'Puissance requise',de:'Leistungsbedarf',en:'Power Requirements',formula:'Pc = Q×kc/(60000×η)',ico:'power'},
   {id:'M_H',  sym:'H',sub:'',unit:'HP',fr:'Puissance en chevaux',de:'Leistung in PS',en:'Horsepower',formula:'H = Pc/0.75',ico:'power'},
   {id:'M_Q',  sym:'Q',sub:'',unit:'cm³/min',fr:'Débit matière (MRR)',de:'Zeitspanvolumen (MRR)',en:'Material Removal Rate',formula:'Q = vf×ap×ae/1000',ico:'mrr'},
@@ -1430,6 +1432,23 @@ function buildInputs(id){
       '</select></div>'+
       '<div class="sel-row"><div class="sel-lbl">'+tr('Ø IC hors standard (mm)','Custom IC Ø (mm)','Eigener IC-Ø (mm)')+'</div>'+
       '<input class="sel-field" type="text" inputmode="decimal" pattern="[0-9]*" id="fi_ICc" placeholder="—" oninput="doCalc()"></div>');
+    case 'M_hm': return wrap(
+      row('feed',tr('Avance/dent fz','Feed/tooth fz','Vorschub/Zahn fz'),'fz','fi_fz',mt(),'R')+
+      row('chip',tr('Angle arête KAPR','Lead angle KAPR','Einstellwinkel KAPR'),'κ [°]','fi_k','°','')+
+      row('chip',tr('Passe radiale ae','Radial depth ae','Radiale Zustellung ae'),'ae','fi_ae',mm(),'')+
+      row('rpm',tr('Ø effectif Deff','Effective Ø Deff','Effektiver Ø Deff'),'Deff','fi_Deff',mm(),''));
+    case 'M_hm2': return wrap(
+      row('feed',tr('Avance/dent fz','Feed/tooth fz','Vorschub/Zahn fz'),'fz','fi_fz',mt(),'R')+
+      row('chip',tr('Profondeur axiale ap','Axial depth ap','Axiale Schnitttiefe ap'),'ap','fi_ap',mm(),'')+
+      '<div class="sel-row"><div class="sel-lbl">'+tr('Ø Plaquette IC','Ø Insert IC','Ø Wendeplatte IC')+'</div>'+
+      '<select class="sel-field" id="fi_IC" onchange="doCalc()">'+
+      '<option value="6.35">IC 6,35 mm</option><option value="9.52">IC 9,52 mm</option>'+
+      '<option value="12.7" selected>IC 12,70 mm</option><option value="19.07">IC 19,07 mm</option>'+
+      '</select></div>'+
+      '<div class="sel-row"><div class="sel-lbl">'+tr('Ø IC hors standard (mm)','Custom IC Ø (mm)','Eigener IC-Ø (mm)')+'</div>'+
+      '<input class="sel-field" type="text" inputmode="decimal" pattern="[0-9]*" id="fi_ICc" placeholder="—" oninput="doCalc()"></div>'+
+      row('chip',tr('Passe radiale ae','Radial depth ae','Radiale Zustellung ae'),'ae','fi_ae',mm(),'')+
+      row('rpm',tr('Ø effectif Deff','Effective Ø Deff','Effektiver Ø Deff'),'Deff','fi_Deff',mm(),''));
     case 'M_Pc': return wrap(
       row('mrr',tr('Débit matière Q','Material Removal Rate Q','Zeitspanvolumen Q'),'Q [cm³/min]','fi_Q','cm³/min','R')+
       selRow(tr('Matière / kc','Material / kc','Werkstoff / kc'),'fi_kc',kco())+
@@ -1570,6 +1589,8 @@ function doCalc(){
       }
       break;}
     case 'M_hex2':{var ic=gv('fi_ICc')||gv('fi_IC')||12.7,r=g('fi_ap')/ic;sv(op,2*g('fi_fz')*Math.sqrt(Math.max(0,r-r*r)));break;}
+    case 'M_hm':{var De=g('fi_Deff'),ae=g('fi_ae');sv(op,g('fi_fz')*Math.sin((g('fi_k')||90)*Math.PI/180)*Math.sqrt(De>0?ae/De:0));break;}
+    case 'M_hm2':{var ic=gv('fi_ICc')||gv('fi_IC')||12.7,R=ic/2,ap=g('fi_ap'),De=g('fi_Deff'),ae=g('fi_ae');var kr=Math.acos(Math.max(-1,Math.min(1,1-ap/R)));sv(op,g('fi_fz')*Math.sin(kr)*Math.sqrt(De>0?ae/De:0));break;}
     case 'M_Pc': sv(op,g('fi_Q')*kv('fi_kc')/(60000*(g('fi_eta')||80)/100)); break;
     case 'M_H':  sv(op,g('fi_Pc')/0.75); break;
     case 'M_Q':{var n=1000*g('fi_vc')/(Math.PI*g('fi_DC')),vf=g('fi_fz')*g('fi_z')*n;sv(op,vf*g('fi_ap')*g('fi_ae')/1000);break;}
@@ -2332,7 +2353,7 @@ window.releaseWakeLock=releaseWakeLock;
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.19" data-de="Bedienungsanleitung · v1.9.19" data-en="User Guide · v1.9.19">Guide d'utilisation · v1.9.19</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.20" data-de="Bedienungsanleitung · v1.9.20" data-en="User Guide · v1.9.20">Guide d'utilisation · v1.9.20</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2512,7 +2533,7 @@ window.releaseWakeLock=releaseWakeLock;
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.19 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.20 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>

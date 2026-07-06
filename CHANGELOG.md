@@ -2,6 +2,18 @@
 
 ---
 
+## v1.9.20 — 2026-06-22
+
+### Nouveau — Épaisseur de copeau moyenne (fraisage)
+
+- **M_hm — plaquette droite** : `hm = fz × sin(κ) × √(ae/Deff)` (κ = angle d'arête Kr).
+- **M_hm2 — plaquette ronde** : `hm = fz × sin(arccos(1−ap/R)) × √(ae/Deff)`, avec R = IC/2 (sélecteur IC 6,35 / 9,52 / 12,70 / 19,07 mm + IC personnalisé).
+- Entrées : fz, ae, Ø effectif Deff, + κ (droite) ou ap/IC (ronde).
+- Distinct de l'épaisseur **maxi** (hex) déjà présente. Vérifié : M_hm = 0,104 mm · M_hm2 = 0,075 mm (fz 0,15 · ae 30 · Deff 63).
+- Cache Service Worker → `cutcalc-v1.9.20`.
+
+---
+
 ## v1.9.19 — 2026-06-22
 
 ### Nouveau — Convertisseur de dureté
