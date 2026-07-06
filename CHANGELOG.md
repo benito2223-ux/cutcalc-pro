@@ -2,6 +2,16 @@
 
 ---
 
+## CID v1.3.7 — 2026-06-22
+
+### Nouveau — Épaisseur de copeau moyenne (fraisage)
+
+- **M_hm** (plaquette droite) : `hm = fz × sin(κ) × √(ae/Deff)`.
+- **M_hm2** (plaquette ronde) : `hm = fz × sin(arccos(1−ap/R)) × √(ae/Deff)`, R = IC/2.
+- _(L'auto-advance Entrée était en fait déjà présent sur le CID — aucune régression.)_
+
+---
+
 ## CID v1.3.6 — 2026-06-22
 
 ### Nouveau — Convertisseur de dureté
