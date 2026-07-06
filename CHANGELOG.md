@@ -2,6 +2,15 @@
 
 ---
 
+## CID v1.3.6 — 2026-06-22
+
+### Nouveau — Convertisseur de dureté
+
+- Depuis les Réglages : saisir HV · HB · HRC · Rm dans n'importe quelle échelle → remplissage croisé (table ISO 18265 / ASTM E140, interpolation).
+- Bouton « Utiliser cette HB dans les calculs ». Trilingue, virgule acceptée, hors-plage géré.
+
+---
+
 ## CID v1.3.5 — 2026-06-22
 
 ### Ergonomie saisie atelier
