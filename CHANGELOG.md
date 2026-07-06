@@ -2,6 +2,19 @@
 
 ---
 
+## v1.9.19 — 2026-06-22
+
+### Nouveau — Convertisseur de dureté
+
+- Accessible depuis les **Réglages** (⚙ → Dureté → Convertisseur).
+- Saisir une valeur dans **n'importe quelle échelle** (HV · HB/HBW · HRC · Rm N/mm²) → **remplissage croisé** en temps réel des autres.
+- Table de correspondance **ISO 18265 / ASTM E140** (métaux ferreux, ~107 lignes, HRC 17–70) avec **interpolation linéaire** ; « hors plage » / « — » proprement gérés hors domaine.
+- Bouton **« Utiliser cette HB dans les calculs »** → applique la dureté au calcul de puissance (Kc/Pc).
+- Virgule décimale acceptée · trilingue FR/EN/DE · note de validité affichée.
+- Cache Service Worker → `cutcalc-v1.9.19`.
+
+---
+
 ## v1.9.18 — 2026-06-22
 
 ### Ergonomie saisie atelier

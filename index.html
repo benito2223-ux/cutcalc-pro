@@ -638,6 +638,22 @@ input[type=number]{-moz-appearance:textfield}
 .set-overlay.show{opacity:1;pointer-events:auto}
 .set-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 18px calc(20px + var(--safe-bot));box-shadow:0 -8px 30px rgba(0,0,0,.3);transform:translateY(115%);transition:transform .26s cubic-bezier(.4,0,.2,1)}
 .set-sheet.show{transform:translateY(0)}
+.hard-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s}
+.hard-overlay.show{opacity:1;pointer-events:auto}
+.hard-sheet{position:fixed;left:0;right:0;bottom:0;z-index:302;background:var(--surface);border-radius:18px 18px 0 0;padding:18px 18px calc(20px + var(--safe-bot));box-shadow:0 -8px 30px rgba(0,0,0,.3);transform:translateY(120%);transition:transform .26s cubic-bezier(.4,0,.2,1);max-height:82vh;overflow-y:auto}
+.hard-sheet.show{transform:translateY(0)}
+.hard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.hard-title{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-size:17px;font-weight:700;color:var(--text)}
+.hard-close{width:32px;height:32px;border:none;background:transparent;color:var(--text2);font-size:18px;cursor:pointer}
+.hard-row{display:flex;align-items:center;gap:10px;margin:8px 0}
+.hard-lbl{flex:1;font-size:13px;color:var(--text2)}
+.hard-lbl b{color:var(--text);font-weight:700;font-family:'Open Sans Condensed','Open Sans',sans-serif}
+.hard-in{width:118px;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:15px;text-align:right}
+.hard-in:focus{border-color:var(--spk-blue);outline:none}
+.hard-in.oor{color:var(--ct-red);border-color:var(--ct-red);font-size:11px}
+.hard-btn{width:100%;margin-top:14px;padding:12px;background:var(--spk-blue);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.hard-btn:active{background:var(--spk-blue-d)}
+.hard-note{font-size:11px;color:var(--text3);margin-top:12px;line-height:1.5}
 .set-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .set-title{font-family:'Open Sans Condensed','Open Sans',sans-serif;font-weight:700;font-size:19px;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
 .set-close{width:34px;height:34px;border:none;background:var(--gray);border-radius:9px;color:var(--text);font-size:15px;font-weight:700;cursor:pointer}
@@ -957,8 +973,19 @@ input[type=number]{-moz-appearance:textfield}
         <button class="tgl-b on" onclick="setUnit('m')">mm</button>
         <button class="tgl-b" onclick="setUnit('in')">in</button>
       </div></div>
+  <div class="set-row"><span class="set-lbl" data-fr="Dureté" data-de="Härte" data-en="Hardness">Dureté</span><button class="tgl-b" style="background:var(--spk-blue);color:#fff" onclick="closeSettings();openHardness()" data-fr="Convertisseur" data-de="Umrechner" data-en="Converter">Convertisseur</button></div>
 </div>
-<div class="wm" id="wm-label">CutCalc Pro · v1.9.18 · © 2025 B. Rouquette</div>
+<div class="hard-overlay" id="hard-overlay" onclick="closeHardness()"></div>
+<div class="hard-sheet" id="hard-sheet">
+  <div class="hard-head"><span class="hard-title" data-fr="Convertisseur de dureté" data-de="Härteumrechner" data-en="Hardness converter">Convertisseur de dureté</span><button class="hard-close" onclick="closeHardness()" aria-label="Fermer">✕</button></div>
+  <div class="hard-row"><span class="hard-lbl"><b>HV</b> · Vickers</span><input class="hard-in" id="hd_hv" inputmode="decimal" onfocus="this.select()" oninput="hardConvert('hv')"></div>
+  <div class="hard-row"><span class="hard-lbl"><b>HB</b> · Brinell (HBW)</span><input class="hard-in" id="hd_hb" inputmode="decimal" onfocus="this.select()" oninput="hardConvert('hb')"></div>
+  <div class="hard-row"><span class="hard-lbl"><b>HRC</b> · Rockwell C</span><input class="hard-in" id="hd_hrc" inputmode="decimal" onfocus="this.select()" oninput="hardConvert('hrc')"></div>
+  <div class="hard-row"><span class="hard-lbl"><b>Rm</b> · <span data-fr="Résistance" data-de="Zugfestigkeit" data-en="Tensile">Résistance</span> (N/mm²)</span><input class="hard-in" id="hd_rm" inputmode="decimal" onfocus="this.select()" oninput="hardConvert('rm')"></div>
+  <button class="hard-btn" onclick="useHardnessHB()" data-fr="Utiliser cette HB dans les calculs" data-de="Dieses HB in Berechnungen verwenden" data-en="Use this HB in calculations">Utiliser cette HB dans les calculs</button>
+  <div class="hard-note" data-fr="Métaux ferreux · valeurs indicatives (ISO 18265 / ASTM E140). Plage : HRC 17–70." data-de="Eisenwerkstoffe · Richtwerte (ISO 18265 / ASTM E140). Bereich: HRC 17–70." data-en="Ferrous metals · indicative values (ISO 18265 / ASTM E140). Range: HRC 17–70.">Métaux ferreux · valeurs indicatives (ISO 18265 / ASTM E140). Plage : HRC 17–70.</div>
+</div>
+<div class="wm" id="wm-label">CutCalc Pro · v1.9.19 · © 2025 B. Rouquette</div>
 
 <script>
 // ═══════════════════════════
@@ -975,7 +1002,7 @@ var CALC_HISTORY=[];
 var SAVED=JSON.parse(localStorage.getItem('cutcalc_saved')||'[]');
 var FAVS=JSON.parse(localStorage.getItem('cutcalc_favs')||'{}');
 var CMP_SEL=[];
-var VERSION='1.9.18';
+var VERSION='1.9.19';
 var CALC_ID='', CALC_OP='T';
 
 // ═══════════════════════════
@@ -2305,7 +2332,7 @@ window.releaseWakeLock=releaseWakeLock;
         <div class="help-ct-label">by<br>CeramTec</div>
       </div>
       <div class="help-hero-title">CutCalc Pro</div>
-      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.18" data-de="Bedienungsanleitung · v1.9.18" data-en="User Guide · v1.9.18">Guide d'utilisation · v1.9.18</div>
+      <div class="help-hero-sub" data-fr="Guide d'utilisation · v1.9.19" data-de="Bedienungsanleitung · v1.9.19" data-en="User Guide · v1.9.19">Guide d'utilisation · v1.9.19</div>
     </div>
 
     <!-- ░░ 1 — Navigation ░░ -->
@@ -2485,7 +2512,7 @@ window.releaseWakeLock=releaseWakeLock;
 
     <!-- ░░ Footer ░░ -->
     <div style="text-align:center;padding:18px 12px 8px;font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;line-height:1.8">
-      CutCalc Pro v1.9.18 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
+      CutCalc Pro v1.9.19 · SPK by CeramTec<br><span data-fr="© 2025 Benjamin Rouquette · Usage interne exclusif" data-de="© 2025 Benjamin Rouquette · Nur für internen Gebrauch" data-en="© 2025 Benjamin Rouquette · Internal use only">© 2025 Benjamin Rouquette · Usage interne exclusif</span>
     </div>
 
   </div>
@@ -2551,6 +2578,37 @@ if('serviceWorker' in navigator){
 <script>
 function openSettings(){var o=document.getElementById("set-overlay"),s=document.getElementById("set-sheet");if(o)o.classList.add("show");if(s)s.classList.add("show");}
 function closeSettings(){var o=document.getElementById("set-overlay"),s=document.getElementById("set-sheet");if(o)o.classList.remove("show");if(s)s.classList.remove("show");}
+// ══ HARDNESS CONVERTER ══  rows: [HV,HB,HRC,Rm]
+var HARD=[[211,211,17,710],[214,214,17.5,715],[216,216,18,725],[218,218,18.5,730],[221,220,19,735],[223,222,19.5,745],[226,225,20,750],[229,227,20.5,760],[231,229,21,765],[234,232,21.5,775],[237,234,22,785],[240,237,22.5,790],[243,240,23,800],[246,242,23.5,810],[249,245,24,820],[252,248,24.5,830],[255,251,25,835],[258,254,25.5,850],[261,257,26,860],[264,260,26.5,870],[268,263,27,880],[271,266,27.5,890],[274,269,28,900],[278,273,28.5,910],[281,276,29,920],[285,280,29.5,935],[289,283,30,950],[292,287,30.5,960],[296,291,31,970],[300,294,31.5,980],[304,298,32,995],[308,302,32.5,1010],[312,306,33,1020],[316,310,33.5,1035],[320,314,34,1050],[324,318,34.5,1065],[329,323,35,1080],[333,327,35.5,1095],[338,332,36,1110],[342,336,36.5,1125],[347,341,37,1140],[352,345,37.5,1160],[357,350,38,1175],[362,355,38.5,1190],[367,360,39,1210],[372,365,39.5,1225],[377,370,40,1245],[382,375,40.5,1260],[388,380,41,1280],[393,385,41.5,1300],[399,391,42,1320],[405,396,42.5,1340],[411,401,43,1360],[417,407,43.5,1385],[423,413,44,1405],[429,418,44.5,1430],[436,424,45,1450],[443,430,45.5,1475],[449,436,46,1500],[456,442,46.5,1525],[463,449,47,1550],[470,455,47.5,1575],[478,461,48,1605],[485,468,48.5,1630],[493,474,49,1660],[501,481,49.5,1690],[509,488,50,1720],[517,494,50.5,1750],[525,501,51,1780],[534,null,51.5,1815],[543,null,52,1850],[551,null,52.5,1885],[561,null,53,1920],[570,null,53.5,1955],[579,null,54,1995],[589,null,54.5,2035],[599,null,55,2075],[609,null,55.5,2115],[620,null,56,2160],[631,null,56.5,2205],[642,null,57,2250],[653,null,57.5,2295],[664,null,58,2345],[676,null,58.5,2395],[688,null,59,2450],[700,null,59.5,2500],[713,null,60,2555],[726,null,60.5,null],[739,null,61,null],[752,null,61.5,null],[766,null,62,null],[780,null,62.5,null],[795,null,63,null],[810,null,63.5,null],[825,null,64,null],[840,null,64.5,null],[856,null,65,null],[872,null,65.5,null],[889,null,66,null],[906,null,66.5,null],[923,null,67,null],[941,null,67.5,null],[959,null,68,null],[978,null,68.5,null],[997,null,69,null],[1017,null,69.5,null],[1037,null,70,null]];
+function hardConvert(src){
+  var CI={hv:0,hb:1,hrc:2,rm:3}, ci=CI[src];
+  var el=document.getElementById("hd_"+src);
+  var v=el?parseFloat(String(el.value).replace(",",".")):NaN;
+  var ids={hv:"hd_hv",hb:"hd_hb",hrc:"hd_hrc",rm:"hd_rm"}, dec={hv:0,hb:0,hrc:1,rm:0};
+  function put(k,txt,oor){var e=document.getElementById(ids[k]);if(!e||k===src)return;e.value=txt;e.classList.toggle("oor",!!oor);}
+  if(!isFinite(v)){["hv","hb","hrc","rm"].forEach(function(k){put(k,"",false);});return;}
+  var rows=HARD.filter(function(r){return r[ci]!=null;});
+  var oor=(v<rows[0][ci]||v>rows[rows.length-1][ci]);
+  var res=null;
+  if(!oor){for(var i=0;i<rows.length-1;i++){var a=rows[i][ci],b=rows[i+1][ci];if(v>=Math.min(a,b)&&v<=Math.max(a,b)){var t=(b===a)?0:(v-a)/(b-a);res=[0,1,2,3].map(function(c){var av=rows[i][c],bv=rows[i+1][c];return(av!=null&&bv!=null)?av+(bv-av)*t:null;});break;}}}
+  ["hv","hb","hrc","rm"].forEach(function(k){
+    if(k===src)return;
+    if(oor||!res){put(k, tr("hors plage","out of range","au\u00dferhalb"), true);return;}
+    var val=res[CI[k]];
+    if(val==null)put(k,"\u2014",false); else put(k, val.toFixed(dec[k]), false);
+  });
+}
+function openHardness(){var o=document.getElementById("hard-overlay"),s=document.getElementById("hard-sheet");if(o)o.classList.add("show");if(s)s.classList.add("show");}
+function closeHardness(){var o=document.getElementById("hard-overlay"),s=document.getElementById("hard-sheet");if(o)o.classList.remove("show");if(s)s.classList.remove("show");}
+function useHardnessHB(){
+  var hb=parseFloat(String((document.getElementById("hd_hb")||{}).value||"").replace(",","."));
+  if(!isFinite(hb)||hb<=0){showToast(tr("Renseignez une HB valide","Enter a valid HB","G\u00fcltiges HB eingeben"));return;}
+  MAT_HB=hb;localStorage.setItem("cutcalc_mat_hb",MAT_HB);
+  var f=document.getElementById("fi_hb");if(f)f.value=Math.round(hb);
+  closeHardness();
+  showToast(tr("HB "+Math.round(hb)+" appliqu\u00e9e","HB "+Math.round(hb)+" applied","HB "+Math.round(hb)+" \u00fcbernommen"));
+}
+
 </script>
 
 <script>
