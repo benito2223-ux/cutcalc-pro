@@ -2,6 +2,17 @@
 
 ---
 
+## v1.9.21 — 2026-06-23
+
+### 🐛 Correctif — résultat périmé affiché après saisie invalide
+
+- Si l'on vidait/corrompait un champ **pendant l'animation count-up** du résultat précédent, l'animation en cours ré-affichait l'ancienne valeur **par-dessus le « — »** d'erreur → un chiffre périmé paraissait valide. La branche invalide de `sv()` annule désormais l'animation (`cancelAnimationFrame`) et le filet `setTimeout`.
+- **Très petites valeurs** : `0,00011` s'affichait « 0.000 » (paraissait nul) → jusqu'à 5 décimales pour v < 0,01.
+- Audit complet : 39/39 calculs OK, cas limites (÷0, négatif, texte, virgule partielle) tous gérés, zéro erreur console.
+- Cache Service Worker → `cutcalc-v1.9.21`.
+
+---
+
 ## v1.9.20 — 2026-06-22
 
 ### Nouveau — Épaisseur de copeau moyenne (fraisage)
