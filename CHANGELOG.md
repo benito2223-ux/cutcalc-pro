@@ -2,6 +2,15 @@
 
 ---
 
+## CID v1.3.8 — 2026-06-23
+
+### 🐛 Correctif — résultat périmé affiché après saisie invalide
+
+- L'animation count-up en cours pouvait ré-afficher l'ancienne valeur par-dessus le « — » d'erreur. La branche invalide de `sv()` annule désormais l'animation et le filet `setTimeout`.
+- Très petites valeurs : jusqu'à 5 décimales pour v < 0,01 (plus de « 0.000 » trompeur).
+
+---
+
 ## CID v1.3.7 — 2026-06-22
 
 ### Nouveau — Épaisseur de copeau moyenne (fraisage)
