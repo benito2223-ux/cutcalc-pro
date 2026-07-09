@@ -2,6 +2,23 @@
 
 ---
 
+## v2.0.0-beta.1 — 2026-07-09 (branche `beta` · cutcalc-pro-spk.surge.sh)
+
+### 7 nouveautés majeures + restyle
+
+- **Calcul complet (Σ)** en tête de chaque liste T/M/D : saisir les paramètres une fois → tous les résultats en grille (T : n·Q·Pc·H · M : n·vf·hex·hm·Q·Pc · D : n·vf·Q·Pc).
+- **Coach céramique** : jauge et messages vert/orange/rouge sur les épaisseurs de copeau (plage indicative 0,06–0,30 mm) — dashboards + écrans hex/hm.
+- **Paramètres partagés** : toute valeur saisie est mémorisée et pré-remplit les écrans suivants (DC, vc, fz…) avec recalcul auto.
+- **Schéma de coupe dynamique** (fraisage) : SVG fraise/pièce avec engagement ae mis à jour en direct.
+- **Glisser-régler** : glisser horizontalement sur le badge d'un champ fait varier la valeur en continu (pas intelligent par paramètre).
+- **Partage QR** : bouton ▦ → QR code encodant le calcul complet ; le scan ouvre l'app pré-remplie (deep link `#q=`).
+- **Presets matière** : 6 pastilles (Acier, Inox, Fonte, Titane, Inconel, Trempé) → kc + HB en un tap.
+- **Gros chiffres** : tap sur le résultat → plein écran (mise à jour live).
+- **Restyle** : badge BETA, dégradés hero/résultat, cartes et champs arrondis avec ombres douces, focus ring, barre d'actions multi-lignes.
+- Vérifié : 42/42 calculs, deep link, zéro erreur console. SW cache → `cutcalc-beta-v2.0.0b1`.
+
+---
+
 ## v1.9.21 — 2026-06-23
 
 ### 🐛 Correctif — résultat périmé affiché après saisie invalide
