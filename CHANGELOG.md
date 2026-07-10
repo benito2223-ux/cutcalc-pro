@@ -2,6 +2,17 @@
 
 ---
 
+## v2.0.0-beta.3 — 2026-07-10 (branche `beta` · cutcalc-pro-spk.surge.sh)
+
+### 📱 Bandeau supérieur allégé — menu d'actions « ⋯ »
+
+- Les **8 actions secondaires** (Formule · Partager · Enregistrer · PDF · Historique · QR · Comparer · Réinitialiser) quittent le bandeau → regroupées dans un **menu coulissant** ouvert par un unique bouton **⋯** à côté du résultat (grille 4×2 avec icônes + labels).
+- Badge symbole compacté, valeur 60 px : le bandeau passe à **~96 px** hors saisie (~47 px pendant la saisie).
+- Sur iPhone : **6 champs + les pastilles matière visibles d'un coup** (contre ~2 avant).
+- Régression : 42/42 calculs OK.
+
+---
+
 ## v2.0.0-beta.2 — 2026-07-10 (branche `beta` · cutcalc-pro-spk.surge.sh)
 
 ### 📱 Ergonomie iPhone — mode saisie compact
