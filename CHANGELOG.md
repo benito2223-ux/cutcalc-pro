@@ -2,6 +2,18 @@
 
 ---
 
+## v2.0.0-beta.2 — 2026-07-10 (branche `beta` · cutcalc-pro-spk.surge.sh)
+
+### 📱 Ergonomie iPhone — mode saisie compact
+
+- Dès qu'un champ a le focus (clavier ouvert), le **bandeau résultat se replie en mini-barre** (~47 px au lieu de ~167 px) : formule, boutons, barres A/B, coach et sous-opérations masqués, valeur toujours visible en 30 px. Restauration automatique à la fermeture du clavier.
+- **+52 % d'espace de saisie** clavier ouvert (375×550 : 4 champs visibles au lieu de ~2).
+- Barre d'actions sur **une seule ligne défilante** (fini les 2 rangées).
+- Champ focusé **auto-centré** à l'écran ; hero réduit en permanence sur écrans < 760 px de haut.
+- Régression : 42/42 calculs OK.
+
+---
+
 ## v2.0.0-beta.1 — 2026-07-09 (branche `beta` · cutcalc-pro-spk.surge.sh)
 
 ### 7 nouveautés majeures + restyle
