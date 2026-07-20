@@ -2,6 +2,21 @@
 
 ---
 
+## v2.0.0-beta.5 — 2026-07-10 (branche `beta` · cutcalc-pro-spk.surge.sh)
+
+### Ergonomie mobile — 6 améliorations
+
+- **Bouton Retour Android / navigateur** : un appui Retour ferme d'abord l'overlay ouvert (menu ⋯, QR, réglages, dureté, plein écran), sinon revient du calcul vers la liste — au lieu de quitter l'app (`pushState`/`popstate`).
+- **Barre sous-opérations repliée** sur les écrans de calcul (elle ne sert qu'à choisir avant d'entrer) → ~90 px gagnés en permanence en tournage.
+- **↺ Réinitialiser en accès direct** à côté du bouton ⋯ (retiré du menu, qui passe à 7 actions).
+- **Mode sombre automatique** au premier lancement selon le réglage système (`prefers-color-scheme`) ; le toggle manuel garde la priorité ensuite.
+- **Mini-ligne de résultats** pendant la saisie sur les écrans Calcul complet : `n · vf · hex · hm · Q · Pc` visibles sous la valeur compacte, sans scroller.
+- **Astuce glisser-régler** affichée une seule fois à la première ouverture d'un calcul (découvrabilité).
+- Filigrane version réduit et recalé (le `calc()` de position était invalide).
+- Vérifié : back/popstate, overlays, reset direct, mini-résultats, 42/42 calculs. SW cache → `cutcalc-beta-v2.0.0b5`.
+
+---
+
 ## v2.0.0-beta.3 — 2026-07-10 (branche `beta` · cutcalc-pro-spk.surge.sh)
 
 ### 📱 Bandeau supérieur allégé — menu d'actions « ⋯ »
